@@ -1,4 +1,16 @@
 # vortexlabs.no
 
-Nettsiden for Vortex Labs Norway (Martinsen Drift og Utvikling, org.nr. 935 046 734).
-Statisk HTML, publisert med GitHub Pages på https://vortexlabs.no.
+Nettsiden for Vortex Labs Norway (Martinsen Drift og Utvikling, org.nr. 935 046 734 MVA).
+
+Statisk nettside uten avhengigheter. Kilden ligger i `src/`, `assets/`, `bilder/` og `config/`. `node build.mjs` bygger alt til `docs/`, som GitHub Pages skal publisere.
+
+| Fil | Hva |
+|---|---|
+| `config/priser.json` | Alle priser, pakker, tillegg og vedlikehold. Brukes av sidene og priskalkulatoren. |
+| `config/salg.json` | Salgskatalogen «Kjøp din egen app». Bare produkter med `godkjentForSalg: true` vises. |
+| `config/nettsted.json` | URL til skjemafunksjonen (tom = ferdig utfylt e-post) og dato for personvernerklæringen. |
+| `src/prosjekter.mjs` | Porteføljen. Bare funksjoner som finnes i prosjektene. |
+| `src/sider.mjs` | Innholdet på alle sidene. |
+| `backend/` | Serverfunksjon for tilbudsskjemaet (ikke i drift ennå). |
+
+Endre en pris eller legg ut en app: rediger `config/`, kjør `node build.mjs`, se over `docs/` lokalt (`python -m http.server` i `docs/`), og commit.
