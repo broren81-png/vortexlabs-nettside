@@ -31,6 +31,17 @@ const tekst = {
     'Nødvendig teknisk infrastruktur der den kan overføres.',
     'Teknisk overlevering med avtalt omfang.',
   ],
+  support: {
+    tittel: '12 måneders teknisk support inkludert',
+    avsnitt: [
+      'Ved kjøp av Northcast inkluderer Vortex Labs ett års teknisk support fra avtalt overtakelsesdato. Dette gir kjøperen trygghet gjennom overtakelse, lansering og det første driftsåret.',
+      'Supporten omfatter teknisk veiledning, avtalt feilretting, sikkerhetsoppdateringer og mindre kompatibilitetsoppdateringer innenfor avtalte rammer.',
+      'Nye funksjoner, større endringer, nettsideutvikling og eksterne driftskostnader tilbys eller dekkes separat.',
+      'Supportens detaljerte omfang fastsettes i kjøpsavtalen.',
+      'Etter det første året kan kjøperen velge å inngå en frivillig vedlikeholds- og supportavtale med Vortex Labs.',
+      'Ingen bindingstid eller obligatoriske løpende avtaler etter supportperioden.',
+    ],
+  },
   digitalPlattform: {
     tittel: 'Mulighet for en komplett digital plattform',
     ingress: 'Northcast er utviklet med ambisjoner om videre vekst og internasjonal ekspansjon.',
@@ -79,6 +90,7 @@ export function northcastPresentasjon(produkt, detalj = false) {
       <div><dt>Marked</dt><dd>${esc(produkt.marked)}</dd></div>
       <div><dt>Salgsmodell</dt><dd>${esc(produkt.salgsmodell)}</dd></div>
     </dl>
+    <p><strong>${esc(tekst.support.tittel)}</strong></p>
     <p class="northcast-prismerknad">Selgers ønskede pris. Ingen uavhengig verdivurdering.</p>
     ${kontakthandlinger(kilde)}${detalj ? '' : '<p class="northcast-detalj"><a href="/prosjekter/northcast/">Se funksjoner, overtakelse og mulige utvidelser →</a></p>'}
   </div>
@@ -107,7 +119,13 @@ export function northcastProsjektside(produkt) {
 </div></section>
 <section class="flate"><div class="ramme rutenett r2">
   <div><h2>Dette kan inngå i en full overtakelse</h2>${hake(tekst.overtakelse.map(esc))}</div>
-  <div><h2>Drift og teknisk overlevering</h2><p>Kjøper kan eie og drive produktet selv. Videreutvikling og teknisk vedlikehold tilbys som valgfrie tjenester.</p><p>Før en avtale går vi gjennom rettigheter, tredjepartslisenser og tekniske avhengigheter, blant annet kart- og datakilder, skytjenester og utviklerkontoer. Oppgjør og overdragelse skjer etter skriftlig avtale.</p></div>
+  <div><h2>Drift og teknisk overlevering</h2><p>Kjøper kan eie og drive produktet selv. Videreutvikling tilbys som en valgfri tjeneste.</p><p>Før en avtale går vi gjennom rettigheter, tredjepartslisenser og tekniske avhengigheter, blant annet kart- og datakilder, skytjenester og utviklerkontoer. Oppgjør og overdragelse skjer etter skriftlig avtale.</p></div>
+</div></section>
+<section class="tett" aria-labelledby="northcast-support"><div class="ramme">
+  <article class="kort">
+    <h2 id="northcast-support">${esc(tekst.support.tittel)}</h2>
+    ${tekst.support.avsnitt.map((avsnitt) => `<p>${esc(avsnitt)}</p>`).join('\n    ')}
+  </article>
 </div></section>
 <section class="tett"><div class="ramme">
   <article class="kort">
