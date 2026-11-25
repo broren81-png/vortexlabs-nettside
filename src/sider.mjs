@@ -7,11 +7,11 @@ export function lagSider(priser, salg, nettsted) {
   const sider = [];
   const legg = (s) => sider.push(s);
 
-  const fraPriser = `<ul class="prisbrikker" aria-label="Fra-priser eks. mva.">
+  const fraPriser = `<p class="prisetikett">Fra-priser, eks. mva.</p><ul class="prisbrikker" aria-label="Fra-priser eks. mva.">
     <li>Nettsider fra <strong>${kr(g.nettside)}</strong></li>
     <li>Webapper fra <strong>${kr(g.webapp)}</strong></li>
     <li>Mobilapper fra <strong>${kr(g.mobilapp)}</strong></li>
-  </ul>`;
+  </ul><p class="liten-tekst">Endelig fastpris avtales før vi starter.</p>`;
 
   const pakkekort = (ider) => `<div class="pakker">${ider.map((id) => {
     const p = pk[id];
@@ -58,21 +58,21 @@ export function lagSider(priser, salg, nettsted) {
 
   /* ---------- Forside ---------- */
   legg({
-    sti: '/', tittel: 'Vortex Labs Norway – nettsider, apper og bedriftssystemer fra Toten',
-    beskrivelse: `Profesjonelle nettsider fra ${kr(g.nettside)}, webapper fra ${kr(g.webapp)} og mobilapper fra ${kr(g.mobilapp)} eks. mva. Norsk utviklingsstudio med fastpris og kunder i hele Norge.`,
+    sti: '/', tittel: 'Nettsider, apper og bedriftssystemer for småbedrifter | Vortex Labs Norway', bilde: '/bilder/og.jpg',
+    beskrivelse: `Nettsider fra ${kr(g.nettside)}, webapper fra ${kr(g.webapp)} og mobilapper fra ${kr(g.mobilapp)} eks. mva. for norske småbedrifter. Studio fra Toten med fastpris og levering i hele Norge.`,
     innhold: `
-<section class="hero">${virvel}
+<section class="hero forside">${virvel}
   <div class="ramme hero-grid">
     <div>
       <span class="merkelapp">Uavhengig utviklingsstudio fra Toten</span>
-      <h1>Store idéer.<br><em>Smarte digitale løsninger.</em></h1>
-      <p class="ingress">Vi utvikler profesjonelle nettsider, mobilapper og skreddersydde bedriftssystemer. Fra første idé til ferdig produkt, uten de store byråkostnadene.</p>
-      ${fraPriser}
+      <h1>Nettsider, apper og <em>bedriftssystemer</em> for småbedrifter</h1>
+      <p class="ingress">Fra første idé til ferdig løsning, med fastpris og direkte kontakt med utvikleren. Vi holder til på Toten og leverer i hele Norge.</p>
       <div class="knapper">
         <a class="knapp prim" href="/kontakt?tjeneste=designforslag">Få gratis designforslag</a>
         <a class="knapp sek" href="/prosjekter">Se våre prosjekter</a>
       </div>
-      <p class="liten-tekst">Alle bedriftspriser er eks. mva. Endelig fastpris avtales før oppstart.</p>
+      <p class="snarvei">Trenger du app eller system? <a href="/apputvikling">Apputvikling</a> · <a href="/bedriftssystemer">Bedriftssystemer</a> · <a href="/kontakt?tjeneste=annet">Fortell om prosjektet</a></p>
+      ${fraPriser}
     </div>
     <div class="hero-visuell" aria-hidden="true">
       <div class="nettleser"><div class="linje"><i></i><i></i><i></i><span>hentbilen.no</span></div><img src="/bilder/hb-forside.webp" alt="" width="1200" height="750"></div>
@@ -100,8 +100,19 @@ export function lagSider(priser, salg, nettsted) {
 
 <section class="flate">
   <div class="ramme">
-    <div class="seksjonstopp fram"><span class="overtittel">Prosjekter</span><h2>Vi bygger og driver våre egne produkter</h2><p class="lead">Den beste måten å vise hva vi kan, er å vise hva vi har laget. Dette er egne produkter og egne prosjekter, ikke kundeoppdrag.</p></div>
-    <div class="prosjekter">${PROSJEKTER.slice(0, 3).map(prosjektkort).join('')}</div>
+    <div class="seksjonstopp fram"><span class="overtittel">Prosjekter</span><h2>Vi bygger og driver våre egne løsninger</h2><p class="lead">Den beste måten å vise hva vi kan, er å vise hva vi har laget. Dette er egne prosjekter og produkter, ikke kundeoppdrag.</p></div>
+    <article class="fremhevet-prosjekt fram">
+      <div class="fp-tekst">
+        <div class="brikker"><span class="brikke status">I drift</span><span class="brikke">Egen virksomhet</span><span class="brikke">Nettside</span><span class="brikke">Bedriftssystem</span></div>
+        <h3><img src="/bilder/hentbilen.png" alt="" width="40" height="40">HentBilen</h3>
+        <p>Biltransporttjenesten vi driver selv. Kunden får et prisestimat og sender transportforespørselen på nettsiden. Forespørselen havner i et internt system for tilbud og oppdrag, og sjåføren følger oppdraget i en egen sjåførportal på mobilen.</p>
+        <div class="knapper"><a class="knapp mork" href="/prosjekter/hentbilen">Se HentBilen-prosjektet</a><a class="knapp omriss" href="https://hentbilen.no" rel="noopener">Besøk hentbilen.no</a></div>
+      </div>
+      <a class="fp-bilde" href="/prosjekter/hentbilen" tabindex="-1" aria-hidden="true"><img src="/bilder/hb-kalkulator.webp" alt="" width="1200" height="750" loading="lazy"></a>
+    </article>
+    <div class="prosjekter" style="margin-top:20px">${['kalorivenn', 'dagsbudsjett'].map((id) => prosjektkort(PROSJEKTER.find((p) => p.id === id))).join('')}
+      <a class="prosjekt fram" href="/kjop-app"><div class="bilde ikonbilde" style="--farge-lys: var(--mynte-lys)"><img src="/bilder/favicon.svg" alt="" loading="lazy"></div><div class="tekst"><div class="brikker"><span class="brikke status">Salgskatalog</span></div><h3>Kjøp din egen app</h3><p>Ferdigutviklede apper og digitale produkter for deg som vil bli appeier uten å være programmerer.</p></div></a>
+    </div>
     <p style="margin-top:24px"><a class="knapp omriss" href="/prosjekter">Se alle prosjektene</a></p>
   </div>
 </section>
@@ -128,16 +139,16 @@ export function lagSider(priser, salg, nettsted) {
     </div>
   </div>
 </section>
-${avslutt('Har du en idé?', 'Fortell oss om prosjektet ditt', 'Vi svarer raskt, og første samtale er gratis og uforpliktende.')}`,
+${avslutt('Har du en idé?', 'Fortell oss om prosjektet ditt', 'Vi svarer så snart vi kan, og første samtale er gratis og uforpliktende.')}`,
   });
 
   /* ---------- Nettsider ---------- */
   legg({
-    sti: '/nettsider', tittel: 'Nettside til bedrift fra 4 990 kr – profesjonell og rimelig | Vortex Labs',
-    beskrivelse: `Profesjonell bedriftsnettside fra ${kr(g.nettside)} eks. mva. Mobiltilpasset design, kontaktskjema og grunnleggende SEO. Gratis designforslag og fastpris.`,
+    sti: '/nettsider', tittel: 'Nettside til bedrift og småbedrifter fra 4 990 kr | Vortex Labs Norway',
+    beskrivelse: `Bedriftsnettside for småbedrifter fra ${kr(g.nettside)} eks. mva.: mobiltilpasset design, kontaktskjema og SEO. Gratis designforslag, fastpris og levering i hele Norge.`,
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme hero-grid">
-  <div><span class="merkelapp">Nettsider</span><h1>Nettside til bedrift, <em>uten byråpris</em></h1>
+  <div><span class="merkelapp">Nettsider</span><h1>Bedriftsnettside for <em>småbedrifter</em></h1>
   <p class="ingress">En profesjonell nettside som ser bra ut på mobil, er lett å finne på Google og får kundene til å ta kontakt. Fra ${kr(g.nettside)} eks. mva.</p>
   <div class="knapper"><a class="knapp prim" href="/kontakt?tjeneste=designforslag">Få gratis designforslag</a><a class="knapp sek" href="/priser">Se alle priser</a></div></div>
   <div class="hero-visuell">${nettleser('/bilder/hb-forside.webp', 'Eksempel: forsiden vi har laget for HentBilen', 'hentbilen.no')}</div>
@@ -157,11 +168,11 @@ ${avslutt('Vil du se hvordan nettsiden din kan bli?', 'Få gratis designforslag'
 
   /* ---------- Apputvikling ---------- */
   legg({
-    sti: '/apputvikling', tittel: 'Apputvikling i Norge – hva koster det å lage en app? | Vortex Labs',
-    beskrivelse: `Utvikling av mobilapp for iOS og Android fra ${kr(g.mobilapp)} eks. mva. Norsk apputvikler med egne apper i App Store. Fastpris og hjelp med publisering.`,
+    sti: '/apputvikling', tittel: 'Utvikling av mobilapp for iPhone og Android | Vortex Labs Norway',
+    beskrivelse: `Vi utvikler mobilapper for iPhone og Android fra ${kr(g.mobilapp)} eks. mva. Apputvikling i Norge med fastpris, egne apper i App Store og hjelp med publisering.`,
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme hero-grid">
-  <div><span class="merkelapp">Apputvikling</span><h1>Mobilapp for iPhone og Android, <em>fra idé til butikk</em></h1>
+  <div><span class="merkelapp">Apputvikling</span><h1>Utvikling av mobilapp for <em>iPhone og Android</em></h1>
   <p class="ingress">Vi lager apper for iOS og Android med én felles kodebase, og hjelper deg med publisering i App Store og Google Play. Fra ${kr(g.mobilapp)} eks. mva.</p>
   <div class="knapper"><a class="knapp prim" href="/kontakt?tjeneste=tilbud-app">Be om tilbud på app</a><a class="knapp sek" href="/priser#kalkulator">Beregn pris</a></div></div>
   <div class="telefoner" aria-hidden="true"><div class="telefon a"><img src="/bilder/db-idag.webp" alt="" width="560" height="1218"></div><div class="telefon b"><img src="/bilder/kv-kjoleskap.webp" alt="" width="560" height="1218"></div></div>
@@ -181,11 +192,11 @@ ${avslutt()}`,
 
   /* ---------- Bedriftssystemer ---------- */
   legg({
-    sti: '/bedriftssystemer', tittel: 'Webapputvikling og skreddersydde bedriftssystemer | Vortex Labs',
-    beskrivelse: `Skreddersydde bedriftssystemer og webapper fra ${kr(g.webapp)} eks. mva.: booking, ordrehåndtering, sjåførportaler, kundeportaler og automatisering.`,
+    sti: '/bedriftssystemer', tittel: 'Skreddersydde webapper, kundeportaler og booking | Vortex Labs Norway',
+    beskrivelse: `Skreddersydde webapper fra ${kr(g.webapp)} eks. mva.: kundeportaler, bookingløsninger, ordrehåndtering og sjåførportaler for norske bedrifter. Se HentBilen som eksempel.`,
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme hero-grid">
-  <div><span class="merkelapp">Webapper og bedriftssystemer</span><h1>Systemer som passer <em>akkurat din drift</em></h1>
+  <div><span class="merkelapp">Webapper og bedriftssystemer</span><h1>Webapper, kundeportaler, booking og <em>ordrehåndtering</em></h1>
   <p class="ingress">Når standardprogrammer ikke passer, lager vi et system som gjør det. Webapper fra ${kr(g.webapp)} eks. mva. Større systemer prises etter avtale.</p>
   <div class="knapper"><a class="knapp prim" href="/kontakt?tjeneste=bedriftssystem">Fortell om behovet</a><a class="knapp sek" href="/prosjekter?filter=bedriftssystem">Se eksempler</a></div></div>
   <div class="hero-visuell">${nettleser('/bilder/hb-kalkulator.webp', 'Eksempel: priskalkulator og bestilling for HentBilen', 'hentbilen.no/bestill')}</div>
@@ -216,7 +227,7 @@ ${avslutt()}`,
     ['Hva er gratis designforslag?', 'Et uforpliktende, innledende visuelt konsept for nettsiden din. Det er ikke en ferdig nettside, men en skisse som viser retningen før du bestemmer deg.'],
   ];
   legg({
-    sti: '/priser', tittel: 'Priser på nettside, webapp og app – priskalkulator | Vortex Labs',
+    sti: '/priser', tittel: 'Priser på nettside, webapp og app – priskalkulator | Vortex Labs Norway',
     beskrivelse: 'Se fra-priser på nettsider, webapper og mobilapper, og bruk priskalkulatoren for et veiledende estimat. Alle priser eks. mva. med fastpris før oppstart.',
     jsonld: [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
     ekstraHode: `<script type="application/json" id="prisdata">${JSON.stringify(priser)}</script>`,
@@ -266,7 +277,7 @@ ${avslutt('Klar for et konkret tilbud?', 'Be om tilbud', 'Fortell oss hva du tre
 
   /* ---------- Prosjekter ---------- */
   legg({
-    sti: '/prosjekter', tittel: 'Våre prosjekter – apper, nettsider og bedriftssystemer | Vortex Labs',
+    sti: '/prosjekter', tittel: 'Våre prosjekter – apper, nettsider og bedriftssystemer | Vortex Labs Norway',
     beskrivelse: 'Se apper, nettsider og bedriftssystemer vi har utviklet: KaloriVenn, Dagsbudsjett, Northcast, Sjåførsiden og HentBilen.',
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Våre prosjekter</span><h1>Dette har vi <em>laget selv</em></h1>
@@ -291,21 +302,22 @@ ${avslutt()}`,
       : `${brede.length ? `<div class="galleri bred">${brede.map((b, i) => `<figure class="fram">${nettleser(b.src, b.alt, b.adresse)}<figcaption>${b.tekst}</figcaption></figure>${mobil[i] ? `<figure class="fram">${telefon(mobil[i].src, mobil[i].alt)}<figcaption>${mobil[i].tekst}</figcaption></figure>` : ''}`).join('')}</div>`
         : `<div class="galleri">${mobil.map((b) => `<figure class="fram">${telefon(b.src, b.alt)}<figcaption>${b.tekst}</figcaption></figure>`).join('')}</div>`}`;
     legg({
-      sti: '/prosjekter/' + p.id, tittel: p.tittel + ' | Vortex Labs', beskrivelse: p.beskrivelse,
+      sti: '/prosjekter/' + p.id, tittel: p.tittel + ' | Vortex Labs Norway', beskrivelse: p.beskrivelse, bilde: p.ogBilde,
       innhold: `
 <section class="hero liten">${virvel}<div class="ramme">
   <p style="margin:0 0 14px"><a href="/prosjekter" style="color:rgba(255,255,255,.7)">← Alle prosjekter</a></p>
   <div class="case-hode">${p.ikon ? `<img src="${p.ikon}" alt="${p.navn}-ikon" width="72" height="72">` : ''}<div><span class="merkelapp">${p.type} · ${p.status}</span></div></div>
-  <h1>${p.navn}</h1><p class="ingress">${p.ingress}</p>
-  ${p.lenker.length ? `<div class="knapper">${p.lenker.map(([h, t], i) => `<a class="knapp ${i === 0 ? 'prim' : 'sek'}" href="${h}" rel="noopener">${t}</a>`).join('')}</div>` : ''}
+  <h1>${p.h1 || p.navn}</h1><p class="ingress">${p.ingress}</p>
+  ${p.lenker.length || p.cta ? `<div class="knapper">${p.lenker.map(([h, t], i) => `<a class="knapp ${i === 0 ? 'prim' : 'sek'}" href="${h}" rel="noopener">${t}</a>`).join('')}${p.cta ? `<a class="knapp sek" href="${p.cta.lenke}">Få en lignende løsning</a>` : ''}</div>` : ''}
 </div></section>
 <section><div class="ramme">${galleri}</div></section>
 <section class="flate"><div class="ramme rutenett r2">
   <div class="fram"><span class="overtittel">Funksjoner</span><h2>Hva ${p.navn} gjør</h2>${hake(p.funksjoner)}<p class="forbehold">${p.personvern}</p></div>
   <div class="fram"><span class="overtittel">Teknisk</span><h2>Utfordringer vi har løst</h2>${p.utfordringer.map(([t, b]) => `<div class="utfordring" style="margin-bottom:18px"><h3 style="margin:0 0 4px">${t}</h3><p style="margin:0;color:var(--dempet)">${b}</p></div>`).join('')}</div>
 </div></section>
+${p.flyt ? `<section><div class="ramme"><div class="seksjonstopp fram"><span class="overtittel">Slik henger det sammen</span><h2>${p.flyt.tittel}</h2><p class="lead">${p.flyt.ingress}</p></div><ol class="steg">${p.flyt.steg.map(([t, b]) => `<li class="fram"><h3>${t}</h3><p>${b}</p></li>`).join('')}</ol></div></section>` : ''}
 <section class="tett"><div class="ramme"><div class="fram"><span class="overtittel">For din bedrift</span><h2>Dette kan vi lage for deg</h2></div><div class="rutenett r4" style="margin-top:20px">${p.leverer.map((l) => `<div class="kort fram"><p style="color:var(--tekst);font-weight:600">${l}</p></div>`).join('')}</div></div></section>
-${avslutt()}`,
+${p.cta ? avslutt(p.cta.tittel, p.cta.knapp, p.cta.tekst).replace('href="/kontakt"', 'href="' + p.cta.lenke + '"') : avslutt()}`,
     });
   }
 
@@ -326,8 +338,8 @@ ${avslutt()}`,
     ? `<div class="filter" role="group" aria-label="Filtrer katalogen"><button type="button" data-filter="alle" aria-pressed="true">Alle</button>${Object.entries(salg.kategorier).map(([k, c]) => `<button type="button" data-filter="${k}" aria-pressed="false">${c.navn}</button>`).join('')}</div><div class="prosjekter" id="prosjektliste">${tilSalgs.map(produktkort).join('')}</div>`
     : `<div class="mangler fram"><strong>Ingen apper er lagt ut for salg akkurat nå.</strong> Hvert produkt godkjennes for salg enkeltvis. Meld deg på interesselista, så tar vi kontakt når en app som passer for deg blir tilgjengelig.</div>`;
   legg({
-    sti: '/kjop-app', tittel: 'Kjøp din egen app – ferdigutviklede apper til salgs | Vortex Labs',
-    beskrivelse: 'Hvorfor starte fra bunnen av? Kjøp en ferdigutviklet app og start din egen digitale virksomhet. Salgsklare apper, publiserte apper og apper med inntekter.',
+    sti: '/kjop-app', tittel: 'Kjøp en ferdigutviklet app – apper til salgs | Vortex Labs Norway',
+    beskrivelse: 'Ferdigutviklede apper og digitale produkter til salgs. Bli appeier uten å være programmerer, med fullt eierskap, drift fra oss eller andre kjøpsmodeller.',
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Kjøp din egen app</span><h1>Hvorfor starte <em>fra bunnen av?</em></h1>
 <p class="ingress">Kjøp en ferdigutviklet app og start din egen digitale virksomhet. Velg mellom salgsklare produkter, allerede publiserte apper og etablerte digitale konsepter.</p>
@@ -363,7 +375,7 @@ ${avslutt('Vil du bli appeier?', 'Meld interesse', 'Fortell oss hva du ser etter
   for (const p of tilSalgs) {
     const d = p.kategori === 'inntekter' && p.dokumentasjon;
     legg({
-      sti: '/kjop-app/' + p.id, tittel: `${p.navn} – app til salgs | Vortex Labs`, beskrivelse: p.kort,
+      sti: '/kjop-app/' + p.id, tittel: `${p.navn} – app til salgs | Vortex Labs Norway`, beskrivelse: p.kort,
       innhold: `
 <section class="hero liten">${virvel}<div class="ramme">
   <p style="margin:0 0 14px"><a href="/kjop-app#katalog" style="color:rgba(255,255,255,.7)">← Salgskatalogen</a></p>
@@ -390,7 +402,7 @@ ${avslutt('Interessert i ' + esc(p.navn) + '?', p.pris.type === 'bud' ? 'Gi bud'
   /* ---------- Vedlikehold ---------- */
   const v = priser.vedlikehold;
   legg({
-    sti: '/vedlikehold', tittel: `Drift og vedlikehold av nettside og app fra ${kr(v.nettside.pris)}/mnd | Vortex Labs`,
+    sti: '/vedlikehold', tittel: `Drift og vedlikehold av nettside og app fra ${kr(v.nettside.pris)}/mnd | Vortex Labs Norway`,
     beskrivelse: `Vedlikeholdsavtale for nettsider fra ${kr(v.nettside.pris)} per måned og for apper fra ${kr(v.app[0].pris)} per måned eks. mva. Oppdateringer, sikkerhet og feilretting etter avtale.`,
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Drift og vedlikehold</span><h1>Hold løsningen <em>trygg og oppdatert</em></h1>
@@ -439,7 +451,7 @@ ${avslutt()}`,
     ['kjop-app', 'Kjøp din egen app'], ['interesseliste', 'Interesseliste for kommende apper'], ['annet', 'Annet'],
   ];
   legg({
-    sti: '/kontakt', tittel: 'Kontakt oss – få tilbud eller gratis designforslag | Vortex Labs',
+    sti: '/kontakt', tittel: 'Kontakt oss – få tilbud eller gratis designforslag | Vortex Labs Norway',
     beskrivelse: 'Fortell oss om prosjektet ditt og få et konkret tilbud med fastpris, eller et gratis og uforpliktende designforslag til nettsiden din.',
     ekstraHode: `<meta name="skjema-endepunkt" content="${esc(nettsted.skjemaEndepunkt || '')}"><meta name="skjema-epost" content="${EPOST}">`,
     innhold: `
@@ -488,7 +500,7 @@ ${avslutt()}`,
 
   /* ---------- 404 ---------- */
   legg({
-    sti: '/404', fil: '404.html', tittel: 'Fant ikke siden | Vortex Labs Norway', beskrivelse: 'Siden finnes ikke.', ikkeISitemap: true,
+    sti: '/404', fil: '404.html', tittel: 'Fant ikke siden | Vortex Labs Norway', beskrivelse: 'Siden finnes ikke.', ikkeISitemap: true, noindex: true,
     innhold: `<section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">404</span><h1>Fant ikke siden</h1><p class="ingress">Siden du leter etter finnes ikke, eller den er flyttet.</p><div class="knapper"><a class="knapp prim" href="/">Til forsiden</a><a class="knapp sek" href="/kontakt">Kontakt oss</a></div></div></section>`,
   });
 

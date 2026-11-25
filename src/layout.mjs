@@ -31,8 +31,13 @@ export const virvel = `<svg class="virvel" viewBox="0 0 900 900" aria-hidden="tr
   <circle class="r4" cx="450" cy="450" r="150" stroke="#7BE0A8" stroke-opacity=".35" stroke-width="4" stroke-dasharray="240 700"/>
 </svg>`;
 
-export function side({ sti, tittel, beskrivelse, innhold, jsonld = [], bilde = '/bilder/og.png', ekstraHode = '' }) {
-  const url = DOMENE + (sti === '/' ? '/' : sti);
+// Kanonisk adresse: GitHub Pages sender /side til /side/ med 301, så vi bruker alltid skråstrek til slutt.
+export const kanonisk = (sti) => DOMENE + (sti === '/' ? '/' : sti.replace(/\/?$/, '/'));
+// Legger skråstrek til slutt på interne sidelenker (ikke filer med punktum), så de ikke omdirigeres.
+export const medSkraastrek = (html) => html.replace(/href="\/([a-z0-9-]+(?:\/[a-z0-9-]+)*)(?=["?#])/g, 'href="/$1/');
+
+export function side({ sti, tittel, beskrivelse, innhold, jsonld = [], bilde = '/bilder/og.jpg', ekstraHode = '', noindex = false }) {
+  const url = kanonisk(sti);
   const aktiv = (href) => (sti === href || (href !== '/' && sti.startsWith(href + '/')) ? ' aria-current="page"' : '');
   const ld = [organisasjon(), ...jsonld].map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join('\n');
   return `<!doctype html>
@@ -42,7 +47,7 @@ export function side({ sti, tittel, beskrivelse, innhold, jsonld = [], bilde = '
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(tittel)}</title>
 <meta name="description" content="${esc(beskrivelse)}">
-<link rel="canonical" href="${url}">
+${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${url}">`}
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'sha256-JS_HASH'; connect-src 'self' https://*.supabase.co; form-action 'self' mailto:; base-uri 'self'; object-src 'none'">
 <meta property="og:type" content="website">
@@ -52,6 +57,9 @@ export function side({ sti, tittel, beskrivelse, innhold, jsonld = [], bilde = '
 <meta property="og:description" content="${esc(beskrivelse)}">
 <meta property="og:url" content="${url}">
 <meta property="og:image" content="${DOMENE}${bilde}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(tittel)}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0B1511">
 <link rel="icon" href="/bilder/favicon.svg" type="image/svg+xml">

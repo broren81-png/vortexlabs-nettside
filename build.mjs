@@ -4,7 +4,7 @@ import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { lagSider } from './src/sider.mjs';
-import { DOMENE } from './src/layout.mjs';
+import { DOMENE, kanonisk, medSkraastrek } from './src/layout.mjs';
 
 const rot = dirname(fileURLToPath(import.meta.url));
 const ut = join(rot, 'docs');
@@ -43,11 +43,11 @@ import { side } from './src/layout.mjs';
 const sider = lagSider(priser, salg, nettsted);
 const urler = [];
 for (const s of sider) {
-  let html = side(s).replaceAll('VERSJON', versjon).replace('JS_HASH', jsHash);
+  let html = medSkraastrek(side(s)).replaceAll('VERSJON', versjon).replace('JS_HASH', jsHash);
   const fil = s.fil ? join(ut, s.fil) : join(ut, s.sti === '/' ? 'index.html' : s.sti.slice(1) + '/index.html');
   mkdirSync(dirname(fil), { recursive: true });
   writeFileSync(fil, html);
-  if (!s.ikkeISitemap) urler.push(DOMENE + (s.sti === '/' ? '/' : s.sti));
+  if (!s.ikkeISitemap) urler.push(kanonisk(s.sti));
 }
 
 const idag = new Date().toISOString().slice(0, 10);

@@ -106,7 +106,7 @@
 
       var alle = inkl.concat(valgt);
       var q = new URLSearchParams({ tjeneste: pakke.type === 'nettside' ? 'tilbud-nettside' : pakke.type === 'webapp' ? 'tilbud-webapp' : 'tilbud-app', pakke: pakke.id, tillegg: valgt.join(','), estimat: String(sum) });
-      $('#kalk-tilbud').href = '/kontakt?' + q.toString();
+      $('#kalk-tilbud').href = '/kontakt/?' + q.toString();
       $('#kalk-tilbud').setAttribute('data-oppsummering', pakke.navn + (alle.length ? ' + ' + alle.map(function (id) { return tillegg[id].navn; }).join(', ') : ''));
     };
     kalk.addEventListener('change', regn);

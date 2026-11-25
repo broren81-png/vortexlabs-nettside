@@ -13,4 +13,6 @@ Statisk nettside uten avhengigheter. Kilden ligger i `src/`, `assets/`, `bilder/
 | `src/sider.mjs` | Innholdet på alle sidene. |
 | `backend/` | Serverfunksjon for tilbudsskjemaet (ikke i drift ennå). |
 
+Kvalitetssjekk etter bygging: `node sjekk.mjs` (titler, h1, canonical, sitemap, lenker, alt-tekster, delingsbilder).
+
 Endre en pris eller legg ut en app: rediger `config/`, kjør `node build.mjs`, se over `docs/` lokalt (`python -m http.server` i `docs/`), og commit.
