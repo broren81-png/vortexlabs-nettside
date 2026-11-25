@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="nb" class="ingen-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sjåførsiden – webapp og bedriftsportal for yrkessjåfører | Vortex Labs</title>
+<meta name="description" content="Sjåførsiden er en webapplikasjon som kobler bedrifter med kvalifiserte yrkessjåfører. Et teknisk utviklingsprosjekt med brukerroller, matching og administrasjon.">
+<link rel="canonical" href="https://vortexlabs.no/prosjekter/sjaforsiden">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'sha256-MQzulgfvrnqkGtO+rFXQXTkE943NmN0q+XCXJ+zF1B8='; connect-src 'self' https://*.supabase.co; form-action 'self' mailto:; base-uri 'self'; object-src 'none'">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nb_NO">
+<meta property="og:site_name" content="Vortex Labs Norway">
+<meta property="og:title" content="Sjåførsiden – webapp og bedriftsportal for yrkessjåfører | Vortex Labs">
+<meta property="og:description" content="Sjåførsiden er en webapplikasjon som kobler bedrifter med kvalifiserte yrkessjåfører. Et teknisk utviklingsprosjekt med brukerroller, matching og administrasjon.">
+<meta property="og:url" content="https://vortexlabs.no/prosjekter/sjaforsiden">
+<meta property="og:image" content="https://vortexlabs.no/bilder/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B1511">
+<link rel="icon" href="/bilder/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css?v=f94d5140d9">
+<script>document.documentElement.classList.remove('ingen-js')</script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://vortexlabs.no/#organisasjon","name":"Vortex Labs Norway","legalName":"Martinsen Drift og Utvikling","url":"https://vortexlabs.no/","email":"broren81@gmail.com","logo":"https://vortexlabs.no/bilder/favicon.svg","vatID":"NO935046734MVA","taxID":"935046734","address":{"@type":"PostalAddress","streetAddress":"Bilittvegen 44","postalCode":"2848","addressLocality":"Skreia","addressCountry":"NO"},"areaServed":{"@type":"Country","name":"Norge"},"knowsAbout":["Nettsider","Apputvikling","Webapplikasjoner","Bedriftssystemer"]}</script>
+</head>
+<body>
+<a class="hopp" href="#innhold">Hopp til innhold</a>
+<header class="topp">
+  <div class="ramme">
+    <a class="logo" href="/"><img src="/bilder/favicon.svg" alt="" width="30" height="30">Vortex Labs Norway</a>
+    <nav aria-label="Hovedmeny">
+      <button class="menyknapp" type="button" aria-expanded="false" aria-controls="meny">Meny</button>
+      <ul class="meny" id="meny">
+        <li><a href="/nettsider">Nettsider</a></li>
+        <li><a href="/apputvikling">Apputvikling</a></li>
+        <li><a href="/bedriftssystemer">Bedriftssystemer</a></li>
+        <li><a href="/priser">Priser</a></li>
+        <li><a href="/prosjekter" aria-current="page">Prosjekter</a></li>
+        <li><a href="/kjop-app">Kjøp din egen app</a></li>
+        <li><a href="/vedlikehold">Vedlikehold</a></li>
+        <li><a href="/om-oss">Om oss</a></li>
+        <li class="cta"><a href="/kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="innhold">
+
+<section class="hero liten"><svg class="virvel" viewBox="0 0 900 900" aria-hidden="true" focusable="false">
+  <circle class="r1" cx="450" cy="450" r="420" stroke="#7BE0A8" stroke-opacity=".18" stroke-width="2" stroke-dasharray="900 1740"/>
+  <circle class="r2" cx="450" cy="450" r="330" stroke="#7BE0A8" stroke-opacity=".28" stroke-width="3" stroke-dasharray="620 1450"/>
+  <circle class="r3" cx="450" cy="450" r="240" stroke="#B9F2D2" stroke-opacity=".22" stroke-width="2" stroke-dasharray="400 1100"/>
+  <circle class="r4" cx="450" cy="450" r="150" stroke="#7BE0A8" stroke-opacity=".35" stroke-width="4" stroke-dasharray="240 700"/>
+</svg><div class="ramme">
+  <p style="margin:0 0 14px"><a href="/prosjekter" style="color:rgba(255,255,255,.7)">← Alle prosjekter</a></p>
+  <div class="case-hode"><div><span class="merkelapp">Teknisk utviklingsprosjekt · Lukket pilot</span></div></div>
+  <h1>Sjåførsiden</h1><p class="ingress">En webapplikasjon som kobler bedrifter med kvalifiserte yrkessjåfører. Den er i lukket pilot, og profiler, oppdrag og kontaktopplysninger vises bare etter innlogging.</p>
+  
+</div></section>
+<section><div class="ramme"><div class="galleri bred"><figure class="fram"><div class="nettleser"><div class="linje" aria-hidden="true"><i></i><i></i><i></i><span>sjaforsiden.no</span></div><button class="zoom" type="button" data-stort="/bilder/sj-forside.webp" aria-label="Forstørr: Sjåførsiden: offentlig forside for den lukkede piloten"><img src="/bilder/sj-forside.webp" alt="Sjåførsiden: offentlig forside for den lukkede piloten" width="1200" height="750" loading="lazy"></button></div><figcaption>Offentlig forside</figcaption></figure><figure class="fram"><div class="telefon "><button class="zoom" type="button" data-stort="/bilder/sj-forside-mob.webp" aria-label="Forstørr: Sjåførsiden på mobil"><img src="/bilder/sj-forside-mob.webp" alt="Sjåførsiden på mobil" width="560" height="1218" loading="lazy"></button></div><figcaption>Mobil</figcaption></figure></div></div></section>
+<section class="flate"><div class="ramme rutenett r2">
+  <div class="fram"><span class="overtittel">Funksjoner</span><h2>Hva Sjåførsiden gjør</h2><ul class="hake"><li>Brukerroller for sjåfør, bedrift og administrator</li><li>Innlogging med e-post og passord, og tilbakestilling av passord</li><li>Bedriftsportal med oppdrag og kandidathåndtering</li><li>Sjåførprofiler med tilgjengelighet og interesser</li><li>Database med tilgangsstyring på radnivå</li><li>Matching av sjåfører og oppdrag på serveren</li><li>Administrasjon med moderering, verifisering og invitasjoner</li><li>Privat lagring av kvalifikasjonsdokumenter</li></ul><p class="forbehold">Skjermbildet viser bare den offentlige forsiden. Ingen brukerdata vises her.</p></div>
+  <div class="fram"><span class="overtittel">Teknisk</span><h2>Utfordringer vi har løst</h2><div class="utfordring" style="margin-bottom:18px"><h3 style="margin:0 0 4px">Riktig tilgang for hver rolle</h3><p style="margin:0;color:var(--dempet)">Databasen avgjør hvem som ser hva. En bedrift ser bare egne oppdrag, og eksakte koordinater blir på serveren.</p></div><div class="utfordring" style="margin-bottom:18px"><h3 style="margin:0 0 4px">Sikker flyt for oppdrag</h3><p style="margin:0;color:var(--dempet)">Statusendringer går gjennom transaksjoner med kontroll, slik at et oppdrag ikke kan hoppe over steg.</p></div><div class="utfordring" style="margin-bottom:18px"><h3 style="margin:0 0 4px">Invitasjonsbasert pilot</h3><p style="margin:0;color:var(--dempet)">Invitasjoner og pilotkoder som bare kan brukes én gang.</p></div></div>
+</div></section>
+<section class="tett"><div class="ramme"><div class="fram"><span class="overtittel">For din bedrift</span><h2>Dette kan vi lage for deg</h2></div><div class="rutenett r4" style="margin-top:20px"><div class="kort fram"><p style="color:var(--tekst);font-weight:600">Portaler med flere brukerroller</p></div><div class="kort fram"><p style="color:var(--tekst);font-weight:600">Matching og markedsplass-løsninger</p></div><div class="kort fram"><p style="color:var(--tekst);font-weight:600">Sikker dokumenthåndtering</p></div><div class="kort fram"><p style="color:var(--tekst);font-weight:600">Administrasjonspaneler</p></div></div></div></section>
+<section class="tett"><div class="ramme"><div class="avslutt fram"><div><h2>Har du en lignende idé? Vi kan utvikle den for deg.</h2><p>Gratis og uforpliktende første samtale, og fastpris før vi starter.</p></div><a class="knapp prim" href="/kontakt">Fortell oss om prosjektet ditt</a></div></div></section>
+</main>
+<footer class="bunn">
+  <div class="ramme">
+    <div>
+      <a class="logo" href="/"><img src="/bilder/favicon.svg" alt="" width="30" height="30">Vortex Labs Norway</a>
+      <p>Uavhengig utviklingsstudio fra Toten. Nettsider, mobilapper og skreddersydde bedriftssystemer for kunder i hele Norge.</p>
+    </div>
+    <div>
+      <h2>Tjenester</h2>
+      <ul>
+        <li><a href="/nettsider">Nettsider</a></li>
+        <li><a href="/apputvikling">Apputvikling</a></li>
+        <li><a href="/bedriftssystemer">Webapper og bedriftssystemer</a></li>
+        <li><a href="/vedlikehold">Drift og vedlikehold</a></li>
+        <li><a href="/priser">Priser og priskalkulator</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Selskapet</h2>
+      <ul>
+        <li><a href="/prosjekter">Våre prosjekter</a></li>
+        <li><a href="/kjop-app">Kjøp din egen app</a></li>
+        <li><a href="/om-oss">Om oss</a></li>
+        <li><a href="/kontakt">Kontakt</a></li>
+        <li><a href="/personvern">Personvern</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Kontakt</h2>
+      <ul>
+        <li><a href="mailto:broren81@gmail.com">broren81@gmail.com</a></li>
+        <li>Bilittvegen 44, 2848 Skreia</li>
+        <li>Org.nr. 935 046 734 MVA</li>
+      </ul>
+    </div>
+    <div class="juridisk">
+      <span>© 2026 Vortex Labs Norway er et merkenavn for Martinsen Drift og Utvikling (enkeltpersonforetak), org.nr. 935 046 734 MVA.</span>
+      <span>Alle bedriftspriser er oppgitt eks. mva.</span>
+    </div>
+  </div>
+</footer>
+<dialog class="lysboks" id="lysboks" aria-label="Forstørret bilde"><button type="button" aria-label="Lukk">×</button></dialog>
+<script src="/assets/app.js?v=f94d5140d9" defer></script>
+</body>
+</html>

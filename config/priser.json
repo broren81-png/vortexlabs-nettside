@@ -1,0 +1,63 @@
+{
+  "_merknad": "Eneste sted prisene ligger. Alle beløp i hele kroner eks. mva. Kjør `node build.mjs` etter endring.",
+  "mva": 0.25,
+  "grunntyper": [
+    { "id": "nettside", "navn": "Nettside", "pris": 4990 },
+    { "id": "webapp", "navn": "Webapp", "pris": 19990 },
+    { "id": "mobilapp", "navn": "Mobilapp", "pris": 29990 }
+  ],
+  "pakker": [
+    {
+      "id": "nettside-start", "type": "nettside", "navn": "Nettside Start", "pris": 4990,
+      "punkter": ["Inntil tre innholdssider", "Profesjonelt, mobiltilpasset design", "Kontaktskjema", "Grunnleggende SEO", "Kontaktinformasjon og sosiale lenker", "Hjelp med tilkobling av domene"],
+      "inkluderer": []
+    },
+    {
+      "id": "nettside-business", "type": "nettside", "navn": "Nettside Business", "pris": 9990, "fremhevet": true,
+      "punkter": ["Inntil åtte innholdssider", "Tilpasset design", "Tjenestepresentasjoner", "Utvidet grunnleggende SEO", "Tilpasset kontaktskjema", "Mulighet for innholdsadministrasjon etter avtale"],
+      "inkluderer": []
+    },
+    {
+      "id": "webapp", "type": "webapp", "navn": "Webapp", "pris": 19990,
+      "punkter": ["Nettbasert applikasjon", "Tilpasset brukergrensesnitt", "Mobil- og desktoptilpasning", "Digitalisering av arbeidsoppgaver", "Funksjonalitet etter avtalt prosjektomfang"],
+      "inkluderer": []
+    },
+    {
+      "id": "app-start", "type": "mobilapp", "navn": "App Start", "pris": 29990,
+      "punkter": ["Mobilapp for iOS og Android", "Egen visuell identitet", "Enkel navigasjon", "Grunnleggende interaktive funksjoner", "Testing og hjelp med publisering"],
+      "inkluderer": []
+    },
+    {
+      "id": "app-business", "type": "mobilapp", "navn": "App Business", "pris": 59990, "fremhevet": true,
+      "punkter": ["Brukerkontoer og innlogging", "Database", "Push-varsler", "Grunnleggende administrasjonspanel", "Bedriftstilpasset funksjonalitet", "Testing og publiseringshjelp"],
+      "inkluderer": ["konto", "admin"]
+    },
+    {
+      "id": "app-premium", "type": "mobilapp", "navn": "App Premium", "pris": 99990,
+      "punkter": ["Avansert skreddersydd funksjonalitet", "Flere brukerroller", "Administrasjonsportal", "Mulighet for betalingsløsninger", "Kart, GPS og integrasjoner etter avtale"],
+      "inkluderer": ["konto", "admin"]
+    }
+  ],
+  "tillegg": [
+    { "id": "booking", "navn": "Bookingløsning", "pris": 6000 },
+    { "id": "konto", "navn": "Brukerkontoer og innlogging", "pris": 7500 },
+    { "id": "admin", "navn": "Administrasjonspanel", "pris": 12500, "krever": ["konto"] },
+    { "id": "betaling", "navn": "Betalingsløsning", "pris": 10000, "krever": ["konto"] },
+    { "id": "kart", "navn": "Kart og GPS", "pris": 12500 },
+    { "id": "ai", "navn": "AI-funksjonalitet", "pris": 15000 },
+    { "id": "sprak", "navn": "Flere språk", "pris": 3500 }
+  ],
+  "individuellVurdering": {
+    "_merknad": "Viser en merknad om at prosjektet bør vurderes individuelt.",
+    "maksTillegg": 4,
+    "kombinasjoner": [["betaling", "booking"], ["ai", "kart"]]
+  },
+  "vedlikehold": {
+    "nettside": { "navn": "Nettside", "pris": 390 },
+    "app": [
+      { "navn": "App Basis", "pris": 990 },
+      { "navn": "App Business", "pris": 1990 },
+      { "navn": "App Premium", "pris": 3990 }
+    ]
+  }
+}

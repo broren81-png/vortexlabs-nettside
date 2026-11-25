@@ -1,0 +1,56 @@
+{
+  "_merknad": "Salgskatalogen under «Kjøp din egen app». INGENTING vises før det er godkjent: et produkt vises i katalogen bare med \"godkjentForSalg\": true, og i interesselista for kommende apper bare med \"visSomKommende\": true. Kjør `node build.mjs` etter endring.",
+  "_felter": {
+    "kategori": "salgsklar (ferdig og testet, ikke publisert) | publisert (ligger i App Store/Google Play) | inntekter (dokumenterte brukertall og inntekter)",
+    "utviklingsstatus": "fritekst, f.eks. «Ferdig utviklet og testet»",
+    "salgsstatus": "tilgjengelig | reservert | solgt",
+    "forretningsmodell": "fritekst, f.eks. «Abonnement med prøveperiode»",
+    "kjopsmodeller": "en eller flere av nøklene i kjopsmodeller",
+    "pris.type": "fastpris | prisantydning | bud | forespørsel (pris.belop i hele kroner eks. mva.)",
+    "dokumentasjon": "BARE for kategori inntekter, og bare tall som kan dokumenteres for kjøper: { brukere, inntekter, periode, kilde }",
+    "skjermbilder": "liste med { src, alt } – bildene legges i bilder/",
+    "demo": "valgfri URL til demo"
+  },
+  "kategorier": {
+    "salgsklar": { "navn": "Salgsklare apper", "tekst": "Ferdig utviklet og testet, klare for overtakelse og lansering." },
+    "publisert": { "navn": "Publiserte apper", "tekst": "Eksisterende produkter som allerede er tilgjengelige i appbutikkene." },
+    "inntekter": { "navn": "Apper med inntekter", "tekst": "Produkter med dokumenterte brukertall og eksisterende inntekter." }
+  },
+  "kjopsmodeller": {
+    "eierskap-selvstendig": { "navn": "Fullt eierskap med selvstendig drift", "tekst": "Du overtar hele løsningen og driver den selv." },
+    "eierskap-med-drift": { "navn": "Fullt eierskap med teknisk drift fra oss", "tekst": "Du eier appen, og vi tar oss av det tekniske etter en separat avtale." },
+    "partnerskap": { "navn": "Partnerskap", "tekst": "Betingelser avtales individuelt." },
+    "lisens": { "navn": "Lisensiering", "tekst": "Bruksrett etter avtale, uten full overdragelse." },
+    "annet": { "navn": "Andre modeller etter avtale", "tekst": "Fortell oss hva du ser for deg." }
+  },
+  "produkter": [
+    {
+      "id": "eksempel",
+      "godkjentForSalg": false,
+      "navn": "Eksempelapp (vises ikke)",
+      "kategori": "salgsklar",
+      "kort": "Én setning om hva appen gjør.",
+      "beskrivelse": "Lengre beskrivelse til produktsiden.",
+      "ikon": "/bilder/favicon.svg",
+      "skjermbilder": [],
+      "funksjoner": ["Funksjon 1", "Funksjon 2"],
+      "demo": "",
+      "utviklingsstatus": "Ferdig utviklet og testet",
+      "salgsstatus": "tilgjengelig",
+      "forretningsmodell": "Abonnement",
+      "kjopsmodeller": ["eierskap-selvstendig", "eierskap-med-drift"],
+      "pris": { "type": "forespørsel" },
+      "inkluderer": ["Kildekode", "Merkevare og logo", "Dokumentasjon"],
+      "dokumentasjon": null
+    }
+  ],
+  "kommende": [
+    {
+      "id": "eksempel-kommende",
+      "visSomKommende": false,
+      "navn": "Kommende app (vises ikke)",
+      "kort": "Hva appen skal gjøre.",
+      "forventet": "Våren 2027"
+    }
+  ]
+}

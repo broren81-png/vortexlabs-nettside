@@ -1,0 +1,5 @@
+{
+  "_merknad": "skjemaEndepunkt: URL til serverfunksjonen som tar imot tilbudsskjemaet (se backend/tilbud). Tom = skjemaet lager en ferdig utfylt e-post i stedet.",
+  "skjemaEndepunkt": "",
+  "personvernDato": "25. november 2026"
+}
