@@ -1,0 +1,341 @@
+<!doctype html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vortex Labs Norway – enkle apper for hverdagen</title>
+<meta name="description" content="Vortex Labs Norway lager norske apper for mat og økonomi: KaloriVenn og Dagsbudsjett. Ingen reklame, ingen sporing. Drevet av Martinsen Drift og Utvikling, org.nr. 935 046 734.">
+<meta property="og:title" content="Vortex Labs Norway">
+<meta property="og:description" content="Små apper. Stor forskjell i hverdagen. KaloriVenn og Dagsbudsjett, laget i Norge.">
+<meta property="og:image" content="https://vortexlabs.no/bilder/kv-idag.webp">
+<meta name="theme-color" content="#0B1511">
+<link rel="icon" href="bilder/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --natt: #0B1511; --natt-2: #12201A; --mynte: #7BE0A8; --mynte-dyp: #1F6B45;
+    --bg: #F6F7F3; --flate: #FFFFFF; --tekst: #15201A; --dempet: #5A665F; --linje: #E1E6DF;
+    --kv: #B44A5F; --kv-lys: #F8E9EC; --db: #D9480F; --db-lys: #FDEBE2;
+    --radius: 22px; --skygge: 0 1px 2px rgba(10,20,15,.06), 0 12px 32px -12px rgba(10,20,15,.18);
+    --serif: "Fraunces", Georgia, serif; --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0E1512; --flate: #151E19; --tekst: #E8EEEA; --dempet: #A2AFA7; --linje: #26312B;
+      --kv-lys: #2A1A1E; --db-lys: #2B1C14;
+      --skygge: 0 1px 2px rgba(0,0,0,.4), 0 16px 40px -16px rgba(0,0,0,.7);
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; font-family: var(--sans); background: var(--bg); color: var(--tekst); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; height: auto; display: block; }
+  a { color: inherit; }
+  .ramme { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+  /* Navigasjon */
+  .nav { position: absolute; inset: 0 0 auto; z-index: 5; }
+  .nav .ramme { display: flex; align-items: center; justify-content: space-between; height: 76px; }
+  .logo { display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; font-weight: 700; letter-spacing: .01em; }
+  .logo img { width: 30px; height: 30px; }
+  .nav ul { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+  .nav ul a { color: rgba(255,255,255,.78); text-decoration: none; font-size: .95rem; font-weight: 500; }
+  .nav ul a:hover { color: #fff; }
+
+  /* Hero */
+  .hero { position: relative; overflow: hidden; background: radial-gradient(1200px 600px at 80% 20%, #173A2A 0%, transparent 60%), var(--natt); color: #fff; padding: 140px 0 96px; }
+  .hero .ramme { position: relative; display: grid; grid-template-columns: 1.05fr .95fr; gap: 48px; align-items: center; }
+  .virvel { position: absolute; right: -220px; top: -160px; width: 900px; height: 900px; opacity: .55; pointer-events: none; }
+  .virvel circle { fill: none; stroke-linecap: round; transform-origin: 450px 450px; }
+  .virvel .r1 { animation: snurr 60s linear infinite; }
+  .virvel .r2 { animation: snurr 90s linear infinite reverse; }
+  .virvel .r3 { animation: snurr 120s linear infinite; }
+  .virvel .r4 { animation: snurr 75s linear infinite reverse; }
+  @keyframes snurr { to { transform: rotate(360deg); } }
+  .merkelapp { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; border: 1px solid rgba(123,224,168,.35); border-radius: 999px; color: var(--mynte); font-size: .85rem; font-weight: 600; background: rgba(123,224,168,.08); }
+  .merkelapp::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--mynte); box-shadow: 0 0 0 4px rgba(123,224,168,.2); }
+  .hero h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(2.5rem, 6vw, 4.3rem); line-height: 1.04; letter-spacing: -.02em; margin: 22px 0 20px; }
+  .hero h1 em { font-style: normal; color: var(--mynte); }
+  .hero p.ingress { font-size: 1.15rem; color: rgba(255,255,255,.74); max-width: 520px; margin: 0 0 32px; }
+  .knapper { display: flex; flex-wrap: wrap; gap: 12px; }
+  .knapp { display: inline-flex; align-items: center; gap: 8px; padding: 14px 22px; border-radius: 14px; font-weight: 600; text-decoration: none; transition: transform .2s ease, background .2s ease; }
+  .knapp:hover { transform: translateY(-2px); }
+  .knapp.prim { background: var(--mynte); color: var(--natt); }
+  .knapp.sek { color: #fff; border: 1px solid rgba(255,255,255,.22); }
+  .knapp.sek:hover { background: rgba(255,255,255,.06); }
+
+  .telefoner { position: relative; height: 560px; }
+  .telefon { position: absolute; width: 250px; border-radius: 40px; padding: 9px; background: linear-gradient(160deg, #2B3A33, #0D1511); box-shadow: 0 40px 80px -30px rgba(0,0,0,.8), inset 0 0 0 1px rgba(255,255,255,.08); }
+  .telefon img { border-radius: 32px; aspect-ratio: 560 / 1218; object-fit: cover; object-position: top; }
+  .telefon.a { left: 4%; top: 30px; transform: rotate(-7deg); animation: sveve 7s ease-in-out infinite; }
+  .telefon.b { right: 2%; top: 0; transform: rotate(6deg); animation: sveve 8s ease-in-out infinite reverse; }
+  @keyframes sveve { 50% { translate: 0 -14px; } }
+
+  /* Tall-stripe */
+  .tall { background: var(--natt-2); color: #fff; border-top: 1px solid rgba(255,255,255,.06); }
+  .tall .ramme { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .tall div div { padding: 28px 20px; border-right: 1px solid rgba(255,255,255,.08); }
+  .tall div div:last-child { border-right: 0; }
+  .tall strong { display: block; font-family: var(--serif); font-size: 2rem; line-height: 1.1; color: var(--mynte); }
+  .tall span { color: rgba(255,255,255,.65); font-size: .92rem; }
+
+  /* Seksjoner */
+  section { padding: 104px 0; }
+  .overtittel { color: var(--mynte-dyp); font-weight: 700; font-size: .82rem; letter-spacing: .14em; text-transform: uppercase; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .overtittel { color: var(--mynte); } }
+  h2 { font-family: var(--serif); font-weight: 700; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.1; letter-spacing: -.015em; margin: 12px 0 16px; }
+  .lead { color: var(--dempet); font-size: 1.1rem; max-width: 640px; margin: 0; }
+
+  .app { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 72px; padding: 56px; border-radius: 32px; background: var(--flate); box-shadow: var(--skygge); border: 1px solid var(--linje); }
+  .app.speil .app-tekst { order: 2; }
+  .app-hode { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+  .app-hode img { width: 64px; height: 64px; border-radius: 15px; box-shadow: 0 6px 16px -6px rgba(0,0,0,.35); }
+  .app-hode h3 { font-family: var(--serif); font-size: 2rem; margin: 0; line-height: 1.1; }
+  .app-hode small { color: var(--dempet); font-size: .9rem; }
+  .app p.beskrivelse { font-size: 1.08rem; margin: 0 0 22px; }
+  .egenskaper { list-style: none; padding: 0; margin: 0 0 28px; display: grid; gap: 12px; }
+  .egenskaper li { display: flex; gap: 12px; align-items: flex-start; }
+  .egenskaper li::before { content: ""; flex: none; width: 22px; height: 22px; margin-top: 2px; border-radius: 7px; background: var(--farge-lys) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5 9-10'/%3E%3C/svg%3E") center / 13px no-repeat; }
+  .app.kv { --farge: var(--kv); --farge-lys: var(--kv-lys); }
+  .app.db { --farge: var(--db); --farge-lys: var(--db-lys); }
+  .app .knapp.app-knapp { background: var(--farge); color: #fff; }
+  .app .små-lenker { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 18px; font-size: .92rem; color: var(--dempet); }
+  .app .små-lenker a { color: var(--dempet); }
+  .snart { display: inline-flex; padding: 12px 18px; border-radius: 14px; background: var(--farge-lys); color: var(--farge); font-weight: 600; }
+  .app-bilder { position: relative; height: 520px; border-radius: 26px; background: radial-gradient(circle at 50% 55%, var(--farge-lys), transparent 70%); }
+  .app-bilder .telefon { width: 220px; }
+  .app-bilder .telefon.a { left: 8%; top: 40px; animation: none; }
+  .app-bilder .telefon.b { right: 8%; top: 0; animation: none; }
+
+  /* Prinsipper */
+  .prinsipper { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 48px; }
+  .prinsipp { padding: 32px; border-radius: var(--radius); background: var(--flate); border: 1px solid var(--linje); }
+  .ikon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; background: var(--natt); color: var(--mynte); margin-bottom: 20px; }
+  .prinsipp h3 { margin: 0 0 8px; font-size: 1.15rem; }
+  .prinsipp p { margin: 0; color: var(--dempet); }
+
+  /* Kontakt */
+  .kontakt { background: var(--natt); color: #fff; border-radius: 32px; padding: 64px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; position: relative; overflow: hidden; }
+  .kontakt::after { content: ""; position: absolute; width: 520px; height: 520px; right: -180px; bottom: -260px; border-radius: 50%; border: 60px solid rgba(123,224,168,.07); }
+  .kontakt h2 { color: #fff; }
+  .kontakt .lead { color: rgba(255,255,255,.72); }
+  .firma { position: relative; z-index: 1; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: 20px; padding: 28px; }
+  .firma dl { margin: 0; display: grid; gap: 14px; }
+  .firma dt { font-size: .78rem; text-transform: uppercase; letter-spacing: .12em; color: rgba(255,255,255,.5); }
+  .firma dd { margin: 2px 0 0; font-weight: 500; }
+  .firma a { color: var(--mynte); }
+
+  footer { padding: 40px 0 56px; color: var(--dempet); font-size: .9rem; }
+  footer .ramme { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+
+  /* Fram-animasjon */
+  .fram { opacity: 0; transform: translateY(24px); transition: opacity .8s ease, transform .8s ease; }
+  .fram.synlig { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .fram { opacity: 1; transform: none; }
+  }
+
+  /* Mobil */
+  @media (max-width: 900px) {
+    .nav ul { display: none; }
+    .hero { padding: 120px 0 64px; }
+    .hero .ramme, .app, .kontakt { grid-template-columns: 1fr; }
+    .telefoner { height: 440px; }
+    .telefon { width: 190px; }
+    .app { padding: 28px; gap: 32px; margin-top: 40px; }
+    .app.speil .app-tekst { order: 0; }
+    .app-bilder { height: 400px; }
+    .app-bilder .telefon { width: 170px; }
+    .tall .ramme { grid-template-columns: repeat(2, 1fr); }
+    .tall div div:nth-child(2) { border-right: 0; }
+    .prinsipper { grid-template-columns: 1fr; }
+    .kontakt { padding: 36px 24px; }
+    section { padding: 72px 0; }
+  }
+  @media (max-width: 420px) {
+    .telefon { width: 160px; }
+    .app-bilder .telefon { width: 145px; }
+    .telefoner { height: 380px; }
+    .app-bilder { height: 340px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <nav class="nav" aria-label="Hovedmeny">
+    <div class="ramme">
+      <a class="logo" href="#"><img src="bilder/favicon.svg" alt="">Vortex Labs Norway</a>
+      <ul>
+        <li><a href="#apper">Apper</a></li>
+        <li><a href="#prinsipper">Slik jobber vi</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <svg class="virvel" viewBox="0 0 900 900" aria-hidden="true">
+    <circle class="r1" cx="450" cy="450" r="420" stroke="#7BE0A8" stroke-opacity=".18" stroke-width="2" stroke-dasharray="900 1740"/>
+    <circle class="r2" cx="450" cy="450" r="330" stroke="#7BE0A8" stroke-opacity=".28" stroke-width="3" stroke-dasharray="620 1450"/>
+    <circle class="r3" cx="450" cy="450" r="240" stroke="#B9F2D2" stroke-opacity=".22" stroke-width="2" stroke-dasharray="400 1100"/>
+    <circle class="r4" cx="450" cy="450" r="150" stroke="#7BE0A8" stroke-opacity=".35" stroke-width="4" stroke-dasharray="240 700"/>
+  </svg>
+
+  <div class="ramme">
+    <div>
+      <span class="merkelapp">Uavhengig appstudio fra Toten</span>
+      <h1>Små apper.<br><em>Stor forskjell</em> i hverdagen.</h1>
+      <p class="ingress">Vi lager norske apper som gjør mat og økonomi enklere. Uten reklame og sporing, og dataene dine blir på telefonen.</p>
+      <div class="knapper">
+        <a class="knapp prim" href="#apper">Se appene våre</a>
+        <a class="knapp sek" href="#kontakt">Ta kontakt</a>
+      </div>
+    </div>
+    <div class="telefoner" aria-hidden="true">
+      <div class="telefon a"><img src="bilder/db-idag.webp" alt="" width="560" height="1218"></div>
+      <div class="telefon b"><img src="bilder/kv-idag.webp" alt="" width="560" height="1218"></div>
+    </div>
+  </div>
+</header>
+
+<div class="tall">
+  <div class="ramme">
+    <div><strong>0</strong><span>annonser i appene</span></div>
+    <div><strong>0</strong><span>sporings- og analyseverktøy</span></div>
+    <div><strong>14</strong><span>land i App Store</span></div>
+    <div><strong>100 %</strong><span>laget i Norge</span></div>
+  </div>
+</div>
+
+<main>
+  <section id="apper">
+    <div class="ramme">
+      <div class="fram">
+        <span class="overtittel">Appene våre</span>
+        <h2>Laget for norske hjem</h2>
+        <p class="lead">Norsk mat, norske butikker og norske kroner. Appene er bygget rundt hvordan vi faktisk handler, spiser og betaler regninger her til lands.</p>
+      </div>
+
+      <article class="app kv fram">
+        <div class="app-tekst">
+          <div class="app-hode">
+            <img src="bilder/kalorivenn.png" alt="KaloriVenn-ikon" width="64" height="64">
+            <div><h3>KaloriVenn</h3><small>Kaloriteller · iPhone, Android kommer snart</small></div>
+          </div>
+          <p class="beskrivelse">Kalorietelleren som følger maten hele veien, fra kvitteringen i butikken til middagen hele familien spiser.</p>
+          <ul class="egenskaper">
+            <li>Kvitteringen fra Trumf, Coop eller Oda fyller kjøleskapet automatisk</li>
+            <li>Over 2 000 norske matvarer fra Matvaretabellen, og strekkodeskanner</li>
+            <li>Middagsplan og felles handleliste for hele familien</li>
+            <li>Diabetesmodus, cøliaki og laktosefritt, og fastetimer</li>
+          </ul>
+          <a class="knapp app-knapp" href="https://apps.apple.com/app/id6830372881">Last ned i App Store</a>
+          <div class="små-lenker">
+            <a href="https://kalorivenn.expo.app/personvern.html">Personvern</a>
+            <a href="https://kalorivenn.expo.app/vilkar.html">Vilkår</a>
+            <a href="https://kalorivenn.expo.app/stotte.html">Støtte</a>
+          </div>
+        </div>
+        <div class="app-bilder" aria-hidden="true">
+          <div class="telefon a"><img src="bilder/kv-kjoleskap.webp" alt="" loading="lazy" width="560" height="1218"></div>
+          <div class="telefon b"><img src="bilder/kv-middager.webp" alt="" loading="lazy" width="560" height="1218"></div>
+        </div>
+      </article>
+
+      <article class="app db speil fram">
+        <div class="app-tekst">
+          <div class="app-hode">
+            <img src="bilder/dagsbudsjett.png" alt="Dagsbudsjett-ikon" width="64" height="64">
+            <div><h3>Dagsbudsjett</h3><small>Privatøkonomi · iPhone og Android</small></div>
+          </div>
+          <p class="beskrivelse">Ett tall som betyr noe: hvor mye du kan bruke i dag, helt fram til neste lønning.</p>
+          <ul class="egenskaper">
+            <li>Regninger, årlige utgifter og buffer holdes av automatisk</li>
+            <li>Vet om halv skatt, feriepenger og norske lønnsdager</li>
+            <li>Se hvor pengene gikk, og få hjelp når de ikke rekker</li>
+            <li>Ingen bankinnlogging, og alt lagres bare på telefonen</li>
+          </ul>
+          <span class="snart">Kommer snart</span>
+        </div>
+        <div class="app-bilder" aria-hidden="true">
+          <div class="telefon a"><img src="bilder/db-pengene.webp" alt="" loading="lazy" width="560" height="1218"></div>
+          <div class="telefon b"><img src="bilder/db-idag.webp" alt="" loading="lazy" width="560" height="1218"></div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="prinsipper" style="padding-top: 0">
+    <div class="ramme">
+      <div class="fram">
+        <span class="overtittel">Slik jobber vi</span>
+        <h2>Enkelt, ærlig og privat</h2>
+        <p class="lead">Vi tror gode apper skal hjelpe deg og deretter komme seg ut av veien.</p>
+      </div>
+      <div class="prinsipper">
+        <div class="prinsipp fram">
+          <div class="ikon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+          <h3>Personvern først</h3>
+          <p>Ingen konto er nødvendig, ingen reklame, og vi selger aldri data. Det du legger inn, blir på telefonen din.</p>
+        </div>
+        <div class="prinsipp fram">
+          <div class="ikon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20l6-12 4 7 3-4 5 9z"/></svg></div>
+          <h3>Laget for Norge</h3>
+          <p>Brunost og knekkebrød, Trumf og Coop, halv skatt og feriepenger. Vi bygger for hverdagen her, ikke en oversatt utgave av noe annet.</p>
+        </div>
+        <div class="prinsipp fram">
+          <div class="ikon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></div>
+          <h3>Ekte support</h3>
+          <p>Når du skriver til oss, svarer den som lager appene. Tilbakemeldinger blir ofte til nye funksjoner.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="kontakt" style="padding-top: 0">
+    <div class="ramme">
+      <div class="kontakt fram">
+        <div style="position: relative; z-index: 1">
+          <span class="overtittel" style="color: var(--mynte)">Kontakt</span>
+          <h2>Si hei</h2>
+          <p class="lead">Spørsmål om en app, et samarbeid eller en idé? Send oss en e-post, så svarer vi raskt.</p>
+          <div class="knapper" style="margin-top: 28px">
+            <a class="knapp prim" href="mailto:broren81@gmail.com">Send e-post</a>
+          </div>
+        </div>
+        <div class="firma">
+          <dl>
+            <div><dt>Merkenavn</dt><dd>Vortex Labs Norway</dd></div>
+            <div><dt>Foretak</dt><dd>Martinsen Drift og Utvikling (enkeltpersonforetak)</dd></div>
+            <div><dt>Org.nr.</dt><dd>935 046 734 MVA</dd></div>
+            <div><dt>Adresse</dt><dd>Bilittvegen 44, 2848 Skreia</dd></div>
+            <div><dt>E-post</dt><dd><a href="mailto:broren81@gmail.com">broren81@gmail.com</a></dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="ramme">
+    <span>© 2026 Vortex Labs Norway · Martinsen Drift og Utvikling · Org.nr. 935 046 734 MVA</span>
+    <span lang="en">Simple, privacy-first apps made in Norway.</span>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var deler = document.querySelectorAll('.fram');
+    if (!('IntersectionObserver' in window)) { deler.forEach(function (d) { d.classList.add('synlig'); }); return; }
+    var obs = new IntersectionObserver(function (oppf) {
+      oppf.forEach(function (o) { if (o.isIntersecting) { o.target.classList.add('synlig'); obs.unobserve(o.target); } });
+    }, { threshold: 0.12 });
+    deler.forEach(function (d) { obs.observe(d); });
+  })();
+</script>
+</body>
+</html>
