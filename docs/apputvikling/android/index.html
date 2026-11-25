@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="nb" class="ingen-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Utvikling av Android-app og publisering i Google Play | Vortex Labs Norway</title>
+<meta name="description" content="Vi utvikler Android-apper og hjelper med Google Play Console, lukket testing og publisering. Samme kodebase som iPhone. Fra 29 990 kr eks. mva.">
+<link rel="canonical" href="https://vortexlabs.no/apputvikling/android/">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'sha256-MQzulgfvrnqkGtO+rFXQXTkE943NmN0q+XCXJ+zF1B8='; connect-src 'self' https://*.supabase.co; form-action 'self' mailto:; base-uri 'self'; object-src 'none'">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="nb_NO">
+<meta property="og:site_name" content="Vortex Labs Norway">
+<meta property="og:title" content="Utvikling av Android-app og publisering i Google Play | Vortex Labs Norway">
+<meta property="og:description" content="Vi utvikler Android-apper og hjelper med Google Play Console, lukket testing og publisering. Samme kodebase som iPhone. Fra 29 990 kr eks. mva.">
+<meta property="og:url" content="https://vortexlabs.no/apputvikling/android/">
+<meta property="og:image" content="https://vortexlabs.no/bilder/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Utvikling av Android-app og publisering i Google Play | Vortex Labs Norway">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0B1511">
+<link rel="icon" href="/bilder/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="/assets/style.css?v=7aa7c1a37f">
+<script>document.documentElement.classList.remove('ingen-js')</script>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://vortexlabs.no/#organisasjon","name":"Vortex Labs Norway","legalName":"Martinsen Drift og Utvikling","url":"https://vortexlabs.no/","email":"broren81@gmail.com","logo":"https://vortexlabs.no/bilder/favicon.svg","vatID":"NO935046734MVA","taxID":"935046734","address":{"@type":"PostalAddress","streetAddress":"Bilittvegen 44","postalCode":"2848","addressLocality":"Skreia","addressCountry":"NO"},"areaServed":{"@type":"Country","name":"Norge"},"knowsAbout":["Nettsider","Apputvikling","Webapplikasjoner","Bedriftssystemer"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Hva er kravet om 12 testere?","acceptedAnswer":{"@type":"Answer","text":"Google krever at nye personlige utviklerkontoer kjører en lukket test med minst 12 testere som er med sammenhengende i 14 dager, før appen kan søke om produksjon. Se Googles hjelpeside."}},{"@type":"Question","name":"Hva koster en utviklerkonto hos Google?","acceptedAnswer":{"@type":"Answer","text":"Google tar en engangsavgift ved registrering. Se gjeldende pris i Play Console-hjelpen."}},{"@type":"Question","name":"Trenger jeg både Android og iPhone?","acceptedAnswer":{"@type":"Answer","text":"De fleste bedrifter bør ha begge, fordi kundene bruker begge. Med felles kodebase koster det lite ekstra å ha begge."}}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Service","name":"Android-apputvikling","provider":{"@id":"https://vortexlabs.no/#organisasjon"},"areaServed":{"@type":"Country","name":"Norge"},"offers":{"@type":"Offer","priceCurrency":"NOK","price":29990,"description":"Fra-pris eks. mva."}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Hjem","item":"https://vortexlabs.no/"},{"@type":"ListItem","position":2,"name":"Tjenester","item":"https://vortexlabs.no/tjenester/"},{"@type":"ListItem","position":3,"name":"Apputvikling","item":"https://vortexlabs.no/apputvikling/"},{"@type":"ListItem","position":4,"name":"Android-app","item":"https://vortexlabs.no/apputvikling/android/"}]}</script>
+</head>
+<body>
+<a class="hopp" href="#innhold">Hopp til innhold</a>
+<header class="topp">
+  <div class="ramme">
+    <a class="logo" href="/"><img src="/bilder/favicon.svg" alt="" width="30" height="30">Vortex Labs Norway</a>
+    <nav aria-label="Hovedmeny">
+      <button class="menyknapp" type="button" aria-expanded="false" aria-controls="meny">Meny</button>
+      <ul class="meny" id="meny">
+        <li><a href="/tjenester/" aria-current="page">Tjenester</a></li>
+        <li><a href="/bransjer/">Bransjer</a></li>
+        <li><a href="/priser/">Priser</a></li>
+        <li><a href="/prosjekter/">Prosjekter</a></li>
+        <li><a href="/kjop-app/">Kjøp din egen app</a></li>
+        <li><a href="/artikler/">Artikler</a></li>
+        <li><a href="/om-oss/">Om oss</a></li>
+        <li class="cta"><a href="/kontakt/">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="innhold">
+<nav class="brodsmuler" aria-label="Brødsmuler"><div class="ramme"><ol><li><a href="/">Hjem</a></li><li><a href="/tjenester/">Tjenester</a></li><li><a href="/apputvikling/">Apputvikling</a></li><li aria-current="page">Android-app</li></ol></div></nav><section class="hero liten"><svg class="virvel" viewBox="0 0 900 900" aria-hidden="true" focusable="false">
+  <circle class="r1" cx="450" cy="450" r="420" stroke="#7BE0A8" stroke-opacity=".18" stroke-width="2" stroke-dasharray="900 1740"/>
+  <circle class="r2" cx="450" cy="450" r="330" stroke="#7BE0A8" stroke-opacity=".28" stroke-width="3" stroke-dasharray="620 1450"/>
+  <circle class="r3" cx="450" cy="450" r="240" stroke="#B9F2D2" stroke-opacity=".22" stroke-width="2" stroke-dasharray="400 1100"/>
+  <circle class="r4" cx="450" cy="450" r="150" stroke="#7BE0A8" stroke-opacity=".35" stroke-width="4" stroke-dasharray="240 700"/>
+</svg><div class="ramme"><span class="merkelapp">Android og Google Play</span><h1>Android-app <em>i Google Play</em></h1><p class="ingress">Vi lager apper for Android-telefoner og nettbrett, og hjelper deg gjennom Google Play Console, testing og publisering. Appen lages med samme kode som iPhone-versjonen.</p>
+    <p class="prisetikett">Fra-priser, eks. mva.</p><ul class="prisbrikker"><li>Mobilapp fra <strong>29 990 kr</strong></li></ul><p class="liten-tekst" style="margin-bottom:22px">Endelig fastpris avtales før vi starter.</p>
+    <div class="knapper"><a class="knapp prim" href="/kontakt/?tjeneste=tilbud-app&amp;kilde=%2Fapputvikling%2Fandroid%2F">Be om tilbud på Android-app</a><a class="knapp sek" href="/apputvikling/iphone/">Se iPhone-app</a></div></div></section>
+<section class=""><div class="ramme"><div class="seksjonstopp fram"><span class="overtittel">Google Play</span><h2>Dette må på plass for Google Play</h2></div><div class="rutenett r3"><div class="kort fram"><h3>Utviklerkonto hos Google</h3><p>Du trenger en konto i Google Play Console. Den har en engangsavgift, og Google bekrefter identiteten din.</p></div><div class="kort fram"><h3>Krav om lukket testing</h3><p>Nye personlige utviklerkontoer må teste appen med minst 12 testere i 14 dager før den kan publiseres. Organisasjonskontoer har andre regler.</p></div><div class="kort fram"><h3>Erklæringer i Play Console</h3><p>Datasikkerhet, målgruppe, innholdsvurdering og eventuelt næringsdrivende-status må fylles ut.</p></div></div></div></section>
+<section class="flate"><div class="ramme"><div class="rutenett r2"><div class="fram"><span class="overtittel">Hvorfor</span><h2>Samme app, to butikker</h2><p class="lead" style="margin-bottom:14px">Android-appen bygges fra samme kode som iPhone-appen. Det gjør utviklingen rimeligere og vedlikeholdet enklere.</p><p class="lead" style="margin-bottom:14px">Vi har selv gått gjennom oppsettet i Play Console med lukket testing, datasikkerhet, abonnement og erklæring som næringsdrivende, og vet hva Google ber om.</p></div><div class="fram"><span class="overtittel">Funksjoner</span><h2>Dette hjelper vi med</h2><ul class="hake"><li>Oppsett av Google Play Console</li><li>Intern og lukket testing</li><li>Datasikkerhet og innholdsvurdering</li><li>Butikktekst, ikon og skjermbilder</li><li>Kjøp i appen og abonnement</li><li>Oppdateringer etter lansering</li></ul></div></div></div></section>
+<section class="flate"><div class="ramme"><div class="seksjonstopp fram"><span class="overtittel">Priser</span><h2>Hva koster en Android-app?</h2><p class="lead">Prisene gjelder app for både Android og iPhone. Engangsavgiften til Google kommer i tillegg og betales direkte til Google.</p></div><div class="rutenett r3"><div class="kort fram"><h3>App Start</h3><p class="fra" style="margin:6px 0 12px">fra 29 990 kr <small>eks. mva.</small></p><ul class="hake"><li>Mobilapp for iOS og Android</li><li>Egen visuell identitet</li><li>Enkel navigasjon</li><li>Grunnleggende interaktive funksjoner</li></ul></div><div class="kort fram"><h3>App Business</h3><p class="fra" style="margin:6px 0 12px">fra 59 990 kr <small>eks. mva.</small></p><ul class="hake"><li>Brukerkontoer og innlogging</li><li>Database</li><li>Push-varsler</li><li>Grunnleggende administrasjonspanel</li></ul></div><div class="kort fram"><h3>App Premium</h3><p class="fra" style="margin:6px 0 12px">fra 99 990 kr <small>eks. mva.</small></p><ul class="hake"><li>Avansert skreddersydd funksjonalitet</li><li>Flere brukerroller</li><li>Administrasjonsportal</li><li>Mulighet for betalingsløsninger</li></ul></div></div>
+      <p class="forbehold">Alle priser eks. mva. Se <a href="/priser/">alle priser</a> eller bruk <a href="/priser/#kalkulator">priskalkulatoren</a>.</p></div></section>
+<section class=""><div class="ramme"><div class="seksjonstopp fram"><span class="overtittel">Spørsmål og svar</span><h2>Ofte stilte spørsmål</h2></div><div class="faq smal"><details class="fram"><summary>Hva er kravet om 12 testere?</summary><p>Google krever at nye personlige utviklerkontoer kjører en lukket test med minst 12 testere som er med sammenhengende i 14 dager, før appen kan søke om produksjon. Se <a href="https://support.google.com/googleplay/android-developer/answer/14151465">Googles hjelpeside</a>.</p></details><details class="fram"><summary>Hva koster en utviklerkonto hos Google?</summary><p>Google tar en engangsavgift ved registrering. Se gjeldende pris i <a href="https://support.google.com/googleplay/android-developer/answer/6112435">Play Console-hjelpen</a>.</p></details><details class="fram"><summary>Trenger jeg både Android og iPhone?</summary><p>De fleste bedrifter bør ha begge, fordi kundene bruker begge. Med felles kodebase koster det lite ekstra å ha begge.</p></details></div></div></section>
+<section class="tett"><div class="ramme"><div class="seksjonstopp fram"><span class="overtittel">Les også</span><h2>Relaterte sider</h2></div><ul class="lenkeliste fram"><li><a href="/apputvikling/iphone/">iPhone-app</a></li><li><a href="/apputvikling/">Apputvikling</a></li><li><a href="/artikler/hva-koster-det-a-lage-en-app/">Hva koster det å lage en app?</a></li><li><a href="/artikler/drift-og-vedlikehold-av-app/">Hva koster drift av en app?</a></li></ul></div></section>
+<section class="tett"><div class="ramme"><div class="avslutt fram"><div><h2>Klar for å komme i gang?</h2><p>Gratis og uforpliktende. Du får fastpris før vi starter.</p></div><a class="knapp prim" href="/kontakt/?tjeneste=tilbud-app&amp;kilde=%2Fapputvikling%2Fandroid%2F">Be om tilbud på Android-app</a></div></div></section>
+</main>
+<footer class="bunn">
+  <div class="ramme">
+    <div>
+      <a class="logo" href="/"><img src="/bilder/favicon.svg" alt="" width="30" height="30">Vortex Labs Norway</a>
+      <p>Uavhengig utviklingsstudio fra Toten. Nettsider, mobilapper og skreddersydde bedriftssystemer for kunder i hele Norge.</p>
+    </div>
+    <div>
+      <h2>Tjenester</h2>
+      <ul>
+        <li><a href="/nettsider/">Nettsider for bedrifter</a></li>
+        <li><a href="/tjenester/modernisering-av-nettside/">Modernisering og mobiltilpasning</a></li>
+        <li><a href="/tjenester/nettside-med-booking/">Nettside med bookingsystem</a></li>
+        <li><a href="/tjenester/nettside-med-priskalkulator/">Nettside med priskalkulator</a></li>
+        <li><a href="/tjenester/sokemotoroptimalisering/">Søkemotoroptimalisering</a></li>
+        <li><a href="/apputvikling/">Apputvikling</a></li>
+        <li><a href="/apputvikling/iphone/">iPhone-app</a></li>
+        <li><a href="/apputvikling/android/">Android-app</a></li>
+        <li><a href="/bedriftssystemer/">Webapper og bedriftssystemer</a></li>
+        <li><a href="/tjenester/kundeportal/">Kundeportaler</a></li>
+        <li><a href="/tjenester/administrasjonssystem/">Administrasjonssystemer</a></li>
+        <li><a href="/tjenester/ai-losninger/">AI-løsninger for bedrifter</a></li>
+        <li><a href="/vedlikehold/">Drift og vedlikehold</a></li>
+        <li><a href="/kjop-app/">Kjøp en ferdig app</a></li>
+        <li><a href="/priser/">Priser og priskalkulator</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Bransjer</h2>
+      <ul>
+        <li><a href="/bransjer/transport/">Transportfirmaer</a></li>
+        <li><a href="/bransjer/handverkere/">Håndverkere</a></li>
+        <li><a href="/bransjer/bilverksted/">Bilverksteder</a></li>
+        <li><a href="/bransjer/bygg-og-anlegg/">Bygg og anlegg</a></li>
+        <li><a href="/bransjer/renhold/">Renholdsbedrifter</a></li>
+        <li><a href="/bransjer/enkeltpersonforetak/">Enkeltpersonforetak</a></li>
+        <li><a href="/bransjer/frisor/">Frisører</a></li>
+        <li><a href="/bransjer/restaurant/">Restauranter</a></li>
+        <li><a href="/bransjer/treningssenter/">Treningssentre</a></li>
+        <li><a href="/bransjer/lag-og-foreninger/">Lag og foreninger</a></li>
+        <li><a href="/bransjer/camping/">Campingplasser</a></li>
+        <li><a href="/nettside-toten-gjovik/">Toten, Gjøvik og Innlandet</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Selskapet</h2>
+      <ul>
+        <li><a href="/prosjekter/">Våre prosjekter</a></li>
+        <li><a href="/artikler/">Artikler</a></li>
+        <li><a href="/kjop-app/">Kjøp din egen app</a></li>
+        <li><a href="/om-oss/">Om oss</a></li>
+        <li><a href="/kontakt/">Kontakt</a></li>
+        <li><a href="/personvern/">Personvern</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Kontakt</h2>
+      <ul>
+        <li><a href="mailto:broren81@gmail.com">broren81@gmail.com</a></li>
+        <li>Bilittvegen 44, 2848 Skreia</li>
+        <li>Org.nr. 935 046 734 MVA</li>
+      </ul>
+    </div>
+    <div class="juridisk">
+      <span>© 2026 Vortex Labs Norway er et merkenavn for Martinsen Drift og Utvikling (enkeltpersonforetak), org.nr. 935 046 734 MVA.</span>
+      <span>Alle bedriftspriser er oppgitt eks. mva.</span>
+    </div>
+  </div>
+</footer>
+<dialog class="lysboks" id="lysboks" aria-label="Forstørret bilde"><button type="button" aria-label="Lukk">×</button></dialog>
+<script src="/assets/app.js?v=7aa7c1a37f" defer></script>
+</body>
+</html>

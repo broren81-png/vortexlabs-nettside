@@ -46,6 +46,16 @@ for (const f of html) {
   if (/fagd[øo]r/i.test(s)) feil.push(`${navn}: nevner Fagdøra`);
 }
 
+// Foreldreløse sider: hver kanonisk side må ha minst én lenke fra en annen side
+const innkommende = new Map();
+for (const f of html) {
+  const fra = '/' + relative(UT, f).replace(/\\/g, '/').replace(/index\.html$/, '');
+  for (const m of readFileSync(f, 'utf8').matchAll(/href="(\/[^"#?]*)/g)) { const til = m[1]; if (til !== fra) innkommende.set(til, (innkommende.get(til) || 0) + 1); }
+}
+for (const k of kanoniske) { const sti = k.replace(DOMENE, ''); if (sti !== '/' && !innkommende.get(sti)) feil.push(`foreldreløs side: ${sti}`); }
+// Overskriftsstruktur: innholdssider skal ha minst én h2
+for (const f of html) { const s = readFileSync(f, 'utf8'); if (!/<h2[\s>]/.test(s) && !f.endsWith('404.html')) advarsler.push(`${f}: ingen h2`); }
+
 const sitemap = readFileSync(join(UT, 'sitemap.xml'), 'utf8');
 const iSitemap = [...sitemap.matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1]);
 for (const u of iSitemap) if (!kanoniske.has(u)) feil.push(`sitemap: ${u} er ikke en kanonisk side`);

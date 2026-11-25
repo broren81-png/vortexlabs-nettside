@@ -132,6 +132,11 @@
     if (produkt) estTekst = 'Interesse for app: ' + produkt.replace(/[^a-z0-9-]/g, '');
     if (estTekst) { var eb = $('#estimat'); eb.textContent = estTekst; eb.hidden = false; $('#estimat-felt').value = estTekst; }
 
+    // Hvilken side kunden kom fra (bare adressen på vår egen nettside, ingen sporing)
+    var kilde = (params.get('kilde') || '').replace(/[^a-z0-9/-]/g, '');
+    if (!kilde && document.referrer.indexOf(location.origin) === 0) kilde = new URL(document.referrer).pathname.replace(/[^a-z0-9/-]/g, '');
+    if (kilde && kilde !== '/kontakt/') $('#kilde-felt').value = kilde;
+
     var regler = {
       navn: function (v) { return v.trim().length < 2 ? 'Skriv inn navnet ditt.' : ''; },
       bedrift: function (v) { return v.trim().length < 2 ? 'Skriv inn bedriftsnavnet. Skriv «Privat» hvis du ikke har bedrift.' : ''; },
@@ -172,6 +177,7 @@
         linjer.push('Gjelder: ' + tjTekst);
         if (data.kjopsmodell) linjer.push('Kjøpsmodell: ' + $('#kjopsmodell').options[$('#kjopsmodell').selectedIndex].text);
         if (data.estimat) linjer.push(data.estimat);
+        if (data.kilde) linjer.push('Kom fra siden: ' + data.kilde);
         if (data.budsjett) linjer.push('Budsjett: ' + data.budsjett);
         if (data.leveringstid) linjer.push('Leveringstid: ' + data.leveringstid);
         linjer.push('', 'Beskrivelse:', data.beskrivelse);

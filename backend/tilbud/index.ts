@@ -22,7 +22,7 @@ function forMange(ip: string) {
   return liste.length > MAKS;
 }
 
-const TJENESTER = new Set(['designforslag', 'tilbud-nettside', 'tilbud-app', 'tilbud-webapp', 'bedriftssystem', 'videreutvikling', 'kjop-app', 'interesseliste', 'annet']);
+const TJENESTER = new Set(['designforslag', 'nettsidevurdering', 'tilbud-nettside', 'tilbud-app', 'tilbud-webapp', 'bedriftssystem', 'videreutvikling', 'kjop-app', 'interesseliste', 'annet']);
 const MODELLER = new Set(['', 'eierskap-selvstendig', 'eierskap-med-drift', 'partnerskap', 'lisens', 'annet', 'apen']);
 const tekst = (v: unknown, maks: number) => (typeof v === 'string' ? v.trim().slice(0, maks) : '');
 const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]!));
@@ -47,7 +47,7 @@ Deno.serve(async (req) => {
     navn: tekst(d.navn, 100), bedrift: tekst(d.bedrift, 150), epost: tekst(d.epost, 200), telefon: tekst(d.telefon, 30),
     nettside: tekst(d.nettside, 300), tjeneste: tekst(d.tjeneste, 40), kjopsmodell: tekst(d.kjopsmodell, 40),
     beskrivelse: tekst(d.beskrivelse, 5000), funksjoner: tekst(d.funksjoner, 2000), budsjett: tekst(d.budsjett, 40),
-    leveringstid: tekst(d.leveringstid, 40), estimat: tekst(d.estimat, 400),
+    leveringstid: tekst(d.leveringstid, 40), estimat: tekst(d.estimat, 400), kilde: tekst(d.kilde, 120),
   };
   const feil: Record<string, string> = {};
   if (f.navn.length < 2) feil.navn = 'Skriv inn navnet ditt.';

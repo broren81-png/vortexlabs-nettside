@@ -11,18 +11,20 @@ export const FIRMA = {
 };
 
 export const kr = (n) => n.toLocaleString('nb-NO').replace(/\s/g, ' ') + ' kr';
+import { TJENESTER, BRANSJER } from './navn.mjs';
 export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
 const MENY = [
-  ['/nettsider', 'Nettsider'],
-  ['/apputvikling', 'Apputvikling'],
-  ['/bedriftssystemer', 'Bedriftssystemer'],
+  ['/tjenester', 'Tjenester'],
+  ['/bransjer', 'Bransjer'],
   ['/priser', 'Priser'],
   ['/prosjekter', 'Prosjekter'],
   ['/kjop-app', 'Kjøp din egen app'],
-  ['/vedlikehold', 'Vedlikehold'],
+  ['/artikler', 'Artikler'],
   ['/om-oss', 'Om oss'],
 ];
+// Sider som hører til et menypunkt uten å ligge under adressen
+const MENYGRUPPE = { '/tjenester': ['/nettsider', '/apputvikling', '/bedriftssystemer', '/vedlikehold'] };
 
 export const virvel = `<svg class="virvel" viewBox="0 0 900 900" aria-hidden="true" focusable="false">
   <circle class="r1" cx="450" cy="450" r="420" stroke="#7BE0A8" stroke-opacity=".18" stroke-width="2" stroke-dasharray="900 1740"/>
@@ -36,9 +38,13 @@ export const kanonisk = (sti) => DOMENE + (sti === '/' ? '/' : sti.replace(/\/?$
 // Legger skråstrek til slutt på interne sidelenker (ikke filer med punktum), så de ikke omdirigeres.
 export const medSkraastrek = (html) => html.replace(/href="\/([a-z0-9-]+(?:\/[a-z0-9-]+)*)(?=["?#])/g, 'href="/$1/');
 
-export function side({ sti, tittel, beskrivelse, innhold, jsonld = [], bilde = '/bilder/og.jpg', ekstraHode = '', noindex = false }) {
+export function side({ sti, tittel, beskrivelse, innhold, jsonld = [], bilde = '/bilder/og.jpg', ekstraHode = '', noindex = false, brodsmuler = null }) {
   const url = kanonisk(sti);
-  const aktiv = (href) => (sti === href || (href !== '/' && sti.startsWith(href + '/')) ? ' aria-current="page"' : '');
+  const under = (h, x) => x === h || x.startsWith(h + '/');
+  const aktiv = (href) => (under(href, sti) || (MENYGRUPPE[href] || []).some((g) => under(g, sti)) ? ' aria-current="page"' : '');
+  const smuler = brodsmuler ? [['Hjem', '/'], ...brodsmuler] : null;
+  if (smuler) jsonld = [...jsonld, { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: smuler.map(([n, h], i) => ({ '@type': 'ListItem', position: i + 1, name: n, item: kanonisk(h) })) }];
+  const smuleHtml = smuler ? `<nav class="brodsmuler" aria-label="Brødsmuler"><div class="ramme"><ol>${smuler.map(([n, h], i) => i === smuler.length - 1 ? `<li aria-current="page">${esc(n)}</li>` : `<li><a href="${h}">${esc(n)}</a></li>`).join('')}</ol></div></nav>` : '';
   const ld = [organisasjon(), ...jsonld].map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join('\n');
   return `<!doctype html>
 <html lang="nb" class="ingen-js">
@@ -86,7 +92,7 @@ ${ld}
   </div>
 </header>
 <main id="innhold">
-${innhold}
+${smuleHtml}${innhold}
 </main>
 <footer class="bunn">
   <div class="ramme">
@@ -97,17 +103,22 @@ ${innhold}
     <div>
       <h2>Tjenester</h2>
       <ul>
-        <li><a href="/nettsider">Nettsider</a></li>
-        <li><a href="/apputvikling">Apputvikling</a></li>
-        <li><a href="/bedriftssystemer">Webapper og bedriftssystemer</a></li>
-        <li><a href="/vedlikehold">Drift og vedlikehold</a></li>
+        ${TJENESTER.map(([h, t]) => `<li><a href="${h}">${t}</a></li>`).join('\n        ')}
         <li><a href="/priser">Priser og priskalkulator</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Bransjer</h2>
+      <ul>
+        ${BRANSJER.map(([id, t]) => `<li><a href="/bransjer/${id}">${t}</a></li>`).join('\n        ')}
+        <li><a href="/nettside-toten-gjovik">Toten, Gjøvik og Innlandet</a></li>
       </ul>
     </div>
     <div>
       <h2>Selskapet</h2>
       <ul>
         <li><a href="/prosjekter">Våre prosjekter</a></li>
+        <li><a href="/artikler">Artikler</a></li>
         <li><a href="/kjop-app">Kjøp din egen app</a></li>
         <li><a href="/om-oss">Om oss</a></li>
         <li><a href="/kontakt">Kontakt</a></li>

@@ -299,3 +299,38 @@ dialog.lysboks button { position: absolute; top: 8px; right: 8px; background: rg
   .bunn .ramme { grid-template-columns: 1fr; }
   .stripe li { padding: 16px 14px; font-size: .88rem; }
 }
+
+/* Brødsmuler (ligger i den mørke toppen) */
+.brodsmuler { background: var(--natt); color: rgba(255,255,255,.6); font-size: .85rem; padding-top: 14px; }
+.brodsmuler ol { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 4px 8px; }
+.brodsmuler li + li::before { content: "›"; margin-right: 8px; color: rgba(255,255,255,.35); }
+.brodsmuler a { color: rgba(255,255,255,.72); text-decoration: none; }
+.brodsmuler a:hover { color: var(--mynte); }
+.brodsmuler + .hero { padding-top: 32px; }
+
+/* Bunn med fem kolonner */
+.bunn .ramme { grid-template-columns: 1.3fr 1fr 1fr .9fr 1fr; }
+@media (max-width: 980px) { .bunn .ramme { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 640px) { .bunn .ramme { grid-template-columns: 1fr; } }
+
+/* Artikler */
+.artikkel { max-width: 760px; }
+.artikkel h2 { font-size: 1.65rem; margin-top: 44px; }
+.artikkel h3 { font-size: 1.15rem; margin: 26px 0 8px; }
+.artikkel p, .artikkel li { color: var(--dempet); font-size: 1.05rem; }
+.artikkel a { color: var(--mynte-dyp); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .artikkel a { color: var(--mynte); } }
+.artikkel table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: .98rem; }
+.artikkel th, .artikkel td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--linje); vertical-align: top; }
+.artikkel th { color: var(--tekst); }
+.oppsummert { background: var(--mynte-lys); border-radius: 16px; padding: 18px 22px; margin: 0 0 8px; }
+.oppsummert p, .oppsummert li { color: var(--tekst); }
+.meta { color: rgba(255,255,255,.6); font-size: .9rem; margin-top: -10px; }
+.kilder { font-size: .9rem; }
+.lenkeliste { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 0; }
+.lenkeliste a { display: inline-block; padding: 9px 14px; border-radius: 12px; border: 1px solid var(--linje); background: var(--flate); text-decoration: none; font-weight: 600; font-size: .93rem; }
+.lenkeliste a:hover { border-color: var(--mynte-dyp); }
+
+.tabellramme { overflow-x: auto; margin: 16px 0; }
+.tabellramme table { margin: 0; min-width: 480px; }
+@media (max-width: 640px) { .artikkel th, .artikkel td { padding: 8px; font-size: .92rem; } }

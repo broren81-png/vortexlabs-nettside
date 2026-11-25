@@ -4,6 +4,7 @@ import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { lagSider } from './src/sider.mjs';
+import { utvidelse } from './src/innhold/utvidelse.mjs';
 import { DOMENE, kanonisk, medSkraastrek } from './src/layout.mjs';
 
 const rot = dirname(fileURLToPath(import.meta.url));
@@ -40,7 +41,17 @@ const inline = "document.documentElement.classList.remove('ingen-js')";
 const jsHash = createHash('sha256').update(inline).digest('base64');
 
 import { side } from './src/layout.mjs';
-const sider = lagSider(priser, salg, nettsted);
+const sider = [...lagSider(priser, salg, nettsted), ...utvidelse(priser)];
+// Standard brødsmuler for eksisterende undersider
+const STANDARD = { '/nettsider': [['Tjenester', '/tjenester'], ['Nettsider', '/nettsider']], '/apputvikling': [['Tjenester', '/tjenester'], ['Apputvikling', '/apputvikling']], '/bedriftssystemer': [['Tjenester', '/tjenester'], ['Bedriftssystemer', '/bedriftssystemer']], '/vedlikehold': [['Tjenester', '/tjenester'], ['Drift og vedlikehold', '/vedlikehold']], '/priser': [['Priser', '/priser']], '/prosjekter': [['Prosjekter', '/prosjekter']], '/kjop-app': [['Kjøp din egen app', '/kjop-app']], '/om-oss': [['Om oss', '/om-oss']], '/kontakt': [['Kontakt', '/kontakt']], '/personvern': [['Personvern', '/personvern']] };
+for (const s of sider) {
+  if (s.brodsmuler || s.sti === '/' || s.fil) continue;
+  if (STANDARD[s.sti]) s.brodsmuler = STANDARD[s.sti];
+  else if (s.sti.startsWith('/prosjekter/')) s.brodsmuler = [['Prosjekter', '/prosjekter'], [s.tittel.split(/[–:|]/)[0].trim(), s.sti]];
+  else if (s.sti.startsWith('/kjop-app/')) s.brodsmuler = [['Kjøp din egen app', '/kjop-app'], [s.tittel.split(' – ')[0], s.sti]];
+}
+const dupl = sider.map((s) => s.sti).filter((x, i, a) => a.indexOf(x) !== i);
+if (dupl.length) throw new Error('Doble adresser: ' + dupl.join(', '));
 const urler = [];
 for (const s of sider) {
   let html = medSkraastrek(side(s)).replaceAll('VERSJON', versjon).replace('JS_HASH', jsHash);

@@ -24,10 +24,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=84d9295044">
+<link rel="stylesheet" href="/assets/style.css?v=7aa7c1a37f">
 <script>document.documentElement.classList.remove('ingen-js')</script>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://vortexlabs.no/#organisasjon","name":"Vortex Labs Norway","legalName":"Martinsen Drift og Utvikling","url":"https://vortexlabs.no/","email":"broren81@gmail.com","logo":"https://vortexlabs.no/bilder/favicon.svg","vatID":"NO935046734MVA","taxID":"935046734","address":{"@type":"PostalAddress","streetAddress":"Bilittvegen 44","postalCode":"2848","addressLocality":"Skreia","addressCountry":"NO"},"areaServed":{"@type":"Country","name":"Norge"},"knowsAbout":["Nettsider","Apputvikling","Webapplikasjoner","Bedriftssystemer"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Hjem","item":"https://vortexlabs.no/"},{"@type":"ListItem","position":2,"name":"Tjenester","item":"https://vortexlabs.no/tjenester/"},{"@type":"ListItem","position":3,"name":"Bedriftssystemer","item":"https://vortexlabs.no/bedriftssystemer/"}]}</script>
 </head>
 <body>
 <a class="hopp" href="#innhold">Hopp til innhold</a>
@@ -37,13 +38,12 @@
     <nav aria-label="Hovedmeny">
       <button class="menyknapp" type="button" aria-expanded="false" aria-controls="meny">Meny</button>
       <ul class="meny" id="meny">
-        <li><a href="/nettsider/">Nettsider</a></li>
-        <li><a href="/apputvikling/">Apputvikling</a></li>
-        <li><a href="/bedriftssystemer/" aria-current="page">Bedriftssystemer</a></li>
+        <li><a href="/tjenester/" aria-current="page">Tjenester</a></li>
+        <li><a href="/bransjer/">Bransjer</a></li>
         <li><a href="/priser/">Priser</a></li>
         <li><a href="/prosjekter/">Prosjekter</a></li>
         <li><a href="/kjop-app/">Kjøp din egen app</a></li>
-        <li><a href="/vedlikehold/">Vedlikehold</a></li>
+        <li><a href="/artikler/">Artikler</a></li>
         <li><a href="/om-oss/">Om oss</a></li>
         <li class="cta"><a href="/kontakt/">Kontakt</a></li>
       </ul>
@@ -51,7 +51,7 @@
   </div>
 </header>
 <main id="innhold">
-
+<nav class="brodsmuler" aria-label="Brødsmuler"><div class="ramme"><ol><li><a href="/">Hjem</a></li><li><a href="/tjenester/">Tjenester</a></li><li aria-current="page">Bedriftssystemer</li></ol></div></nav>
 <section class="hero liten"><svg class="virvel" viewBox="0 0 900 900" aria-hidden="true" focusable="false">
   <circle class="r1" cx="450" cy="450" r="420" stroke="#7BE0A8" stroke-opacity=".18" stroke-width="2" stroke-dasharray="900 1740"/>
   <circle class="r2" cx="450" cy="450" r="330" stroke="#7BE0A8" stroke-opacity=".28" stroke-width="3" stroke-dasharray="620 1450"/>
@@ -73,6 +73,7 @@
   <div class="fram"><span class="overtittel">Webapp</span><h2>Webapp fra 19 990 kr</h2><ul class="hake"><li>Nettbasert applikasjon</li><li>Tilpasset brukergrensesnitt</li><li>Mobil- og desktoptilpasning</li><li>Digitalisering av arbeidsoppgaver</li><li>Funksjonalitet etter avtalt prosjektomfang</li></ul><p style="margin-top:20px"><a class="knapp prim" href="/kontakt/?tjeneste=tilbud-webapp&amp;pakke=webapp">Be om tilbud på webapp</a></p></div>
   <div class="fram"><span class="overtittel">I bruk hos oss selv</span><h2>Systemer vi driver selv</h2><p class="lead">HentBilen drives med et system vi har laget selv, med oppdrag, sjåførportal og fakturagrunnlag. Sjåførsiden er en portal med flere brukerroller og matching.</p><p style="margin-top:18px" class="knapper"><a class="knapp omriss" href="/prosjekter/hentbilen/">HentBilen</a><a class="knapp omriss" href="/prosjekter/sjaforsiden/">Sjåførsiden</a></p></div>
 </div></section>
+<section class="tett"><div class="ramme"><div class="seksjonstopp fram"><span class="overtittel">Les også</span><h2>Mer om dette</h2></div><ul class="lenkeliste fram"><li><a href="/tjenester/kundeportal/">Kundeportaler</a></li><li><a href="/tjenester/administrasjonssystem/">Administrasjonssystemer</a></li><li><a href="/tjenester/ai-losninger/">AI-løsninger</a></li><li><a href="/bransjer/transport/">Systemer for transportfirmaer</a></li><li><a href="/artikler/digitalisere-liten-bedrift/">Hvordan digitalisere en liten bedrift?</a></li></ul></div></section>
 <section class="tett"><div class="ramme"><div class="avslutt fram"><div><h2>Har du en lignende idé? Vi kan utvikle den for deg.</h2><p>Gratis og uforpliktende første samtale, og fastpris før vi starter.</p></div><a class="knapp prim" href="/kontakt/">Fortell oss om prosjektet ditt</a></div></div></section>
 </main>
 <footer class="bunn">
@@ -84,17 +85,45 @@
     <div>
       <h2>Tjenester</h2>
       <ul>
-        <li><a href="/nettsider/">Nettsider</a></li>
+        <li><a href="/nettsider/">Nettsider for bedrifter</a></li>
+        <li><a href="/tjenester/modernisering-av-nettside/">Modernisering og mobiltilpasning</a></li>
+        <li><a href="/tjenester/nettside-med-booking/">Nettside med bookingsystem</a></li>
+        <li><a href="/tjenester/nettside-med-priskalkulator/">Nettside med priskalkulator</a></li>
+        <li><a href="/tjenester/sokemotoroptimalisering/">Søkemotoroptimalisering</a></li>
         <li><a href="/apputvikling/">Apputvikling</a></li>
+        <li><a href="/apputvikling/iphone/">iPhone-app</a></li>
+        <li><a href="/apputvikling/android/">Android-app</a></li>
         <li><a href="/bedriftssystemer/">Webapper og bedriftssystemer</a></li>
+        <li><a href="/tjenester/kundeportal/">Kundeportaler</a></li>
+        <li><a href="/tjenester/administrasjonssystem/">Administrasjonssystemer</a></li>
+        <li><a href="/tjenester/ai-losninger/">AI-løsninger for bedrifter</a></li>
         <li><a href="/vedlikehold/">Drift og vedlikehold</a></li>
+        <li><a href="/kjop-app/">Kjøp en ferdig app</a></li>
         <li><a href="/priser/">Priser og priskalkulator</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Bransjer</h2>
+      <ul>
+        <li><a href="/bransjer/transport/">Transportfirmaer</a></li>
+        <li><a href="/bransjer/handverkere/">Håndverkere</a></li>
+        <li><a href="/bransjer/bilverksted/">Bilverksteder</a></li>
+        <li><a href="/bransjer/bygg-og-anlegg/">Bygg og anlegg</a></li>
+        <li><a href="/bransjer/renhold/">Renholdsbedrifter</a></li>
+        <li><a href="/bransjer/enkeltpersonforetak/">Enkeltpersonforetak</a></li>
+        <li><a href="/bransjer/frisor/">Frisører</a></li>
+        <li><a href="/bransjer/restaurant/">Restauranter</a></li>
+        <li><a href="/bransjer/treningssenter/">Treningssentre</a></li>
+        <li><a href="/bransjer/lag-og-foreninger/">Lag og foreninger</a></li>
+        <li><a href="/bransjer/camping/">Campingplasser</a></li>
+        <li><a href="/nettside-toten-gjovik/">Toten, Gjøvik og Innlandet</a></li>
       </ul>
     </div>
     <div>
       <h2>Selskapet</h2>
       <ul>
         <li><a href="/prosjekter/">Våre prosjekter</a></li>
+        <li><a href="/artikler/">Artikler</a></li>
         <li><a href="/kjop-app/">Kjøp din egen app</a></li>
         <li><a href="/om-oss/">Om oss</a></li>
         <li><a href="/kontakt/">Kontakt</a></li>
@@ -116,6 +145,6 @@
   </div>
 </footer>
 <dialog class="lysboks" id="lysboks" aria-label="Forstørret bilde"><button type="button" aria-label="Lukk">×</button></dialog>
-<script src="/assets/app.js?v=84d9295044" defer></script>
+<script src="/assets/app.js?v=7aa7c1a37f" defer></script>
 </body>
 </html>

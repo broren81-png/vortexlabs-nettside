@@ -163,6 +163,7 @@ ${avslutt('Har du en idé?', 'Fortell oss om prosjektet ditt', 'Vi svarer så sn
   ${hake(['Design som passer bedriften din, ikke en ferdig mal', 'Rask og mobiltilpasset, med god lesbarhet', 'Grunnleggende søkemotoroptimalisering: titler, beskrivelser, struktur og sitemap', 'Kontaktskjema som sender henvendelser til deg', 'Hjelp med domene og publisering', 'Mulighet for vedlikeholdsavtale fra ' + kr(priser.vedlikehold.nettside.pris) + ' per måned'])}</div>
   <div class="fram"><span class="overtittel">Eksempel</span><h2>Nettside for transportfirma</h2><p class="lead">For HentBilen har vi laget en bedriftsnettside med egne landingssider for ulike typer transport, og en priskalkulator som gir kunden et estimat med en gang.</p><p style="margin-top:18px"><a class="knapp omriss" href="/prosjekter/hentbilen">Se HentBilen-prosjektet</a></p></div>
 </div></section>
+<section class="tett"><div class="ramme"><div class="seksjonstopp fram"><span class="overtittel">Les også</span><h2>Mer om dette</h2></div><ul class="lenkeliste fram">${[['/tjenester/modernisering-av-nettside', 'Modernisering og mobiltilpasning'], ['/tjenester/nettside-med-booking', 'Nettside med booking'], ['/tjenester/nettside-med-priskalkulator', 'Nettside med priskalkulator'], ['/tjenester/sokemotoroptimalisering', 'Søkemotoroptimalisering'], ['/bransjer', 'Nettsider for din bransje'], ['/artikler/hva-koster-en-nettside', 'Hva koster en nettside?']].map(([h, n]) => `<li><a href="${h}">${n}</a></li>`).join('')}</ul></div></section>
 ${avslutt('Vil du se hvordan nettsiden din kan bli?', 'Få gratis designforslag', 'Uforpliktende og gratis. Du får en visuell skisse før du bestemmer deg.')}`,
   });
 
@@ -187,6 +188,7 @@ ${avslutt('Vil du se hvordan nettsiden din kan bli?', 'Få gratis designforslag'
   <div class="fram"><span class="overtittel">Publisering</span><h2>Dette trenger du for å publisere</h2>
   ${hake(['En utviklerkonto hos Apple (årlig avgift) og Google (engangsavgift) i bedriftens navn', 'Personvernerklæring og butikktekster, som vi hjelper deg med', 'Skjermbilder og ikon, som vi lager', 'Apple og Google gjør sin egen gjennomgang. Vi kan ikke love godkjenning, men vi hjelper deg hele veien'])}</div>
 </div></section>
+<section class="tett"><div class="ramme"><div class="seksjonstopp fram"><span class="overtittel">Les også</span><h2>Mer om dette</h2></div><ul class="lenkeliste fram">${[['/apputvikling/iphone', 'iPhone-app og App Store'], ['/apputvikling/android', 'Android-app og Google Play'], ['/artikler/hva-koster-det-a-lage-en-app', 'Hva koster det å lage en app?'], ['/artikler/webapp-eller-mobilapp', 'Webapp eller mobilapp?'], ['/kjop-app', 'Kjøp en ferdig app']].map(([h, n]) => `<li><a href="${h}">${n}</a></li>`).join('')}</ul></div></section>
 ${avslutt()}`,
   });
 
@@ -211,6 +213,7 @@ ${avslutt()}`,
   <div class="fram"><span class="overtittel">Webapp</span><h2>Webapp fra ${kr(g.webapp)}</h2>${hake(pk.webapp.punkter)}<p style="margin-top:20px"><a class="knapp prim" href="/kontakt?tjeneste=tilbud-webapp&amp;pakke=webapp">Be om tilbud på webapp</a></p></div>
   <div class="fram"><span class="overtittel">I bruk hos oss selv</span><h2>Systemer vi driver selv</h2><p class="lead">HentBilen drives med et system vi har laget selv, med oppdrag, sjåførportal og fakturagrunnlag. Sjåførsiden er en portal med flere brukerroller og matching.</p><p style="margin-top:18px" class="knapper"><a class="knapp omriss" href="/prosjekter/hentbilen">HentBilen</a><a class="knapp omriss" href="/prosjekter/sjaforsiden">Sjåførsiden</a></p></div>
 </div></section>
+<section class="tett"><div class="ramme"><div class="seksjonstopp fram"><span class="overtittel">Les også</span><h2>Mer om dette</h2></div><ul class="lenkeliste fram">${[['/tjenester/kundeportal', 'Kundeportaler'], ['/tjenester/administrasjonssystem', 'Administrasjonssystemer'], ['/tjenester/ai-losninger', 'AI-løsninger'], ['/bransjer/transport', 'Systemer for transportfirmaer'], ['/artikler/digitalisere-liten-bedrift', 'Hvordan digitalisere en liten bedrift?']].map(([h, n]) => `<li><a href="${h}">${n}</a></li>`).join('')}</ul></div></section>
 ${avslutt()}`,
   });
 
@@ -369,6 +372,7 @@ ${p.cta ? avslutt(p.cta.tittel, p.cta.knapp, p.cta.tekst).replace('href="/kontak
   ${kommende.length ? `<div class="rutenett r3" style="margin-bottom:24px">${kommende.map((k) => `<div class="kort fram"><span class="brikke status">Forventet ${esc(k.forventet || 'senere')}</span><h3 style="margin-top:12px">${esc(k.navn)}</h3><p>${esc(k.kort)}</p><p style="margin-top:14px"><a class="knapp omriss" href="/kontakt?tjeneste=interesseliste&amp;produkt=${encodeURIComponent(k.id)}">Meld interesse</a></p></div>`).join('')}</div>` : ''}
   <p class="fram"><a class="knapp prim" href="/kontakt?tjeneste=interesseliste">Meld deg på interesselista</a></p>
 </div></section>
+<section class="tett"><div class="ramme"><div class="seksjonstopp fram"><span class="overtittel">Les mer</span><h2>Artikler om å kjøpe og eie en app</h2></div><ul class="lenkeliste fram"><li><a href="/artikler/kjope-ferdigutviklet-app">Hvordan kjøpe en ferdigutviklet app?</a></li><li><a href="/artikler/eie-app-uten-a-programmere">Kan jeg eie en app uten å programmere?</a></li><li><a href="/artikler/tjene-penger-pa-egen-app">Hvordan tjene penger på en egen app?</a></li></ul></div></section>
 ${avslutt('Vil du bli appeier?', 'Meld interesse', 'Fortell oss hva du ser etter. Du binder deg ikke til noe.').replace('href="/kontakt"', 'href="/kontakt?tjeneste=kjop-app"')}`,
   });
 
@@ -446,7 +450,7 @@ ${avslutt()}`,
 
   /* ---------- Kontakt ---------- */
   const tjenester = [
-    ['designforslag', 'Gratis designforslag til nettside'], ['tilbud-nettside', 'Tilbud på nettside'], ['tilbud-app', 'Tilbud på mobilapp'],
+    ['designforslag', 'Gratis designforslag til nettside'], ['nettsidevurdering', 'Gratis vurdering av eksisterende nettside'], ['tilbud-nettside', 'Tilbud på nettside'], ['tilbud-app', 'Tilbud på mobilapp'],
     ['tilbud-webapp', 'Tilbud på webapp'], ['bedriftssystem', 'Skreddersydd bedriftssystem'], ['videreutvikling', 'Videreutvikling av eksisterende løsning'],
     ['kjop-app', 'Kjøp din egen app'], ['interesseliste', 'Interesseliste for kommende apper'], ['annet', 'Annet'],
   ];
@@ -472,7 +476,7 @@ ${avslutt()}`,
     <div class="felt"><label for="budsjett">Budsjett <small>(valgfritt)</small></label><select id="budsjett" name="budsjett"><option value="">Vet ikke ennå</option><option>Under 10 000 kr</option><option>10 000–30 000 kr</option><option>30 000–60 000 kr</option><option>60 000–100 000 kr</option><option>Over 100 000 kr</option></select></div>
     <div class="felt"><label for="leveringstid">Ønsket leveringstid <small>(valgfritt)</small></label><select id="leveringstid" name="leveringstid"><option value="">Ingen hast</option><option>Innen 1 måned</option><option>1–3 måneder</option><option>3–6 måneder</option><option>Senere</option></select></div>
     <div class="honning" aria-hidden="true"><label for="firmanettsted">La dette feltet stå tomt</label><input id="firmanettsted" name="firmanettsted" tabindex="-1" autocomplete="off"></div>
-    <input type="hidden" name="estimat" id="estimat-felt">
+    <input type="hidden" name="estimat" id="estimat-felt"><input type="hidden" name="kilde" id="kilde-felt">
     <p class="felt hel" style="color:var(--dempet);font-size:.9rem;margin:0">Vi bruker opplysningene bare til å svare på henvendelsen din og eventuelt lage et tilbud. Les mer i <a href="/personvern">personvernerklæringen</a>.</p>
     <div class="felt hel"><button class="knapp prim" type="submit" id="send-knapp">Send henvendelse</button></div>
     <div class="skjemastatus" id="skjemastatus" role="status" tabindex="-1"></div>
