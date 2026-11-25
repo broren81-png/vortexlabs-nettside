@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 13699)
+Total output lines: 516
+
 import { side, virvel, kr, esc, hake, ikon, telefon, nettleser, avslutt, FIRMA, EPOST, DOMENE } from './layout.mjs';
 import { PROSJEKTER, KATEGORINAVN } from './prosjekter.mjs';
 
@@ -263,47 +266,7 @@ ${avslutt()}`,
     <aside class="resultat" aria-live="polite">
       <span class="overtittel">Veiledende estimat</span>
       <div class="sum" id="kalk-sum">–</div>
-      <div id="kalk-inkl" style="color:rgba(255,255,255,.6);font-size:.9rem"></div>
-      <ul id="kalk-linjer"></ul>
-      <div id="kalk-varsel"></div>
-      <p class="merknad">Dette er et veiledende prisestimat eks. mva., ikke et bindende tilbud. Endelig pris fastsettes etter gjennomgang av prosjektet.</p>
-      <a class="knapp prim" id="kalk-tilbud" href="/kontakt" style="width:100%">Få et konkret tilbud</a>
-    </aside>
-  </form>
-</div></section>
-<section><div class="ramme smal faq">
-  <div class="seksjonstopp fram"><span class="overtittel">Spørsmål og svar</span><h2>Ofte stilte spørsmål</h2></div>
-  ${faq.map(([q, a]) => `<details class="fram"><summary>${q}</summary><p>${a}</p></details>`).join('')}
-</div></section>
-${avslutt('Klar for et konkret tilbud?', 'Be om tilbud', 'Fortell oss hva du trenger, så får du fastpris før vi starter.')}`,
-  });
-
-  /* ---------- Prosjekter ---------- */
-  legg({
-    sti: '/prosjekter', tittel: 'Våre prosjekter – apper, nettsider og bedriftssystemer | Vortex Labs Norway',
-    beskrivelse: 'Se apper, nettsider og bedriftssystemer vi har utviklet: KaloriVenn, Dagsbudsjett, Northcast, Sjåførsiden og HentBilen.',
-    innhold: `
-<section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Våre prosjekter</span><h1>Dette har vi <em>laget selv</em></h1>
-<p class="ingress">Egne produkter, egen virksomhet og tekniske utviklingsprosjekter. Ingen av disse er kundeoppdrag, og vi merker hvert prosjekt med hva det er og hvor langt det har kommet.</p></div></section>
-<section><div class="ramme">
-  <div class="filter" role="group" aria-label="Filtrer prosjekter">
-    <button type="button" data-filter="alle" aria-pressed="true">Alle</button>
-    <button type="button" data-filter="mobilapp" aria-pressed="false">Mobilapper</button>
-    <button type="button" data-filter="nettside" aria-pressed="false">Nettsider</button>
-    <button type="button" data-filter="bedriftssystem" aria-pressed="false">Bedriftssystemer</button>
-  </div>
-  <div class="prosjekter" id="prosjektliste">${PROSJEKTER.map(prosjektkort).join('')}</div>
-</div></section>
-${avslutt()}`,
-  });
-
-  for (const p of PROSJEKTER) {
-    const brede = p.bilder.filter((b) => b.bred);
-    const mobil = p.bilder.filter((b) => !b.bred);
-    const galleri = p.manglerBilder
-      ? `<div class="mangler fram"><strong>Skjermbilder kommer.</strong> ${p.navn} er under utvikling, og vi viser skjermbilder når appen er klar for det.</div>`
-      : `${brede.length ? `<div class="galleri bred">${brede.map((b, i) => `<figure class="fram">${nettleser(b.src, b.alt, b.adresse)}<figcaption>${b.tekst}</figcaption></figure>${mobil[i] ? `<figure class="fram">${telefon(mobil[i].src, mobil[i].alt)}<figcaption>${mobil[i].tekst}</figcaption></figure>` : ''}`).join('')}</div>`
-        : `<div class="galleri">${mobil.map((b) => `<figure class="fram">${telefon(b.src, b.alt)}<figcaption>${b.tekst}</figcaption></figure>`).join('')}</div>`}`;
+      <div id="kalk-ink…699 tokens truncated…div class="galleri">${mobil.map((b) => `<figure class="fram">${telefon(b.src, b.alt)}<figcaption>${b.tekst}</figcaption></figure>`).join('')}</div>`}`;
     legg({
       sti: '/prosjekter/' + p.id, tittel: p.tittel + ' | Vortex Labs Norway', beskrivelse: p.beskrivelse, bilde: p.ogBilde,
       innhold: `
@@ -449,6 +412,7 @@ ${avslutt()}`,
   });
 
   /* ---------- Kontakt ---------- */
+  const skjemaKlart = Boolean(nettsted.skjemaEndepunkt && nettsted.turnstileNokkel);
   const tjenester = [
     ['designforslag', 'Gratis designforslag til nettside'], ['nettsidevurdering', 'Gratis vurdering av eksisterende nettside'], ['tilbud-nettside', 'Tilbud på nettside'], ['tilbud-app', 'Tilbud på mobilapp'],
     ['tilbud-webapp', 'Tilbud på webapp'], ['bedriftssystem', 'Skreddersydd bedriftssystem'], ['videreutvikling', 'Videreutvikling av eksisterende løsning'],
@@ -457,12 +421,13 @@ ${avslutt()}`,
   legg({
     sti: '/kontakt', tittel: 'Kontakt oss – få tilbud eller gratis designforslag | Vortex Labs Norway',
     beskrivelse: 'Fortell oss om prosjektet ditt og få et konkret tilbud med fastpris, eller et gratis og uforpliktende designforslag til nettsiden din.',
-    ekstraHode: `<meta name="skjema-endepunkt" content="${esc(nettsted.skjemaEndepunkt || '')}"><meta name="skjema-epost" content="${EPOST}">`,
+    skjemaOpphav: skjemaKlart ? new URL(nettsted.skjemaEndepunkt).origin : '',
+    ekstraHode: skjemaKlart ? `<meta name="skjema-endepunkt" content="${esc(nettsted.skjemaEndepunkt)}">` : '',
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Kontakt</span><h1>Fortell oss om <em>prosjektet ditt</em></h1>
 <p class="ingress">Fyll ut skjemaet, så svarer vi så raskt vi kan. Det er gratis og uforpliktende. Du kan også sende e-post til <a href="mailto:${EPOST}" style="color:var(--mynte)">${EPOST}</a>.</p></div></section>
 <section><div class="ramme smal">
-  <form class="skjema" id="tilbudsskjema" novalidate>
+  <form class="skjema" id="tilbudsskjema" method="post" novalidate>
     <div class="estimatboks" id="estimat" hidden></div>
     <div class="felt"><label for="navn">Navn</label><input id="navn" name="navn" autocomplete="name" required maxlength="100"><span class="feil" id="navn-feil"></span></div>
     <div class="felt"><label for="bedrift">Bedriftsnavn</label><input id="bedrift" name="bedrift" autocomplete="organization" required maxlength="150"><span class="feil" id="bedrift-feil"></span></div>
@@ -478,7 +443,8 @@ ${avslutt()}`,
     <div class="honning" aria-hidden="true"><label for="firmanettsted">La dette feltet stå tomt</label><input id="firmanettsted" name="firmanettsted" tabindex="-1" autocomplete="off"></div>
     <input type="hidden" name="estimat" id="estimat-felt"><input type="hidden" name="kilde" id="kilde-felt">
     <p class="felt hel" style="color:var(--dempet);font-size:.9rem;margin:0">Vi bruker opplysningene bare til å svare på henvendelsen din og eventuelt lage et tilbud. Les mer i <a href="/personvern">personvernerklæringen</a>.</p>
-    <div class="felt hel"><button class="knapp prim" type="submit" id="send-knapp">Send henvendelse</button></div>
+    ${skjemaKlart ? `<div class="felt hel" id="skjema-sikkerhet" data-sitekey="${esc(nettsted.turnstileNokkel)}"></div><noscript><p class="felt hel">Slå på JavaScript for å sende via skjemaet.</p></noscript>` : '<p class="felt hel">Direkte innsending er midlertidig utilgjengelig.</p>'}
+    <div class="felt hel"><button class="knapp prim" type="submit" id="send-knapp" disabled>Send henvendelse</button></div>
     <div class="skjemastatus" id="skjemastatus" role="status" tabindex="-1"></div>
   </form>
 </div></section>`,
@@ -492,11 +458,11 @@ ${avslutt()}`,
 <section class="hero liten"><div class="ramme"><span class="merkelapp">Personvern</span><h1>Personvernerklæring</h1><p class="ingress">For nettsiden vortexlabs.no og henvendelser til oss. Sist oppdatert ${nettsted.personvernDato}.</p></div></section>
 <section><div class="ramme smal prosa">
   <h2>Behandlingsansvarlig</h2><p>${FIRMA.navn} (${FIRMA.form}), org.nr. ${FIRMA.orgnr}, ${FIRMA.adresse}. Merkenavn: ${FIRMA.merke}. E-post: <a href="mailto:${EPOST}">${EPOST}</a>.</p>
-  <h2>Hva vi samler inn</h2><p>Når du sender en henvendelse, behandler vi det du skriver inn: navn, bedriftsnavn, e-post, og eventuelt telefonnummer, nettside, beskrivelse av prosjektet, budsjett og ønsket leveringstid. Hvis du har brukt priskalkulatoren, følger valgene og estimatet med.</p>
+  <h2>Hva vi samler inn</h2><p>Når du sender en henvendelse, behandler vi det du skriver inn: navn, bedriftsnavn, e-post, og eventuelt telefonnummer, nettside, beskrivelse av prosjektet, budsjett og ønsket leveringstid. Hvis du har brukt priskalkulatoren, følger valgene og estimatet med. Lenken til siden du kom fra, kan følge med henvendelsen.</p>
   <h2>Hvorfor</h2><p>Vi bruker opplysningene til å svare på henvendelsen og eventuelt lage et tilbud. Grunnlaget er vår berettigede interesse i å svare på henvendelser, eller tiltak før en eventuell avtale (personvernforordningen art. 6 nr. 1 bokstav f og b).</p>
   <h2>Hvor lenge</h2><p>Henvendelser som ikke fører til en avtale, slettes senest 12 måneder etter siste kontakt. Blir det en avtale, oppbevares opplysningene så lenge avtalen varer og så lenge regnskapsloven krever det.</p>
-  <h2>Hvem som får tilgang</h2><p>Vi selger eller deler ikke opplysningene dine. Henvendelser sendes til oss via e-post. Nettsiden ligger hos GitHub Pages, som behandler teknisk informasjon som IP-adresse for å levere siden. Skrifttypene hentes fra Google Fonts.</p>
-  <h2>Informasjonskapsler og sporing</h2><p>Nettsiden bruker ingen analyseverktøy, sporing eller annonser, og setter ingen informasjonskapsler.</p>
+  <h2>Hvem som får tilgang</h2><p>Henvendelser sendes til oss via e-post. ${skjemaKlart ? 'Supabase tar imot skjemaet og Resend formidler e-posten. Cloudflare Turnstile behandler tekniske opplysninger for å beskytte skjemaet mot spam.' : ''} Nettsiden ligger hos GitHub Pages, som behandler teknisk informasjon som IP-adresse for å levere siden. Skrifttypene hentes fra Google Fonts.</p>
+  <h2>Informasjonskapsler og sporing</h2><p>Nettsiden bruker ingen analyseverktøy, sporing eller annonser${skjemaKlart ? '. Sikkerhetskontrollen kan bruke nødvendige informasjonskapsler.' : ' og setter ingen informasjonskapsler.'}</p>
   <h2>Dine rettigheter</h2><p>Du kan be om innsyn, retting og sletting av opplysningene dine ved å sende e-post til oss. Du kan også klage til <a href="https://www.datatilsynet.no">Datatilsynet</a>.</p>
   <h2>Våre apper</h2><p>Hver app har sin egen personvernerklæring. For KaloriVenn: <a href="https://kalorivenn.expo.app/personvern.html">kalorivenn.expo.app/personvern.html</a>.</p>
 </div></section>`,

@@ -8,10 +8,10 @@ Statisk nettside uten avhengigheter. Kilden ligger i `src/`, `assets/`, `bilder/
 |---|---|
 | `config/priser.json` | Alle priser, pakker, tillegg og vedlikehold. Brukes av sidene og priskalkulatoren. |
 | `config/salg.json` | Salgskatalogen «Kjøp din egen app». Bare produkter med `godkjentForSalg: true` vises. |
-| `config/nettsted.json` | URL til skjemafunksjonen (tom = ferdig utfylt e-post) og dato for personvernerklæringen. |
+| `config/nettsted.json` | Offentlig skjemaendepunkt, offentlig Turnstile-nettstedsnøkkel og dato for personvernerklæringen. |
 | `src/prosjekter.mjs` | Porteføljen. Bare funksjoner som finnes i prosjektene. |
 | `src/sider.mjs` | Innholdet på alle sidene. |
-| `backend/` | Serverfunksjon for tilbudsskjemaet (ikke i drift ennå). |
+| `backend/` | Serverfunksjon og produksjonsoppsett for tilbudsskjemaet. |
 
 Kvalitetssjekk etter bygging: `node sjekk.mjs` (titler, h1, canonical, sitemap, lenker, alt-tekster, delingsbilder).
 

@@ -7,7 +7,7 @@
 <meta name="description" content="Fortell oss om prosjektet ditt og få et konkret tilbud med fastpris, eller et gratis og uforpliktende designforslag til nettsiden din.">
 <link rel="canonical" href="https://vortexlabs.no/kontakt/">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'sha256-MQzulgfvrnqkGtO+rFXQXTkE943NmN0q+XCXJ+zF1B8='; connect-src 'self' https://*.supabase.co; form-action 'self' mailto:; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'sha256-MQzulgfvrnqkGtO+rFXQXTkE943NmN0q+XCXJ+zF1B8=' https://challenges.cloudflare.com; connect-src 'self' https://jxxerxcjjqvbabrpdmgm.supabase.co; frame-src https://challenges.cloudflare.com; form-action 'none'; base-uri 'self'; object-src 'none'">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nb_NO">
 <meta property="og:site_name" content="Vortex Labs Norway">
@@ -24,9 +24,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=7aa7c1a37f">
+<link rel="stylesheet" href="/assets/style.css?v=4936bd3d20">
 <script>document.documentElement.classList.remove('ingen-js')</script>
-<meta name="skjema-endepunkt" content=""><meta name="skjema-epost" content="broren81@gmail.com">
+<meta name="skjema-endepunkt" content="https://jxxerxcjjqvbabrpdmgm.supabase.co/functions/v1/vortexlabs-tilbud">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://vortexlabs.no/#organisasjon","name":"Vortex Labs Norway","legalName":"Martinsen Drift og Utvikling","url":"https://vortexlabs.no/","email":"broren81@gmail.com","logo":"https://vortexlabs.no/bilder/favicon.svg","vatID":"NO935046734MVA","taxID":"935046734","address":{"@type":"PostalAddress","streetAddress":"Bilittvegen 44","postalCode":"2848","addressLocality":"Skreia","addressCountry":"NO"},"areaServed":{"@type":"Country","name":"Norge"},"knowsAbout":["Nettsider","Apputvikling","Webapplikasjoner","Bedriftssystemer"]}</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Hjem","item":"https://vortexlabs.no/"},{"@type":"ListItem","position":2,"name":"Kontakt","item":"https://vortexlabs.no/kontakt/"}]}</script>
 </head>
@@ -60,7 +60,7 @@
 </svg><div class="ramme"><span class="merkelapp">Kontakt</span><h1>Fortell oss om <em>prosjektet ditt</em></h1>
 <p class="ingress">Fyll ut skjemaet, så svarer vi så raskt vi kan. Det er gratis og uforpliktende. Du kan også sende e-post til <a href="mailto:broren81@gmail.com" style="color:var(--mynte)">broren81@gmail.com</a>.</p></div></section>
 <section><div class="ramme smal">
-  <form class="skjema" id="tilbudsskjema" novalidate>
+  <form class="skjema" id="tilbudsskjema" method="post" novalidate>
     <div class="estimatboks" id="estimat" hidden></div>
     <div class="felt"><label for="navn">Navn</label><input id="navn" name="navn" autocomplete="name" required maxlength="100"><span class="feil" id="navn-feil"></span></div>
     <div class="felt"><label for="bedrift">Bedriftsnavn</label><input id="bedrift" name="bedrift" autocomplete="organization" required maxlength="150"><span class="feil" id="bedrift-feil"></span></div>
@@ -76,7 +76,8 @@
     <div class="honning" aria-hidden="true"><label for="firmanettsted">La dette feltet stå tomt</label><input id="firmanettsted" name="firmanettsted" tabindex="-1" autocomplete="off"></div>
     <input type="hidden" name="estimat" id="estimat-felt"><input type="hidden" name="kilde" id="kilde-felt">
     <p class="felt hel" style="color:var(--dempet);font-size:.9rem;margin:0">Vi bruker opplysningene bare til å svare på henvendelsen din og eventuelt lage et tilbud. Les mer i <a href="/personvern/">personvernerklæringen</a>.</p>
-    <div class="felt hel"><button class="knapp prim" type="submit" id="send-knapp">Send henvendelse</button></div>
+    <div class="felt hel" id="skjema-sikkerhet" data-sitekey="0x4AAAAAAGTAMgoh3QU_FslE"></div><noscript><p class="felt hel">Slå på JavaScript for å sende via skjemaet.</p></noscript>
+    <div class="felt hel"><button class="knapp prim" type="submit" id="send-knapp" disabled>Send henvendelse</button></div>
     <div class="skjemastatus" id="skjemastatus" role="status" tabindex="-1"></div>
   </form>
 </div></section>
@@ -150,6 +151,6 @@
   </div>
 </footer>
 <dialog class="lysboks" id="lysboks" aria-label="Forstørret bilde"><button type="button" aria-label="Lukk">×</button></dialog>
-<script src="/assets/app.js?v=7aa7c1a37f" defer></script>
+<script src="/assets/app.js?v=4936bd3d20" defer></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 {
-  "_merknad": "skjemaEndepunkt: URL til serverfunksjonen som tar imot tilbudsskjemaet (se backend/tilbud). Tom = skjemaet lager en ferdig utfylt e-post i stedet.",
-  "skjemaEndepunkt": "",
+  "_merknad": "skjemaEndepunkt: Sett HTTPS-adressen til Supabase-funksjonen og den offentlige Turnstile-nettstedsnøkkelen sammen. Se backend/README.md.",
+  "skjemaEndepunkt": "https://jxxerxcjjqvbabrpdmgm.supabase.co/functions/v1/vortexlabs-tilbud",
+  "turnstileNokkel": "0x4AAAAAAGTAMgoh3QU_FslE",
   "personvernDato": "25. november 2026"
 }

@@ -228,6 +228,8 @@ section.mork .steg li { background: rgba(255,255,255,.04); border-color: rgba(25
 /* Skjema */
 .skjema { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 18px; }
 .felt { display: flex; flex-direction: column; gap: 6px; }
+.felt[hidden] { display: none; }
+#send-knapp:disabled { opacity: .65; cursor: default; }
 .felt.hel { grid-column: 1 / -1; }
 .felt label { font-weight: 600; font-size: .95rem; }
 .felt label small { font-weight: 400; color: var(--dempet); }

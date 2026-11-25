@@ -117,25 +117,34 @@
   var skjema = $('#tilbudsskjema');
   if (skjema) {
     var tj = $('#tjeneste'), modellFelt = $('#kjopsmodell-felt');
-    var visModell = function () { modellFelt.hidden = tj.value !== 'kjop-app' && tj.value !== 'interesseliste'; };
-    if (params.get('tjeneste') && $('option[value="' + params.get('tjeneste') + '"]', tj)) tj.value = params.get('tjeneste');
+    var visModell = function () {
+      modellFelt.hidden = tj.value !== 'kjop-app' && tj.value !== 'interesseliste';
+      skjema.elements.kjopsmodell.disabled = modellFelt.hidden;
+    };
+    if (Array.from(tj.options).some(function (o) { return o.value === params.get('tjeneste'); })) tj.value = params.get('tjeneste');
     tj.addEventListener('change', visModell); visModell();
 
     // Estimat fra kalkulatoren
     var pakke = params.get('pakke'), est = params.get('estimat'), till = params.get('tillegg'), produkt = params.get('produkt');
-    var estTekst = '';
+    var estTekst = '', timerValgt = params.get('timer');
     if (pakke) {
-      estTekst = 'Valgt utgangspunkt: ' + pakke.replace(/[^a-z0-9-]/g, '');
-      if (till) estTekst += '. Funksjoner: ' + till.replace(/[^a-z0-9,-]/g, '').split(',').filter(Boolean).join(', ');
-      if (est && /^\d+$/.test(est)) estTekst += '. Veiledende estimat: ' + kr(+est) + ' eks. mva.';
+      estTekst = 'Valgt utgangspunkt: ' + pakke.replace(/[^a-z0-9-]/g, '').slice(0, 60);
+      if (timerValgt && /^\d{1,3}$/.test(timerValgt)) estTekst += '. Antall timer: ' + timerValgt;
+      if (till) estTekst += '. Funksjoner: ' + till.replace(/[^a-z0-9,-]/g, '').slice(0, 120).split(',').filter(Boolean).join(', ');
+      if (est && /^\d{1,9}$/.test(est)) estTekst += '. Veiledende estimat: ' + kr(+est) + ' eks. mva.';
     }
-    if (produkt) estTekst = 'Interesse for app: ' + produkt.replace(/[^a-z0-9-]/g, '');
+    if (produkt) estTekst = 'Interesse for app: ' + produkt.replace(/[^a-z0-9-]/g, '').slice(0, 60);
     if (estTekst) { var eb = $('#estimat'); eb.textContent = estTekst; eb.hidden = false; $('#estimat-felt').value = estTekst; }
 
     // Hvilken side kunden kom fra (bare adressen på vår egen nettside, ingen sporing)
-    var kilde = (params.get('kilde') || '').replace(/[^a-z0-9/-]/g, '');
-    if (!kilde && document.referrer.indexOf(location.origin) === 0) kilde = new URL(document.referrer).pathname.replace(/[^a-z0-9/-]/g, '');
-    if (kilde && kilde !== '/kontakt/') $('#kilde-felt').value = kilde;
+    var kilde = params.get('kilde') || '';
+    var lokalSti = function (s) { return s.length <= 120 && /^\/(?:[a-z0-9-]+\/)*$/.test(s); };
+    if (!lokalSti(kilde) && document.referrer) {
+      var forrigeSide = new URL(document.referrer);
+      kilde = forrigeSide.origin === location.origin ? forrigeSide.pathname : '';
+    }
+    kilde = lokalSti(kilde) && kilde !== '/kontakt/' ? kilde : '';
+    $('#kilde-felt').value = kilde;
 
     var regler = {
       navn: function (v) { return v.trim().length < 2 ? 'Skriv inn navnet ditt.' : ''; },
@@ -155,54 +164,77 @@
     Object.keys(regler).forEach(function (n) { skjema.elements[n].addEventListener('blur', function () { sjekk(n); }); });
 
     var status = $('#skjemastatus'), send = $('#send-knapp');
-    var visStatus = function (type, html) { status.className = 'skjemastatus vis ' + type; status.innerHTML = html; status.focus(); };
-    var startet = Date.now();
+    var visStatus = function (type, melding) {
+      status.className = 'skjemastatus vis ' + type;
+      status.textContent = melding;
+      status.focus();
+    };
+    var endepunkt = ($('meta[name="skjema-endepunkt"]') || {}).content;
+    var sikkerhetsfelt = $('#skjema-sikkerhet');
+    if (!endepunkt || !sikkerhetsfelt || !sikkerhetsfelt.dataset.sitekey) return;
 
-    skjema.addEventListener('submit', function (e) {
+    var widget, sikkerhetstoken = '', forrigeData, referanse;
+    var script = document.createElement('script');
+    script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+    script.onload = function () {
+      widget = window.turnstile.render(sikkerhetsfelt, {
+        sitekey: sikkerhetsfelt.dataset.sitekey,
+        action: 'kontakt',
+        size: 'flexible',
+        callback: function (token) { sikkerhetstoken = token; send.disabled = false; },
+        'expired-callback': function () { sikkerhetstoken = ''; },
+        'error-callback': function () {
+          sikkerhetstoken = '';
+          visStatus('feil', 'Sikkerhetskontrollen kunne ikke fullføres. Last siden på nytt og prøv igjen.');
+        }
+      });
+    };
+    script.onerror = function () { visStatus('feil', 'Sikkerhetskontrollen kunne ikke lastes. Last siden på nytt og prøv igjen.'); };
+    document.head.appendChild(script);
+
+    skjema.addEventListener('submit', async function (e) {
       e.preventDefault();
+      if (send.disabled) return;
       var ok = Object.keys(regler).map(sjekk).every(Boolean);
       if (!ok) { var forste = $('[aria-invalid="true"]', skjema); if (forste) forste.focus(); return; }
-      if (skjema.elements.firmanettsted.value) return; // honningfelle
-      var data = {};
-      new FormData(skjema).forEach(function (v, k) { data[k] = String(v).trim(); });
-      data.tidBrukt = Math.round((Date.now() - startet) / 1000);
-      var endepunkt = (document.querySelector('meta[name="skjema-endepunkt"]') || {}).content;
-
-      if (!endepunkt) {
-        // Midlertidig: ingen server ennå. Lag en ferdig utfylt e-post.
-        var tjTekst = tj.options[tj.selectedIndex].text;
-        var linjer = ['Navn: ' + data.navn, 'Bedrift: ' + data.bedrift, 'E-post: ' + data.epost];
-        if (data.telefon) linjer.push('Telefon: ' + data.telefon);
-        if (data.nettside) linjer.push('Nettside: ' + data.nettside);
-        linjer.push('Gjelder: ' + tjTekst);
-        if (data.kjopsmodell) linjer.push('Kjøpsmodell: ' + $('#kjopsmodell').options[$('#kjopsmodell').selectedIndex].text);
-        if (data.estimat) linjer.push(data.estimat);
-        if (data.kilde) linjer.push('Kom fra siden: ' + data.kilde);
-        if (data.budsjett) linjer.push('Budsjett: ' + data.budsjett);
-        if (data.leveringstid) linjer.push('Leveringstid: ' + data.leveringstid);
-        linjer.push('', 'Beskrivelse:', data.beskrivelse);
-        if (data.funksjoner) linjer.push('', 'Ønskede funksjoner:', data.funksjoner);
-        var til = (document.querySelector('meta[name="skjema-epost"]') || {}).content;
-        var href = 'mailto:' + til + '?subject=' + encodeURIComponent('Henvendelse: ' + tjTekst + ' – ' + data.bedrift) + '&body=' + encodeURIComponent(linjer.join('\n'));
-        visStatus('ok', '<strong>Nesten ferdig.</strong> Trykk på knappen under for å sende henvendelsen fra e-postprogrammet ditt. Den er ikke sendt før du har trykket «Send» der.<p style="margin:12px 0 0"><a class="knapp mork" href="' + href + '">Åpne e-post med henvendelsen</a></p>');
+      if (!sikkerhetstoken) {
+        visStatus('feil', 'Fullfør sikkerhetskontrollen og prøv igjen.');
         return;
       }
-
-      send.disabled = true; send.textContent = 'Sender …';
-      fetch(endepunkt, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-        .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, status: r.status, j: j }; }); })
-        .then(function (res) {
-          if (res.ok) {
-            skjema.reset(); visModell();
-            visStatus('ok', '<strong>Takk, henvendelsen er sendt.</strong> Vi svarer deg på e-post så raskt vi kan.');
-          } else if (res.status === 429) {
-            visStatus('feil', 'Du har sendt mange henvendelser på kort tid. Vent litt og prøv igjen.');
-          } else {
-            visStatus('feil', (res.j && res.j.feil) ? res.j.feil : 'Noe gikk galt, og henvendelsen ble ikke sendt. Prøv igjen, eller send e-post direkte.');
-          }
-        })
-        .catch(function () { visStatus('feil', 'Vi fikk ikke kontakt med serveren, og henvendelsen ble ikke sendt. Sjekk nettet og prøv igjen.'); })
-        .then(function () { send.disabled = false; send.textContent = 'Send henvendelse'; });
+      var data = Object.fromEntries(new FormData(skjema));
+      var utkast = JSON.stringify(data);
+      if (utkast !== forrigeData) {
+        referanse = crypto.randomUUID();
+        forrigeData = utkast;
+      }
+      data.referanse = referanse;
+      data.sikkerhetstoken = sikkerhetstoken;
+      send.disabled = true;
+      send.textContent = 'Sender …';
+      try {
+        var respons = await fetch(endepunkt, {
+          method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data), signal: AbortSignal.timeout(16000)
+        });
+        var svar = await respons.json().catch(function () { return {}; });
+        if (respons.ok && svar.ok === true) {
+          skjema.reset();
+          $('#kilde-felt').value = kilde;
+          $('#estimat').hidden = true;
+          estTekst = '';
+          forrigeData = undefined;
+          visModell();
+          visStatus('ok', 'Takk, henvendelsen er sendt. Vi svarer deg på e-post så raskt vi kan.');
+        } else {
+          visStatus('feil', typeof svar.feil === 'string' ? svar.feil : 'Vi kunne ikke bekrefte innsendingen. Prøv igjen.');
+        }
+      } catch {
+        visStatus('feil', 'Vi kunne ikke bekrefte innsendingen. Sjekk nettet og prøv igjen.');
+      } finally {
+        sikkerhetstoken = '';
+        send.textContent = 'Send henvendelse';
+        window.turnstile.reset(widget);
+      }
     });
   }
 })();

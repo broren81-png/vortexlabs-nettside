@@ -38,7 +38,7 @@ export const kanonisk = (sti) => DOMENE + (sti === '/' ? '/' : sti.replace(/\/?$
 // Legger skråstrek til slutt på interne sidelenker (ikke filer med punktum), så de ikke omdirigeres.
 export const medSkraastrek = (html) => html.replace(/href="\/([a-z0-9-]+(?:\/[a-z0-9-]+)*)(?=["?#])/g, 'href="/$1/');
 
-export function side({ sti, tittel, beskrivelse, innhold, jsonld = [], bilde = '/bilder/og.jpg', ekstraHode = '', noindex = false, brodsmuler = null }) {
+export function side({ sti, tittel, beskrivelse, innhold, jsonld = [], bilde = '/bilder/og.jpg', ekstraHode = '', noindex = false, brodsmuler = null, skjemaOpphav = "" }) {
   const url = kanonisk(sti);
   const under = (h, x) => x === h || x.startsWith(h + '/');
   const aktiv = (href) => (under(href, sti) || (MENYGRUPPE[href] || []).some((g) => under(g, sti)) ? ' aria-current="page"' : '');
@@ -55,7 +55,7 @@ export function side({ sti, tittel, beskrivelse, innhold, jsonld = [], bilde = '
 <meta name="description" content="${esc(beskrivelse)}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${url}">`}
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'sha256-JS_HASH'; connect-src 'self' https://*.supabase.co; form-action 'self' mailto:; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; ${skjemaOpphav ? "script-src 'self' 'sha256-JS_HASH' https://challenges.cloudflare.com; connect-src 'self' " + esc(skjemaOpphav) + "; frame-src https://challenges.cloudflare.com; form-action 'none';" : "script-src 'self' 'sha256-JS_HASH'; connect-src 'self' https://*.supabase.co; form-action 'self' mailto:;"} base-uri 'self'; object-src 'none'">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nb_NO">
 <meta property="og:site_name" content="Vortex Labs Norway">
