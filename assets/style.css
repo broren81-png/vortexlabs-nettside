@@ -336,3 +336,51 @@ dialog.lysboks button { position: absolute; top: 8px; right: 8px; background: rg
 .tabellramme { overflow-x: auto; margin: 16px 0; }
 .tabellramme table { margin: 0; min-width: 480px; }
 @media (max-width: 640px) { .artikkel th, .artikkel td { padding: 8px; font-size: .92rem; } }
+
+/* Northcast */
+.northcast-premium {
+  --nc-gronn: #b8ef87;
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(1.4rem, 5vw, 4rem);
+  border: 1px solid #2c5052;
+  border-radius: 28px;
+  background: radial-gradient(ellipse at 90% 24%, #1b4542 0%, transparent 48%), #101f32;
+  color: #f2f8f4;
+}
+.northcast-premium h1, .northcast-premium h3 {
+  margin: .1em 0 .3em;
+  color: #fff;
+  font-size: clamp(2.6rem, 6vw, 5.1rem);
+  line-height: 1.04;
+  letter-spacing: -.045em;
+}
+.northcast-kategori { margin: 0 0 .4rem; color: var(--nc-gronn); font-weight: 700; }
+.northcast-lead { max-width: 49ch; color: #dce9e8; font-size: 1.12rem; }
+.northcast-fakta {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 1.6rem 0 1rem;
+}
+.northcast-fakta div { border-top: 1px solid #426367; padding-top: .55rem; }
+.northcast-fakta dt { color: #bed5d5; font-size: .88rem; }
+.northcast-fakta dd { margin: .2rem 0 0; font-weight: 600; }
+.northcast-fakta .northcast-pris { color: var(--nc-gronn); font-size: 1.36rem; }
+.northcast-prismerknad { color: #bed5d5; font-size: .9rem; }
+.northcast-premium .knapp.prim { color: #101f32; background: var(--nc-gronn); }
+.northcast-premium .knapp.sek { color: #fff; border-color: #80a5a2; }
+.northcast-premium .knapp:focus-visible, .northcast-detalj a:focus-visible { outline: 3px solid var(--nc-gronn); outline-offset: 4px; }
+.northcast-detalj { margin: 1.15rem 0 0; }
+.northcast-detalj a { color: var(--nc-gronn); }
+.northcast-profil { margin: 0; }
+.northcast-profil img { width: 100%; height: auto; border-radius: 24px; }
+@media (max-width: 770px) {
+  .northcast-premium { grid-template-columns: minmax(0, 1fr); }
+  .northcast-profil { width: min(100%, 400px); }
+}
+@media (max-width: 385px) {
+  .northcast-fakta { grid-template-columns: minmax(0, 1fr); }
+}

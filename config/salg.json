@@ -12,6 +12,7 @@
     "demo": "valgfri URL til demo"
   },
   "kategorier": {
+    "premium-mobilplattform": { "navn": "Premium mobilplattform", "tekst": "Egne produkter med mulighet for full overtakelse etter avtale." },
     "salgsklar": { "navn": "Salgsklare apper", "tekst": "Ferdig utviklet og testet, klare for overtakelse og lansering." },
     "publisert": { "navn": "Publiserte apper", "tekst": "Eksisterende produkter som allerede er tilgjengelige i appbutikkene." },
     "inntekter": { "navn": "Apper med inntekter", "tekst": "Produkter med dokumenterte brukertall og eksisterende inntekter." }
@@ -24,6 +25,28 @@
     "annet": { "navn": "Andre modeller etter avtale", "tekst": "Fortell oss hva du ser for deg." }
   },
   "produkter": [
+    {
+      "id": "northcast",
+      "godkjentForSalg": true,
+      "navn": "Northcast",
+      "kategori": "premium-mobilplattform",
+      "kategorinavn": "Premium mobilplattform",
+      "prosjektsti": "/prosjekter/northcast",
+      "ikon": "/bilder/northcast-profil.webp",
+      "plattform": "iOS og Android under utvikling",
+      "marked": "Internasjonalt, med hovedfokus på Europa",
+      "salgsstatusTekst": "Åpen for seriøse kjøpstilbud",
+      "utviklingsstatus": "Under utvikling",
+      "salgsmodell": "Full overtakelse etter nærmere avtale",
+      "salgsstatus": "tilgjengelig",
+      "kjopsmodeller": [
+        "eierskap-selvstendig"
+      ],
+      "pris": {
+        "type": "prisantydning",
+        "belop": 499000
+      }
+    },
     {
       "id": "eksempel",
       "godkjentForSalg": false,

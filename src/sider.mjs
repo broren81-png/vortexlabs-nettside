@@ -1,10 +1,9 @@
-Warning: truncated output (original token count: 13699)
-Total output lines: 516
-
 import { side, virvel, kr, esc, hake, ikon, telefon, nettleser, avslutt, FIRMA, EPOST, DOMENE } from './layout.mjs';
 import { PROSJEKTER, KATEGORINAVN } from './prosjekter.mjs';
+import { northcastHenvendelser, northcastPresentasjon, northcastProsjektside } from './northcast-salg.mjs';
 
 export function lagSider(priser, salg, nettsted) {
+  const northcast = salg.produkter.find((p) => p.id === 'northcast' && p.godkjentForSalg === true);
   const g = Object.fromEntries(priser.grunntyper.map((t) => [t.id, t.pris]));
   const pk = Object.fromEntries(priser.pakker.map((p) => [p.id, p]));
   const sider = [];
@@ -266,7 +265,51 @@ ${avslutt()}`,
     <aside class="resultat" aria-live="polite">
       <span class="overtittel">Veiledende estimat</span>
       <div class="sum" id="kalk-sum">–</div>
-      <div id="kalk-ink…699 tokens truncated…div class="galleri">${mobil.map((b) => `<figure class="fram">${telefon(b.src, b.alt)}<figcaption>${b.tekst}</figcaption></figure>`).join('')}</div>`}`;
+      <div id="kalk-inkl" style="color:rgba(255,255,255,.6);font-size:.9rem"></div>
+      <ul id="kalk-linjer"></ul>
+      <div id="kalk-varsel"></div>
+      <p class="merknad">Dette er et veiledende prisestimat eks. mva., ikke et bindende tilbud. Endelig pris fastsettes etter gjennomgang av prosjektet.</p>
+      <a class="knapp prim" id="kalk-tilbud" href="/kontakt" style="width:100%">Få et konkret tilbud</a>
+    </aside>
+  </form>
+</div></section>
+<section><div class="ramme smal faq">
+  <div class="seksjonstopp fram"><span class="overtittel">Spørsmål og svar</span><h2>Ofte stilte spørsmål</h2></div>
+  ${faq.map(([q, a]) => `<details class="fram"><summary>${q}</summary><p>${a}</p></details>`).join('')}
+</div></section>
+${avslutt('Klar for et konkret tilbud?', 'Be om tilbud', 'Fortell oss hva du trenger, så får du fastpris før vi starter.')}`,
+  });
+
+  /* ---------- Prosjekter ---------- */
+  legg({
+    sti: '/prosjekter', tittel: 'Våre prosjekter – apper, nettsider og bedriftssystemer | Vortex Labs Norway',
+    beskrivelse: 'Se apper, nettsider og bedriftssystemer vi har utviklet: KaloriVenn, Dagsbudsjett, Northcast, Sjåførsiden og HentBilen.',
+    innhold: `
+<section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Våre prosjekter</span><h1>Dette har vi <em>laget selv</em></h1>
+<p class="ingress">Egne produkter, egen virksomhet og tekniske utviklingsprosjekter. Ingen av disse er kundeoppdrag, og vi merker hvert prosjekt med hva det er og hvor langt det har kommet.</p></div></section>
+<section><div class="ramme">
+  <div class="filter" role="group" aria-label="Filtrer prosjekter">
+    <button type="button" data-filter="alle" aria-pressed="true">Alle</button>
+    <button type="button" data-filter="mobilapp" aria-pressed="false">Mobilapper</button>
+    <button type="button" data-filter="nettside" aria-pressed="false">Nettsider</button>
+    <button type="button" data-filter="bedriftssystem" aria-pressed="false">Bedriftssystemer</button>
+  </div>
+  <div class="prosjekter" id="prosjektliste">${PROSJEKTER.map(prosjektkort).join('')}</div>
+</div></section>
+${avslutt()}`,
+  });
+
+  for (const p of PROSJEKTER) {
+    if (p.id === 'northcast' && northcast) {
+      legg(northcastProsjektside(northcast));
+      continue;
+    }
+    const brede = p.bilder.filter((b) => b.bred);
+    const mobil = p.bilder.filter((b) => !b.bred);
+    const galleri = p.manglerBilder
+      ? `<div class="mangler fram"><strong>Skjermbilder kommer.</strong> ${p.navn} er under utvikling, og vi viser skjermbilder når appen er klar for det.</div>`
+      : `${brede.length ? `<div class="galleri bred">${brede.map((b, i) => `<figure class="fram">${nettleser(b.src, b.alt, b.adresse)}<figcaption>${b.tekst}</figcaption></figure>${mobil[i] ? `<figure class="fram">${telefon(mobil[i].src, mobil[i].alt)}<figcaption>${mobil[i].tekst}</figcaption></figure>` : ''}`).join('')}</div>`
+        : `<div class="galleri">${mobil.map((b) => `<figure class="fram">${telefon(b.src, b.alt)}<figcaption>${b.tekst}</figcaption></figure>`).join('')}</div>`}`;
     legg({
       sti: '/prosjekter/' + p.id, tittel: p.tittel + ' | Vortex Labs Norway', beskrivelse: p.beskrivelse, bilde: p.ogBilde,
       innhold: `
@@ -288,7 +331,7 @@ ${p.cta ? avslutt(p.cta.tittel, p.cta.knapp, p.cta.tekst).replace('href="/kontak
   }
 
   /* ---------- Kjøp din egen app (salgskatalog) ---------- */
-  const tilSalgs = salg.produkter.filter((p) => p.godkjentForSalg === true);
+  const tilSalgs = salg.produkter.filter((p) => p.godkjentForSalg === true && p.id !== 'northcast');
   const kommende = (salg.kommende || []).filter((k) => k.visSomKommende === true);
   const prisTekst = (pr) => pr.type === 'fastpris' ? `Fastpris ${kr(pr.belop)} eks. mva.` : pr.type === 'prisantydning' ? `Prisantydning ${kr(pr.belop)} eks. mva.` : pr.type === 'bud' ? 'Gi bud' : 'Pris på forespørsel';
   const salgsstatusTekst = { tilgjengelig: 'Tilgjengelig', reservert: 'Reservert', solgt: 'Solgt' };
@@ -302,23 +345,23 @@ ${p.cta ? avslutt(p.cta.tittel, p.cta.knapp, p.cta.tekst).replace('href="/kontak
       </div></a>`;
   const katalog = tilSalgs.length
     ? `<div class="filter" role="group" aria-label="Filtrer katalogen"><button type="button" data-filter="alle" aria-pressed="true">Alle</button>${Object.entries(salg.kategorier).map(([k, c]) => `<button type="button" data-filter="${k}" aria-pressed="false">${c.navn}</button>`).join('')}</div><div class="prosjekter" id="prosjektliste">${tilSalgs.map(produktkort).join('')}</div>`
-    : `<div class="mangler fram"><strong>Ingen apper er lagt ut for salg akkurat nå.</strong> Hvert produkt godkjennes for salg enkeltvis. Meld deg på interesselista, så tar vi kontakt når en app som passer for deg blir tilgjengelig.</div>`;
+    : northcast ? '' : `<div class="mangler fram"><strong>Ingen apper er lagt ut for salg akkurat nå.</strong> Hvert produkt godkjennes for salg enkeltvis. Meld deg på interesselista, så tar vi kontakt når en app som passer for deg blir tilgjengelig.</div>`;
   legg({
     sti: '/kjop-app', tittel: 'Kjøp en ferdigutviklet app – apper til salgs | Vortex Labs Norway',
-    beskrivelse: 'Ferdigutviklede apper og digitale produkter til salgs. Bli appeier uten å være programmerer, med fullt eierskap, drift fra oss eller andre kjøpsmodeller.',
+    beskrivelse: 'Vil du kjøpe en mobilapp eller digital plattform? Se apper til salgs hos Vortex Labs, inkludert Northcast for fiske, camping og friluftsliv.',
     innhold: `
-<section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Kjøp din egen app</span><h1>Hvorfor starte <em>fra bunnen av?</em></h1>
-<p class="ingress">Kjøp en ferdigutviklet app og start din egen digitale virksomhet. Velg mellom salgsklare produkter, allerede publiserte apper og etablerte digitale konsepter.</p>
+<section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Kjøp din egen app</span><h1>Apper og digitale plattformer <em>til salgs</em></h1>
+<p class="ingress">Vil du kjøpe en ferdigutviklet app eller overta en mobilapp du kan videreutvikle? Se hvilke produkter som er til salgs, hva som følger med og hvordan du kan få en demonstrasjon.</p>
 <div class="knapper"><a class="knapp prim" href="#katalog">Se katalogen</a><a class="knapp sek" href="/kontakt?tjeneste=interesseliste">Meld deg på interesselista</a></div></div></section>
 <section><div class="ramme">
   <div class="seksjonstopp fram"><span class="overtittel">Bli appeier – på dine premisser</span><h2>Din app. Ditt eierskap. Dine inntekter.</h2><p class="lead">Ønsker du å eie og drive din egen app? Hos Vortex Labs kan du kjøpe ferdigutviklede digitale produkter og velge hvor mye du ønsker å håndtere selv. Vi kan stå for det tekniske, eller du kan overta hele løsningen. Du trenger ikke være programmerer.</p></div>
   <div class="rutenett r3">
-    ${Object.values(salg.kategorier).map((c, i) => `<div class="kort fram"><div class="ikon">${[ikon.app, ikon.nett, ikon.pris][i]}</div><h3>${c.navn}</h3><p>${c.tekst}</p></div>`).join('')}
+    ${Object.values(salg.kategorier).map((c, i) => `<div class="kort fram"><div class="ikon">${([ikon.app, ikon.nett, ikon.pris][i] || ikon.app)}</div><h3>${c.navn}</h3><p>${c.tekst}</p></div>`).join('')}
   </div>
 </div></section>
 <section class="flate" id="katalog"><div class="ramme">
   <div class="seksjonstopp fram"><span class="overtittel">Salgskatalog</span><h2>Apper til salgs</h2><p class="lead">Vi utvikler egne digitale produkter med tanke på videresalg. Bare produkter som er godkjent for salg vises her. Prisen kan være fastpris, prisantydning, bud eller pris på forespørsel.</p></div>
-  ${katalog}
+  ${northcast ? northcastPresentasjon(northcast) : ''}${katalog ? '\n  ' + katalog : ''}
 </div></section>
 <section id="modeller"><div class="ramme">
   <div class="seksjonstopp fram"><span class="overtittel">Kjøpsmodeller</span><h2>Velg hvor mye du vil håndtere selv</h2><p class="lead">Hver app kan ha én eller flere kjøpsmodeller. Du er ikke låst til noen tjenester: rettigheter, priser, driftsavtaler og eventuelle inntektsfordelinger avtales individuelt.</p></div>
@@ -416,7 +459,7 @@ ${avslutt()}`,
   const tjenester = [
     ['designforslag', 'Gratis designforslag til nettside'], ['nettsidevurdering', 'Gratis vurdering av eksisterende nettside'], ['tilbud-nettside', 'Tilbud på nettside'], ['tilbud-app', 'Tilbud på mobilapp'],
     ['tilbud-webapp', 'Tilbud på webapp'], ['bedriftssystem', 'Skreddersydd bedriftssystem'], ['videreutvikling', 'Videreutvikling av eksisterende løsning'],
-    ['kjop-app', 'Kjøp din egen app'], ['interesseliste', 'Interesseliste for kommende apper'], ['annet', 'Annet'],
+    ['kjop-app', 'Kjøp din egen app'], ...(northcast ? northcastHenvendelser : []), ['interesseliste', 'Interesseliste for kommende apper'], ['annet', 'Annet'],
   ];
   legg({
     sti: '/kontakt', tittel: 'Kontakt oss – få tilbud eller gratis designforslag | Vortex Labs Norway',

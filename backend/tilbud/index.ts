@@ -1,5 +1,10 @@
 // Offentlig Supabase Edge Function for vortexlabs.no. Oppsett: backend/README.md.
-const TJENESTER = new Set(['designforslag', 'nettsidevurdering', 'tilbud-nettside', 'modernisering', 'tilbud-app', 'tilbud-webapp', 'bedriftssystem', 'videreutvikling', 'kjop-app', 'northcast-demo', 'interesseliste', 'annet']);
+const TJENESTER = new Set(['designforslag', 'nettsidevurdering', 'tilbud-nettside', 'modernisering', 'tilbud-app', 'tilbud-webapp', 'bedriftssystem', 'videreutvikling', 'kjop-app', 'interesseliste', 'annet']);
+const NORTHCAST_TYPER = new Map([
+  ['northcast-demo', 'Privat demonstrasjon'],
+  ['northcast-kjop', 'Kjøpsinteresse'],
+  ['northcast-info', 'Mer informasjon'],
+]);
 const MODELLER = new Set(['', 'eierskap-selvstendig', 'eierskap-med-drift', 'partnerskap', 'lisens', 'annet', 'apen']);
 const EPOST = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const KILDE = /^\/(?:[a-z0-9-]+\/)*$/;
@@ -108,7 +113,8 @@ export function lagHandler(env: (key: string) => string | undefined, send = fetc
     if (!EPOST.test(felt.epost)) feil.epost = 'Skriv inn en gyldig e-postadresse.';
     if (felt.telefon && !/^[+\d\s()-]{5,30}$/.test(felt.telefon)) feil.telefon = 'Telefonnummeret ser ikke riktig ut.';
     if (felt.nettside && !/^https?:\/\/\S+\.\S+$/.test(felt.nettside)) feil.nettside = 'Skriv adressen med https:// foran.';
-    if (!TJENESTER.has(felt.tjeneste)) feil.tjeneste = 'Velg hva henvendelsen gjelder.';
+    const northcastType = NORTHCAST_TYPER.get(felt.tjeneste);
+    if (!TJENESTER.has(felt.tjeneste) && !northcastType) feil.tjeneste = 'Velg hva henvendelsen gjelder.';
     if (!MODELLER.has(felt.kjopsmodell)) feil.kjopsmodell = 'Ugyldig kjøpsmodell.';
     if (felt.beskrivelse.length < 10) feil.beskrivelse = 'Fortell oss litt om prosjektet.';
     if (felt.kilde && !KILDE.test(felt.kilde)) feil.kilde = 'Ugyldig kildeside.';
@@ -137,8 +143,8 @@ export function lagHandler(env: (key: string) => string | undefined, send = fetc
         },
         body: JSON.stringify({
           from: fra, to: [til], reply_to: felt.epost,
-          subject: 'Ny henvendelse fra vortexlabs.no',
-          text: innhold,
+          subject: northcastType ? 'Northcast – ' + northcastType : 'Ny henvendelse fra vortexlabs.no',
+          text: northcastType ? 'Produkt: Northcast\nHenvendelsestype: ' + northcastType + '\n\n' + innhold : innhold,
         }),
         signal: AbortSignal.timeout(8000),
       });

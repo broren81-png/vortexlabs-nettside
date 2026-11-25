@@ -133,7 +133,7 @@
       if (till) estTekst += '. Funksjoner: ' + till.replace(/[^a-z0-9,-]/g, '').slice(0, 120).split(',').filter(Boolean).join(', ');
       if (est && /^\d{1,9}$/.test(est)) estTekst += '. Veiledende estimat: ' + kr(+est) + ' eks. mva.';
     }
-    if (produkt) estTekst = 'Interesse for app: ' + produkt.replace(/[^a-z0-9-]/g, '').slice(0, 60);
+    if (produkt && produkt !== 'northcast') estTekst = 'Interesse for app: ' + produkt.replace(/[^a-z0-9-]/g, '').slice(0, 60);
     if (estTekst) { var eb = $('#estimat'); eb.textContent = estTekst; eb.hidden = false; $('#estimat-felt').value = estTekst; }
 
     // Hvilken side kunden kom fra (bare adressen på vår egen nettside, ingen sporing)
