@@ -48,6 +48,17 @@
       }
     },
     {
+      "id": "kalorivenn",
+      "godkjentForSalg": true,
+      "navn": "KaloriVenn",
+      "kategori": "publisert",
+      "prosjektsti": "/prosjekter/kalorivenn",
+      "salgsstatus": "tilgjengelig",
+      "salgsmodell": "Full overtakelse etter nærmere avtale",
+      "kjopsmodeller": ["eierskap-selvstendig", "eierskap-med-drift"],
+      "pris": { "type": "prisantydning", "belop": 249000 }
+    },
+    {
       "id": "eksempel",
       "godkjentForSalg": false,
       "navn": "Eksempelapp (vises ikke)",
