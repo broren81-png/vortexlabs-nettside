@@ -173,7 +173,7 @@ ${avslutt('Vil du se hvordan nettsiden din kan bli?', 'Få gratis designforslag'
 
   /* ---------- Apputvikling ---------- */
   legg({
-    sti: '/apputvikling', tittel: 'Utvikling av mobilapp for iPhone og Android | Vortex Labs Norway',
+    sti: '/apputvikling', tittel: 'Apputvikling – mobilapp for iPhone og Android | Vortex Labs Norway',
     beskrivelse: `Vi utvikler mobilapper for iPhone og Android fra ${kr(g.mobilapp)} eks. mva. Apputvikling i Norge med fastpris, egne apper i App Store og hjelp med publisering.`,
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme hero-grid">
@@ -289,7 +289,7 @@ ${avslutt('Klar for et konkret tilbud?', 'Be om tilbud', 'Fortell oss hva du tre
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Våre prosjekter</span><h1>Dette har vi <em>laget selv</em></h1>
 <p class="ingress">Egne produkter, egen virksomhet og tekniske utviklingsprosjekter. Ingen av disse er kundeoppdrag, og vi merker hvert prosjekt med hva det er og hvor langt det har kommet.</p></div></section>
-<section><div class="ramme">
+<section><div class="ramme"><h2 class="skjult-tittel">Alle prosjekter</h2>
   <div class="filter" role="group" aria-label="Filtrer prosjekter">
     <button type="button" data-filter="alle" aria-pressed="true">Alle</button>
     <button type="button" data-filter="mobilapp" aria-pressed="false">Mobilapper</button>
@@ -358,7 +358,7 @@ ${p.cta ? avslutt(p.cta.tittel, p.cta.knapp, p.cta.tekst).replace('href="/kontak
     : (northcast || kalorivenn) ? '' : `<div class="mangler fram"><strong>Ingen apper er lagt ut for salg akkurat nå.</strong> Hvert produkt godkjennes for salg enkeltvis. Meld deg på interesselista, så tar vi kontakt når en app som passer for deg blir tilgjengelig.</div>`;
   legg({
     sti: '/kjop-app', tittel: 'Kjøp en ferdigutviklet app – apper til salgs | Vortex Labs Norway',
-    beskrivelse: kalorivenn ? 'Se apper til salgs hos Vortex Labs, inkludert kostholdsappen KaloriVenn og Northcast for fiske, camping og friluftsliv.' : 'Vil du kjøpe en mobilapp eller digital plattform? Se apper til salgs hos Vortex Labs, inkludert Northcast for fiske, camping og friluftsliv.',
+    beskrivelse: kalorivenn ? 'Kjøp en ferdigutviklet app med kildekode og rettigheter. Se apper til salgs, blant annet KaloriVenn og Northcast for fiske og camping.' : 'Vil du kjøpe en mobilapp eller digital plattform? Se apper til salgs hos Vortex Labs, inkludert Northcast for fiske, camping og friluftsliv.',
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Kjøp din egen app</span><h1>Apper og digitale plattformer <em>til salgs</em></h1>
 <p class="ingress">Vil du kjøpe en ferdigutviklet app eller overta en mobilapp du kan videreutvikle? Se hvilke produkter som er til salgs, hva som følger med og hvordan du kan få en demonstrasjon.</p>
@@ -427,7 +427,7 @@ ${avslutt('Interessert i ' + esc(p.navn) + '?', p.pris.type === 'bud' ? 'Gi bud'
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Drift og vedlikehold</span><h1>Hold løsningen <em>trygg og oppdatert</em></h1>
 <p class="ingress">Nettsider og apper må vedlikeholdes for å fortsette å virke. Med en vedlikeholdsavtale tar vi oss av det tekniske, innenfor et omfang vi avtaler på forhånd.</p></div></section>
-<section><div class="ramme">
+<section><div class="ramme"><h2 class="skjult-tittel">Vedlikeholdsavtaler</h2>
   <div class="pakker">
     <article class="pakke fram"><h3>Nettside</h3><div class="fra">fra ${kr(v.nettside.pris)} <small>per måned eks. mva.</small></div>${hake(['Tekniske oppdateringer', 'Sikkerhetsvedlikehold', 'Feilretting', 'Teknisk support'])}<a class="knapp omriss" href="/kontakt?tjeneste=videreutvikling">Spør om vedlikehold</a></article>
     ${v.app.map((a, i) => `<article class="pakke${i === 1 ? ' fremhevet' : ''} fram">${i === 1 ? '<span class="etikett">Mest valgt</span>' : ''}<h3>${a.navn}</h3><div class="fra">fra ${kr(a.pris)} <small>per måned eks. mva.</small></div>${hake(i === 0 ? ['Tekniske oppdateringer', 'Sikkerhetsvedlikehold', 'Feilretting'] : i === 1 ? ['Alt i Basis', 'Overvåking etter avtale', 'Teknisk support', 'Oppdatering for nye iOS- og Android-versjoner'] : ['Alt i Business', 'Videreutvikling etter avtale', 'Høyere prioritet', 'Utvidet omfang etter avtale'])}<a class="knapp ${i === 1 ? 'prim' : 'omriss'}" href="/kontakt?tjeneste=videreutvikling">Spør om vedlikehold</a></article>`).join('')}

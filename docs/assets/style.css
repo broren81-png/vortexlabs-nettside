@@ -397,3 +397,6 @@ dialog.lysboks button { position: absolute; top: 8px; right: 8px; background: rg
 .samtykke-valg .knapp:hover { transform: none; border-color: var(--tekst); }
 .samtykke-personvern { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
 @media (max-width: 340px) { .samtykke-valg { flex-direction: column; } }
+
+/* Overskrift for skjermlesere og søkemotorer, uten synlig endring */
+.skjult-tittel { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }

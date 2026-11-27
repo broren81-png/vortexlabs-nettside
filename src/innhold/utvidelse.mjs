@@ -107,7 +107,7 @@ ${avslutt()}`,
     brodsmuler: [['Bransjer', '/bransjer']],
     innhold: `
 <section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Bransjer</span><h1>Løsninger <em>tilpasset bransjen din</em></h1><p class="ingress">Hver bransje har sine egne behov. Her ser du hva vi kan lage for din. Vi viser bare til prosjekter vi faktisk har gjort, og forteller ærlig når vi ikke har levert til en bransje før.</p></div></section>
-<section><div class="ramme"><div class="rutenett r3">
+<section><div class="ramme"><h2 class="skjult-tittel">Bransjer vi lager løsninger for</h2><div class="rutenett r3">
   ${bransjer.map((b) => `<a class="kort lenke fram" href="${b.sti}"><h3>${BRANSJER.find((x) => '/bransjer/' + x[0] === b.sti)[1]}</h3><p>${esc(b.beskrivelse)}</p><span class="mer">Les mer →</span></a>`).join('')}
   <a class="kort lenke fram" href="/"><h3>Småbedrifter</h3><p>Nettsider, apper og bedriftssystemer for norske småbedrifter, uansett bransje.</p><span class="mer">Til forsiden →</span></a>
   <a class="kort lenke fram" href="/nettside-toten-gjovik"><h3>Toten, Gjøvik og Innlandet</h3><p>Lokal utvikler på Skreia, for bedrifter i Innlandet og resten av landet.</p><span class="mer">Les mer →</span></a>
