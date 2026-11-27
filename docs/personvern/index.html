@@ -7,7 +7,7 @@
 <meta name="description" content="Slik behandler Vortex Labs Norway personopplysninger når du bruker vortexlabs.no og sender oss en henvendelse.">
 <link rel="canonical" href="https://vortexlabs.no/personvern/">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'sha256-MQzulgfvrnqkGtO+rFXQXTkE943NmN0q+XCXJ+zF1B8='; connect-src 'self' https://*.supabase.co; form-action 'self' mailto:; base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self' 'sha256-MQzulgfvrnqkGtO+rFXQXTkE943NmN0q+XCXJ+zF1B8=' https://www.googletagmanager.com; connect-src 'self' https://*.supabase.co https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; form-action 'self' mailto:; base-uri 'self'; object-src 'none'">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nb_NO">
 <meta property="og:site_name" content="Vortex Labs Norway">
@@ -24,7 +24,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="/assets/style.css?v=76349a1bdf">
+<link rel="stylesheet" href="/assets/style.css?v=0b962cfd3c">
 <script>document.documentElement.classList.remove('ingen-js')</script>
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfessionalService","@id":"https://vortexlabs.no/#organisasjon","name":"Vortex Labs Norway","legalName":"Martinsen Drift og Utvikling","url":"https://vortexlabs.no/","email":"broren81@gmail.com","logo":"https://vortexlabs.no/bilder/favicon.svg","vatID":"NO935046734MVA","taxID":"935046734","address":{"@type":"PostalAddress","streetAddress":"Bilittvegen 44","postalCode":"2848","addressLocality":"Skreia","addressCountry":"NO"},"areaServed":{"@type":"Country","name":"Norge"},"knowsAbout":["Nettsider","Apputvikling","Webapplikasjoner","Bedriftssystemer"]}</script>
@@ -52,14 +52,23 @@
 </header>
 <main id="innhold">
 <nav class="brodsmuler" aria-label="Brødsmuler"><div class="ramme"><ol><li><a href="/">Hjem</a></li><li aria-current="page">Personvern</li></ol></div></nav>
-<section class="hero liten"><div class="ramme"><span class="merkelapp">Personvern</span><h1>Personvernerklæring</h1><p class="ingress">For nettsiden vortexlabs.no og henvendelser til oss. Sist oppdatert 25. november 2026.</p></div></section>
+<section class="hero liten"><div class="ramme"><span class="merkelapp">Personvern</span><h1>Personvernerklæring</h1><p class="ingress">For nettsiden vortexlabs.no og henvendelser til oss. Sist oppdatert 27. november 2026.</p></div></section>
 <section><div class="ramme smal prosa">
   <h2>Behandlingsansvarlig</h2><p>Martinsen Drift og Utvikling (enkeltpersonforetak), org.nr. 935 046 734, Bilittvegen 44, 2848 Skreia. Merkenavn: Vortex Labs Norway. E-post: <a href="mailto:broren81@gmail.com">broren81@gmail.com</a>.</p>
   <h2>Hva vi samler inn</h2><p>Når du sender en henvendelse, behandler vi det du skriver inn: navn, bedriftsnavn, e-post, og eventuelt telefonnummer, nettside, beskrivelse av prosjektet, budsjett og ønsket leveringstid. Hvis du har brukt priskalkulatoren, følger valgene og estimatet med. Lenken til siden du kom fra, kan følge med henvendelsen.</p>
   <h2>Hvorfor</h2><p>Vi bruker opplysningene til å svare på henvendelsen og eventuelt lage et tilbud. Grunnlaget er vår berettigede interesse i å svare på henvendelser, eller tiltak før en eventuell avtale (personvernforordningen art. 6 nr. 1 bokstav f og b).</p>
   <h2>Hvor lenge</h2><p>Henvendelser som ikke fører til en avtale, slettes senest 12 måneder etter siste kontakt. Blir det en avtale, oppbevares opplysningene så lenge avtalen varer og så lenge regnskapsloven krever det.</p>
-  <h2>Hvem som får tilgang</h2><p>Henvendelser sendes til oss via e-post. Supabase tar imot skjemaet og Resend formidler e-posten. Cloudflare Turnstile behandler tekniske opplysninger for å beskytte skjemaet mot spam. Nettsiden ligger hos GitHub Pages, som behandler teknisk informasjon som IP-adresse for å levere siden. Skrifttypene hentes fra Google Fonts.</p>
-  <h2>Informasjonskapsler og sporing</h2><p>Nettsiden bruker ingen analyseverktøy, sporing eller annonser. Sikkerhetskontrollen kan bruke nødvendige informasjonskapsler.</p>
+  <h2>Hvem som får tilgang</h2><p>Henvendelser sendes til oss via e-post. Supabase tar imot skjemaet og Resend formidler e-posten. Cloudflare Turnstile behandler tekniske opplysninger for å beskytte skjemaet mot spam. Nettsiden ligger hos GitHub Pages, som behandler teknisk informasjon som IP-adresse for å levere siden. Skrifttypene hentes fra Google Fonts. Hvis du har godtatt statistikk, behandler Google opplysningene som er beskrevet under.</p>
+  <h2 id="statistikk">Statistikk med Google Analytics</h2>
+  <p>Hvis du samtykker, bruker vi Google Analytics 4 til å se hvordan nettsiden brukes, slik at vi kan forbedre den. Uten samtykke lastes ikke Google Analytics, og ingenting sendes til Google. Du velger selv i meldingen som vises første gang du besøker nettsiden, og det er like enkelt å avslå som å godta.</p>
+  <p>Med samtykke registreres hvilke sider du besøker, hvilken nettside eller kampanje du kom fra (også UTM-parametere i lenker fra våre kampanjer), omtrentlig sted (land, region og by, utledet fra IP-adressen), enhetstype, nettleser, språk og skjermstørrelse. Vi registrerer også klikk på kontaktknapper og e-postlenker, og at et kontaktskjema er sendt, sammen med hvilken tjeneste henvendelsen gjelder.</p>
+  <p>Vi sender aldri navn, e-postadresse, telefonnummer eller det du skriver i skjemaet til Google Analytics. Adressene som sendes, renses for andre parametere enn kampanjeparametere og nettsidens egne valg (som tjeneste og pakke). Google-signaler og annonsefunksjoner er slått av, og opplysningene brukes ikke til markedsføring.</p>
+  <p>Google Analytics setter informasjonskapslene <code>_ga</code> og <code>_ga_VVKJ23QH0E</code>, som inneholder en tilfeldig ID og varer i inntil 13 måneder. Google Analytics lagrer ikke IP-adressen din. Statistikken oppbevares hos Google i inntil 14 måneder. Grunnlaget er samtykket ditt (personvernforordningen art. 6 nr. 1 bokstav a og ekomloven § 3-15).</p>
+  <p>Google Ireland Limited er databehandler for oss. Opplysningene kan bli overført til Google LLC i USA, som er sertifisert under EU–US Data Privacy Framework. Les mer i <a href="https://business.safety.google/privacy/">Googles personvernerklæring for bedrifter</a>.</p>
+  <p><strong>Trekke tilbake eller endre samtykket:</strong> Du kan når som helst endre valget her eller med «Statistikkvalg» nederst på alle sider. Trekker du samtykket tilbake, stopper innsamlingen og informasjonskapslene fra Google Analytics slettes. Valget ditt lagres bare i nettleseren din.</p>
+  <div class="samtykke-personvern krever-js"><p data-samtykke-status role="status" style="flex-basis:100%;margin:0"></p><button type="button" class="knapp omriss" data-samtykke="avsla">Avslå / trekk tilbake</button><button type="button" class="knapp omriss" data-samtykke="godta">Godta statistikk</button></div>
+  <noscript><p>Uten JavaScript lastes ikke Google Analytics.</p></noscript>
+  <h2>Andre informasjonskapsler</h2><p>Utover statistikk med samtykke bruker nettsiden ingen sporing eller annonser. Sikkerhetskontrollen på kontaktskjemaet kan bruke nødvendige informasjonskapsler.</p>
   <h2>Dine rettigheter</h2><p>Du kan be om innsyn, retting og sletting av opplysningene dine ved å sende e-post til oss. Du kan også klage til <a href="https://www.datatilsynet.no">Datatilsynet</a>.</p>
   <h2>Våre apper</h2><p>Hver app har sin egen personvernerklæring. For KaloriVenn: <a href="https://kalorivenn.expo.app/personvern.html">kalorivenn.expo.app/personvern.html</a>.</p>
 </div></section>
@@ -116,6 +125,7 @@
         <li><a href="/om-oss/">Om oss</a></li>
         <li><a href="/kontakt/">Kontakt</a></li>
         <li><a href="/personvern/">Personvern</a></li>
+        <li class="krever-js"><button type="button" class="lenkeknapp" data-samtykke="endre">Statistikkvalg</button></li>
       </ul>
     </div>
     <div>
@@ -133,6 +143,7 @@
   </div>
 </footer>
 <dialog class="lysboks" id="lysboks" aria-label="Forstørret bilde"><button type="button" aria-label="Lukk">×</button></dialog>
-<script src="/assets/app.js?v=76349a1bdf" defer></script>
+<script src="/assets/samtykke.js?v=0b962cfd3c" defer></script>
+<script src="/assets/app.js?v=0b962cfd3c" defer></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-/* Vortex Labs Norway – felles skript. Ingen sporing, ingen avhengigheter. */
+/* Vortex Labs Norway – felles skript. Ingen avhengigheter. Statistikk (bare etter samtykke) ligger i samtykke.js. */
 (function () {
   'use strict';
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -218,6 +218,8 @@
         });
         var svar = await respons.json().catch(function () { return {}; });
         if (respons.ok && svar.ok === true) {
+          // Bare tjenestekategorien sendes, aldri skjemainnhold. Ingenting sendes uten samtykke.
+          if (typeof window.vlStatistikk === 'function') window.vlStatistikk('generate_lead', { tjeneste: /^[a-z0-9-]{1,40}$/.test(data.tjeneste || '') ? data.tjeneste : 'annet' });
           skjema.reset();
           $('#kilde-felt').value = kilde;
           $('#estimat').hidden = true;

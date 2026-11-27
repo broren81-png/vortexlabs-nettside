@@ -36,7 +36,7 @@ cpSync(join(rot, 'bilder'), join(ut, 'bilder'), { recursive: true });
 cpSync(join(rot, 'CNAME'), join(ut, 'CNAME'));
 writeFileSync(join(ut, '.nojekyll'), '');
 
-const versjon = createHash('sha256').update(readFileSync(join(rot, 'assets/style.css'))).update(readFileSync(join(rot, 'assets/app.js'))).digest('hex').slice(0, 10);
+const versjon = createHash('sha256').update(readFileSync(join(rot, 'assets/style.css'))).update(readFileSync(join(rot, 'assets/app.js'))).update(readFileSync(join(rot, 'assets/samtykke.js'))).digest('hex').slice(0, 10);
 const inline = "document.documentElement.classList.remove('ingen-js')";
 const jsHash = createHash('sha256').update(inline).digest('base64');
 

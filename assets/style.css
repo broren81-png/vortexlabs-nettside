@@ -384,3 +384,16 @@ dialog.lysboks button { position: absolute; top: 8px; right: 8px; background: rg
 @media (max-width: 385px) {
   .northcast-fakta { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Samtykke til statistikk (assets/samtykke.js) */
+.ingen-js .krever-js { display: none; }
+.lenkeknapp { background: none; border: 0; padding: 0; font: inherit; color: rgba(255,255,255,.82); cursor: pointer; text-align: left; }
+.lenkeknapp:hover { color: var(--mynte); }
+.samtykke { position: fixed; z-index: 60; left: 16px; right: 16px; bottom: 16px; max-width: 520px; background: var(--flate); color: var(--tekst); border: 1px solid var(--linje); border-radius: 16px; box-shadow: var(--skygge); padding: 16px 18px; font-size: .92rem; line-height: 1.5; }
+.samtykke p { margin: 0 0 12px; }
+.samtykke a { color: inherit; text-decoration: underline; }
+.samtykke-valg { display: flex; gap: 10px; }
+.samtykke-valg .knapp { flex: 1 1 0; padding: 10px 14px; border-radius: 12px; }
+.samtykke-valg .knapp:hover { transform: none; border-color: var(--tekst); }
+.samtykke-personvern { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+@media (max-width: 340px) { .samtykke-valg { flex-direction: column; } }

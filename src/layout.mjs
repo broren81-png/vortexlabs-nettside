@@ -10,6 +10,13 @@ export const FIRMA = {
   adresse: 'Bilittvegen 44, 2848 Skreia',
 };
 
+// Google Analytics 4 lastes først etter samtykke (assets/samtykke.js). Domenene må tillates i CSP.
+const GA = {
+  skript: 'https://www.googletagmanager.com',
+  tilkobling: 'https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com',
+  bilde: 'https://*.google-analytics.com https://*.googletagmanager.com',
+};
+
 export const kr = (n) => n.toLocaleString('nb-NO').replace(/\s/g, ' ') + ' kr';
 import { TJENESTER, BRANSJER } from './navn.mjs';
 export const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -55,7 +62,7 @@ export function side({ sti, tittel, beskrivelse, innhold, jsonld = [], bilde = '
 <meta name="description" content="${esc(beskrivelse)}">
 ${noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" href="${url}">`}
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; ${skjemaOpphav ? "script-src 'self' 'sha256-JS_HASH' https://challenges.cloudflare.com; connect-src 'self' " + esc(skjemaOpphav) + "; frame-src https://challenges.cloudflare.com; form-action 'none';" : "script-src 'self' 'sha256-JS_HASH'; connect-src 'self' https://*.supabase.co; form-action 'self' mailto:;"} base-uri 'self'; object-src 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data: ${GA.bilde}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; ${skjemaOpphav ? "script-src 'self' 'sha256-JS_HASH' https://challenges.cloudflare.com " + GA.skript + "; connect-src 'self' " + esc(skjemaOpphav) + " " + GA.tilkobling + "; frame-src https://challenges.cloudflare.com; form-action 'none';" : "script-src 'self' 'sha256-JS_HASH' " + GA.skript + "; connect-src 'self' https://*.supabase.co " + GA.tilkobling + "; form-action 'self' mailto:;"} base-uri 'self'; object-src 'none'">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="nb_NO">
 <meta property="og:site_name" content="Vortex Labs Norway">
@@ -123,6 +130,7 @@ ${smuleHtml}${innhold}
         <li><a href="/om-oss">Om oss</a></li>
         <li><a href="/kontakt">Kontakt</a></li>
         <li><a href="/personvern">Personvern</a></li>
+        <li class="krever-js"><button type="button" class="lenkeknapp" data-samtykke="endre">Statistikkvalg</button></li>
       </ul>
     </div>
     <div>
@@ -140,6 +148,7 @@ ${smuleHtml}${innhold}
   </div>
 </footer>
 <dialog class="lysboks" id="lysboks" aria-label="Forstørret bilde"><button type="button" aria-label="Lukk">×</button></dialog>
+<script src="/assets/samtykke.js?v=VERSJON" defer></script>
 <script src="/assets/app.js?v=VERSJON" defer></script>
 </body>
 </html>

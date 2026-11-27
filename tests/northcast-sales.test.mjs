@@ -52,7 +52,8 @@ function simulate(url, emailStatus=200, captchaOk=true) {
     referrer:'',querySelector:s=>selectors[s]??null,querySelectorAll:()=>[],createElement:()=>node(),
     head:{appendChild:n=>{script=n;}}
   };
-  const window={turnstile:{
+  const maalinger=[];
+  const window={vlStatistikk:(navn,param)=>maalinger.push([navn,JSON.parse(JSON.stringify(param))]),turnstile:{
     render(element,options){callback=options.callback;callback('test-token');return 'widget';},
     reset(){callback('test-token-next');}
   }};
@@ -61,7 +62,7 @@ function simulate(url, emailStatus=200, captchaOk=true) {
   script.onload();
   const selected=elements.tjeneste.value;
   for(const [key,value] of Object.entries({navn:'Eksempel Kjøper',bedrift:'Eksempel AS',epost:'kjoper@example.com',beskrivelse:'Lokal kontroll av salgsflyten.'})) elements[key].value=value;
-  return {selected, emails, status:selectors['#skjemastatus'], send:()=>form.handlers.submit({preventDefault(){}})};
+  return {selected, emails, maalinger, status:selectors['#skjemastatus'], send:()=>form.handlers.submit({preventDefault(){}})};
 }
 for (const page of ['/kjop-app/','/prosjekter/northcast/']) {
   const links=[...html[page].matchAll(/href="([^"]*produkt=northcast[^"]*)"/g)].map(([,href])=>new URL(href.replaceAll('&amp;','&'),origin));
@@ -81,6 +82,8 @@ for (const page of ['/kjop-app/','/prosjekter/northcast/']) {
       assert.equal(mail.reply_to,'kjoper@example.com');
       assert.deepEqual(mail.to,['mottaker@example.com']);
       assert.match(form.status.className,/\bok\b/);
+      assert.deepEqual(form.maalinger,[['generate_lead',{tjeneste:type}]]);
+      assert.ok(!JSON.stringify(form.maalinger).match(/Eksempel|example\.com|Lokal kontroll/));
     });
   }
 }
@@ -89,12 +92,14 @@ test('avvist sikkerhetskontroll gir ingen e-post eller bekreftelse',async ()=>{
  await f.send();
  assert.equal(f.emails.length,0);
  assert.match(f.status.className,/\bfeil\b/);
+ assert.equal(f.maalinger.length,0);
 });
 test('avvist utsending gir feilmelding uten kvittering',async ()=>{
  const f=simulate(new URL('/kontakt/?tjeneste=northcast-kjop',origin),403);
  await f.send();
  assert.equal(f.emails.length,1);
  assert.match(f.status.className,/\bfeil\b/);
+ assert.equal(f.maalinger.length,0);
 });
 test('vanlig henvendelse beholder tidligere emne',async ()=>{
  const f=simulate(new URL('/kontakt/?tjeneste=annet',origin));
