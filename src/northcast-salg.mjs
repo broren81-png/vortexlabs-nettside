@@ -1,4 +1,5 @@
-import { esc, kr, hake } from './layout.mjs';
+import { esc, hake } from './layout.mjs';
+import { prisRader } from './kampanje.mjs';
 
 // Norsk produkttekst. Ruter, henvendelsestyper og beløp beholdes ved oversettelse.
 const tekst = {
@@ -57,7 +58,7 @@ const tekst = {
     ],
     tilbud: 'Vortex Labs kan levere en komplett digital plattform tilpasset kjøperens kommersielle ambisjoner.',
     eierskap: 'Fullt eierskap. Full frihet. Mulighet for videre vekst.',
-    avgrensning: (pris) => 'Nettside og ytterligere funksjonalitet tilbys etter separat avtale og er ikke inkludert i dagens prisantydning på ' + pris,
+    avgrensning: 'Nettside og ytterligere funksjonalitet tilbys etter separat avtale og er ikke inkludert i prisen som er oppgitt for Northcast.',
     sporsmal: 'Ønsker du å diskutere mulighetene?',
     kontakt: 'Kontakt oss for en uforpliktende samtale og privat demonstrasjon.',
   },
@@ -70,7 +71,6 @@ const tekst = {
 
 export const northcastHenvendelser = tekst.handlinger.map(([id, navn]) => [id, 'Northcast – ' + navn]);
 const northcastKontakt = (id, kilde) => `/kontakt/?tjeneste=${id}&amp;produkt=northcast&amp;kilde=${encodeURIComponent(kilde)}`;
-const prisEksMva = (produkt) => `${kr(produkt.pris.belop)} eks. mva.`;
 const kontakthandlinger = (kilde) => `<div class="knapper northcast-handlinger">${tekst.handlinger.map(([id, navn], i) =>
   `<a class="knapp ${i === 0 ? 'prim' : 'sek'}" href="${northcastKontakt(id, kilde)}">${esc(navn)}</a>`).join('')}</div>`;
 
@@ -83,7 +83,7 @@ export function northcastPresentasjon(produkt, detalj = false) {
     <${overskrift}>Northcast</${overskrift}>
     <p class="northcast-lead">${esc(tekst.ingress)}</p>
     <dl class="northcast-fakta">
-      <div><dt>Prisantydning:</dt><dd class="northcast-pris">${prisEksMva(produkt)}</dd></div>
+      ${prisRader(produkt, 'Prisantydning:').html}
       <div><dt>Plattform</dt><dd>${esc(produkt.plattform)}</dd></div>
       <div><dt>Utviklingsstatus</dt><dd>${esc(produkt.utviklingsstatus)}</dd></div>
       <div><dt>Salgsstatus</dt><dd>${esc(produkt.salgsstatusTekst)}</dd></div>
@@ -135,7 +135,7 @@ export function northcastProsjektside(produkt) {
     ${hake(tekst.digitalPlattform.utvidelser.map(esc))}
     <p>${esc(tekst.digitalPlattform.tilbud)}</p>
     <p><strong>${esc(tekst.digitalPlattform.eierskap)}</strong></p>
-    <p>${esc(tekst.digitalPlattform.avgrensning(prisEksMva(produkt)))}</p>
+    <p>${esc(tekst.digitalPlattform.avgrensning)}</p>
     <p><strong>${esc(tekst.digitalPlattform.sporsmal)} <a href="${northcastKontakt('northcast-demo', '/prosjekter/northcast/')}">${esc(tekst.digitalPlattform.kontakt)}</a></strong></p>
   </article>
 </div></section>

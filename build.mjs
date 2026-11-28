@@ -6,6 +6,7 @@ import { fileURLToPath } from 'node:url';
 import { lagSider } from './src/sider.mjs';
 import { utvidelse } from './src/innhold/utvidelse.mjs';
 import { DOMENE, kanonisk, medSkraastrek } from './src/layout.mjs';
+import { kontrollerKampanje } from './src/kampanje.mjs';
 
 const rot = dirname(fileURLToPath(import.meta.url));
 const ut = join(rot, 'docs');
@@ -26,6 +27,7 @@ for (const p of salg.produkter) {
   if (!salg.kategorier[p.kategori]) throw new Error(`${p.id}: ukjent kategori ${p.kategori}`);
   if (!['fastpris', 'prisantydning', 'bud', 'forespørsel'].includes(p.pris.type)) throw new Error(`${p.id}: ukjent pristype`);
   if (p.dokumentasjon && p.kategori !== 'inntekter') throw new Error(`${p.id}: dokumenterte tall er bare for kategorien inntekter`);
+  kontrollerKampanje(p);
   if (p.godkjentForSalg && p.kategori === 'inntekter' && !(p.dokumentasjon && p.dokumentasjon.kilde)) throw new Error(`${p.id}: apper med inntekter må ha dokumentasjon med kilde`);
 }
 

@@ -400,3 +400,6 @@ dialog.lysboks button { position: absolute; top: 8px; right: 8px; background: rg
 
 /* Overskrift for skjermlesere og søkemotorer, uten synlig endring */
 .skjult-tittel { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* Kampanjepris for apper til salgs */
+.northcast-fakta .kampanje-periode { margin: 2px 0 0; font-size: .85rem; font-weight: 500; opacity: .85; }

@@ -1,4 +1,5 @@
-import { esc, kr } from './layout.mjs';
+import { esc } from './layout.mjs';
+import { prisRader } from './kampanje.mjs';
 
 const appStore = 'https://apps.apple.com/no/app/kalorivenn/id6830372881?l=nb';
 
@@ -14,7 +15,7 @@ export function kalorivennPresentasjon(produkt, prosjekt, detalj = false) {
     <${overskrift}>${esc(tittel)}</${overskrift}>
     <p class="northcast-lead">KaloriVenn kobler sammen det du kjøper, det du har i kjøleskapet og det du spiser. Les inn en kvittering for å fylle det digitale kjøleskapet, planlegg ukas middager og logg måltider med kalorier og næringsinnhold.</p>
     <dl class="northcast-fakta">
-      <div><dt>Prisantydning</dt><dd class="northcast-pris">${kr(produkt.pris.belop)} eks. mva.</dd></div>
+      ${prisRader(produkt).html}
       <div><dt>iPhone og iPad</dt><dd>Publisert i App Store</dd></div>
       <div><dt>Android</dt><dd>Under testing</dd></div>
       <div><dt>Salgsmodell</dt><dd>${esc(produkt.salgsmodell)}</dd></div>

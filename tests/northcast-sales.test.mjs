@@ -110,7 +110,8 @@ test('separat tilbud om utvidelser og korrekt pris',()=>{
  const page=html['/prosjekter/northcast/'];
  assert.match(page,/499[\s ]000[\s ]kr/);
  assert.match(page,/Mulighet for en komplett digital plattform/);
- assert.match(page,/etter separat avtale og er ikke inkludert i dagens prisantydning på 499[\s ]000[\s ]kr/);
+ assert.match(page,/etter separat avtale og er ikke inkludert i prisen som er oppgitt for Northcast\./);
+ assert.doesNotMatch(page,/dagens prisantydning på 499[\s ]000[\s ]kr/);
  assert.match(page,/Integrasjon mellom nettsiden og mobilappen/);
  assert.match(page,/Løsninger for kommersielle samarbeidspartnere/);
  assert.match(page,/href="\/kontakt\/\?tjeneste=northcast-demo&amp;produkt=northcast&amp;kilde=%2Fprosjekter%2Fnorthcast%2F">Kontakt oss for en uforpliktende samtale og privat demonstrasjon\./);

@@ -6,6 +6,11 @@
   var kr = function (n) { return Math.round(n).toLocaleString('nb-NO') + ' kr'; };
   var params = new URLSearchParams(location.search);
 
+  /* Kampanjepriser: etter sluttdato vises ordinær prisantydning (dato i norsk tid) */
+  var idag = (function () { try { return new Intl.DateTimeFormat('sv-SE', { timeZone: 'Europe/Oslo' }).format(new Date()); } catch (e) { return new Date().toISOString().slice(0, 10); } })();
+  $$('[data-kampanje-slutt]').forEach(function (el) { if (idag > el.getAttribute('data-kampanje-slutt')) el.hidden = true; });
+  $$('[data-kampanje-etter]').forEach(function (el) { if (idag > el.getAttribute('data-kampanje-etter')) el.hidden = false; });
+
   /* Meny på mobil */
   var knapp = $('.menyknapp'), meny = $('#meny');
   if (knapp && meny) {
