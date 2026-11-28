@@ -2,10 +2,16 @@ import { side, virvel, kr, esc, hake, ikon, telefon, nettleser, avslutt, FIRMA, 
 import { PROSJEKTER, KATEGORINAVN } from './prosjekter.mjs';
 import { northcastHenvendelser, northcastPresentasjon, northcastProsjektside } from './northcast-salg.mjs';
 import { kalorivennPresentasjon, kalorivennSalgsvilkar } from './kalorivenn-salg.mjs';
+import { kampanjeBanner } from './kampanje.mjs';
 
 export function lagSider(priser, salg, nettsted) {
   const northcast = salg.produkter.find((p) => p.id === 'northcast' && p.godkjentForSalg === true);
   const kalorivenn = salg.produkter.find((p) => p.id === 'kalorivenn' && p.godkjentForSalg === true);
+  // Åpningstilbudet øverst på forsiden, i katalogen og på produktsidene (tom når kampanjen ikke gjelder)
+  const kampanje = (kilde, vis = ['kalorivenn', 'northcast']) => kampanjeBanner([
+    vis.includes('kalorivenn') && { produkt: kalorivenn, sti: kilde === '/prosjekter/kalorivenn/' ? '' : '/prosjekter/kalorivenn/', kontakt: `/kontakt/?tjeneste=kjop-app&amp;produkt=kalorivenn&amp;kilde=${encodeURIComponent(kilde)}` },
+    vis.includes('northcast') && { produkt: northcast, sti: '/prosjekter/northcast/', kontakt: `/kontakt/?tjeneste=northcast-kjop&amp;produkt=northcast&amp;kilde=${encodeURIComponent(kilde)}` },
+  ].filter(Boolean));
   const g = Object.fromEntries(priser.grunntyper.map((t) => [t.id, t.pris]));
   const pk = Object.fromEntries(priser.pakker.map((p) => [p.id, p]));
   const sider = [];
@@ -64,7 +70,7 @@ export function lagSider(priser, salg, nettsted) {
   legg({
     sti: '/', tittel: 'Nettsider, apper og bedriftssystemer for småbedrifter | Vortex Labs Norway', bilde: '/bilder/og.jpg',
     beskrivelse: `Nettsider fra ${kr(g.nettside)}, webapper fra ${kr(g.webapp)} og mobilapper fra ${kr(g.mobilapp)} eks. mva. for norske småbedrifter. Studio fra Toten med fastpris og levering i hele Norge.`,
-    innhold: `
+    innhold: `${kampanje('/')}
 <section class="hero forside">${virvel}
   <div class="ramme hero-grid">
     <div>
@@ -318,7 +324,7 @@ ${avslutt()}`,
       tittel: (kalorivennSalg ? 'KaloriVenn – kostholdsapp til salgs' : p.tittel) + ' | Vortex Labs Norway',
       beskrivelse: kalorivennSalg ? 'Kjøp KaloriVenn, en publisert kostholdsapp med matregistrering, kvitteringslesing og middagsplan. Se skjermbilder, pris og salgsvilkår.' : p.beskrivelse,
       bilde: p.ogBilde,
-      innhold: `
+      innhold: `${kalorivennSalg ? kampanje('/prosjekter/kalorivenn/', ['kalorivenn']) : ''}
 ${kalorivennSalg ? `<section class="tett"><div class="ramme">
   <p><a href="/kjop-app/#kalorivenn">← Apper til salgs</a></p>
   ${kalorivennPresentasjon(kalorivenn, p, true)}
@@ -359,7 +365,7 @@ ${p.cta ? avslutt(p.cta.tittel, p.cta.knapp, p.cta.tekst).replace('href="/kontak
   legg({
     sti: '/kjop-app', tittel: 'Kjøp en ferdigutviklet app – apper til salgs | Vortex Labs Norway',
     beskrivelse: kalorivenn ? 'Kjøp en ferdigutviklet app med kildekode og rettigheter. Se apper til salgs, blant annet KaloriVenn og Northcast for fiske og camping.' : 'Vil du kjøpe en mobilapp eller digital plattform? Se apper til salgs hos Vortex Labs, inkludert Northcast for fiske, camping og friluftsliv.',
-    innhold: `
+    innhold: `${kampanje('/kjop-app/')}
 <section class="hero liten">${virvel}<div class="ramme"><span class="merkelapp">Kjøp din egen app</span><h1>Apper og digitale plattformer <em>til salgs</em></h1>
 <p class="ingress">Vil du kjøpe en ferdigutviklet app eller overta en mobilapp du kan videreutvikle? Se hvilke produkter som er til salgs, hva som følger med og hvordan du kan få en demonstrasjon.</p>
 <div class="knapper"><a class="knapp prim" href="#katalog">Se katalogen</a><a class="knapp sek" href="/kontakt?tjeneste=interesseliste">Meld deg på interesselista</a></div></div></section>

@@ -11,6 +11,30 @@
   $$('[data-kampanje-slutt]').forEach(function (el) { if (idag > el.getAttribute('data-kampanje-slutt')) el.hidden = true; });
   $$('[data-kampanje-etter]').forEach(function (el) { if (idag > el.getAttribute('data-kampanje-etter')) el.hidden = false; });
 
+  /* Nedtelling til kampanjen utløper (dager, timer, minutter). Ved utløp fjernes kampanjemerkingen. */
+  var nedtellinger = $$('[data-nedtelling]');
+  if (nedtellinger.length) {
+    var flertall = function (n, en, fler) { return n + ' ' + (n === 1 ? en : fler); };
+    var avslutt = function () {
+      $$('[data-kampanje-slutt]').forEach(function (el) { el.hidden = true; });
+      $$('[data-kampanje-etter]').forEach(function (el) { el.hidden = false; });
+    };
+    var oppdater = function () {
+      var igjen = false;
+      nedtellinger.forEach(function (el) {
+        var ms = Date.parse(el.getAttribute('data-nedtelling')) - Date.now();
+        if (!(ms > 0)) return;
+        igjen = true;
+        var min = Math.ceil(ms / 60000), d = Math.floor(min / 1440), t = Math.floor((min % 1440) / 60), m = min % 60;
+        el.querySelector('span').textContent = flertall(d, 'dag', 'dager') + ', ' + flertall(t, 'time', 'timer') + ' og ' + flertall(m, 'minutt', 'minutter');
+        el.hidden = false;
+      });
+      if (!igjen) { avslutt(); clearInterval(tidtaker); }
+    };
+    var tidtaker = setInterval(oppdater, 30000);
+    oppdater();
+  }
+
   /* Meny på mobil */
   var knapp = $('.menyknapp'), meny = $('#meny');
   if (knapp && meny) {

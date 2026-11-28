@@ -46,7 +46,7 @@
         "type": "prisantydning",
         "belop": 499000
       },
-      "kampanje": { "navn": "Åpningskampanje", "belop": 150000, "start": "2026-11-28", "slutt": "2026-12-11" }
+      "kampanje": { "navn": "Åpningstilbud", "belop": 150000, "start": "2026-11-28", "slutt": "2026-12-11" }
     },
     {
       "id": "kalorivenn",
@@ -58,7 +58,7 @@
       "salgsmodell": "Full overtakelse etter nærmere avtale",
       "kjopsmodeller": ["eierskap-selvstendig", "eierskap-med-drift"],
       "pris": { "type": "prisantydning", "belop": 249000 },
-      "kampanje": { "navn": "Åpningskampanje", "belop": 100000, "start": "2026-11-28", "slutt": "2026-12-11" }
+      "kampanje": { "navn": "Åpningstilbud", "belop": 100000, "start": "2026-11-28", "slutt": "2026-12-11" }
     },
     {
       "id": "eksempel",

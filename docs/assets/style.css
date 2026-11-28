@@ -402,4 +402,30 @@ dialog.lysboks button { position: absolute; top: 8px; right: 8px; background: rg
 .skjult-tittel { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 
 /* Kampanjepris for apper til salgs */
-.northcast-fakta .kampanje-periode { margin: 2px 0 0; font-size: .85rem; font-weight: 500; opacity: .85; }
+.northcast-fakta .kampanje-periode { margin: 4px 0 0; font-size: .88rem; font-weight: 600; opacity: .9; }
+.kampanje-merke { display: inline-block; padding: 4px 10px; border-radius: 999px; background: var(--mynte); color: var(--natt); font-size: .74rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; line-height: 1.4; }
+.northcast-fakta .kampanje-fakta .northcast-pris { font-size: 1.2em; }
+section.kampanjebanner { padding: 0; background: linear-gradient(90deg, #17452F, #10301F); color: #fff; border-top: 1px solid rgba(123,224,168,.25); border-bottom: 1px solid rgba(123,224,168,.35); }
+.kampanjebanner .ramme { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 28px; padding-top: 16px; padding-bottom: 16px; }
+.kampanje-info { display: grid; gap: 6px; justify-items: start; }
+.kampanje-frist { margin: 0; font-weight: 700; font-size: 1rem; }
+.kampanje-nedtelling { margin: 0; font-size: .85rem; color: rgba(255,255,255,.75); font-variant-numeric: tabular-nums; }
+.kampanje-tilbud { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 12px; }
+.kampanje-tilbud li { display: grid; grid-template-columns: auto auto; align-items: center; gap: 2px 16px; padding: 10px 12px 10px 16px; border-radius: 16px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); }
+.kampanje-tilbud li[hidden] { display: none; }
+.kampanje-produkt { font-size: .85rem; color: rgba(255,255,255,.75); grid-column: 1; }
+.kampanje-produkt a { color: inherit; }
+.kampanje-pris { font-weight: 800; font-size: 1.35rem; color: var(--mynte); grid-column: 1; white-space: nowrap; }
+.kampanje-pris small { font-size: .7rem; font-weight: 600; color: rgba(255,255,255,.75); }
+.kampanje-tilbud .knapp { grid-column: 2; grid-row: 1 / span 2; padding: 11px 16px; white-space: nowrap; }
+@media (max-width: 640px) {
+  .kampanjebanner .ramme { padding-top: 14px; padding-bottom: 14px; }
+  .kampanje-info { gap: 4px; }
+  .kampanje-frist { font-size: .95rem; }
+  .kampanje-tilbud { width: 100%; gap: 10px; }
+  .kampanje-tilbud li { width: 100%; grid-template-columns: 1fr auto; align-items: end; gap: 2px 12px; padding: 12px 14px; }
+  .kampanje-tilbud .knapp { margin-top: 8px; }
+  .kampanje-produkt { grid-row: 1; }
+  .kampanje-pris { grid-row: 2; font-size: 1.25rem; }
+  .kampanje-tilbud .knapp { grid-column: 1 / -1; grid-row: 3; width: 100%; padding: 10px 14px; font-size: .95rem; }
+}

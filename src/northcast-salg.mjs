@@ -1,5 +1,5 @@
 import { esc, hake } from './layout.mjs';
-import { prisRader } from './kampanje.mjs';
+import { prisRader, kampanjeBanner } from './kampanje.mjs';
 
 // Norsk produkttekst. Ruter, henvendelsestyper og beløp beholdes ved oversettelse.
 const tekst = {
@@ -104,7 +104,7 @@ export function northcastProsjektside(produkt) {
     tittel: tekst.tittel + ' | Vortex Labs Norway',
     beskrivelse: tekst.beskrivelse,
     bilde: produkt.ikon,
-    innhold: `
+    innhold: `${kampanjeBanner([{ produkt, sti: '', kontakt: northcastKontakt('northcast-kjop', '/prosjekter/northcast/') }])}
 <section class="tett"><div class="ramme">
   <p><a href="/kjop-app/">← Apper til salgs</a></p>
   ${northcastPresentasjon(produkt, true)}

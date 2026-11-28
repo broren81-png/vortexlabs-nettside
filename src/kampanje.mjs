@@ -31,8 +31,45 @@ export function prisRader(produkt, etikett = 'Prisantydning') {
   const k = aktivKampanje(produkt);
   if (!k) return { html: `<div><dt>${etikett}</dt><dd class="northcast-pris">${ordinaer}</dd></div>`, gjeldende: ordinaer };
   return {
-    html: `<div data-kampanje-slutt="${k.slutt}"><dt>${esc(k.navn)}</dt><dd class="northcast-pris">${kr(k.belop)} eks. mva.</dd><dd class="kampanje-periode">Gjelder fra ${datoTekst(k.start)} til og med ${datoTekst(k.slutt)}</dd></div>
+    html: `<div class="kampanje-fakta" data-kampanje-slutt="${k.slutt}"><dt><span class="kampanje-merke">${esc(k.navn)}</span></dt><dd class="northcast-pris">${kr(k.belop)} eks. mva.</dd><dd class="kampanje-periode">${fristTekst(k)}</dd></div>
       <div data-kampanje-etter="${k.slutt}" hidden><dt>${etikett}</dt><dd class="northcast-pris">${ordinaer}</dd></div>`,
     gjeldende: `${kr(k.belop)} eks. mva.`,
   };
+}
+
+const kortDato = (iso) => datoTekst(iso).replace(/ \d{4}$/, '');
+export const fristTekst = (k) => `Tidsbegrenset tilbud – gjelder til og med ${kortDato(k.slutt)}`;
+
+// Tidspunktet kampanjen utløper: midnatt norsk tid etter sluttdatoen, med riktig tidssoneforskyvning.
+export function utlopTidspunkt(slutt) {
+  const d = new Date(slutt + 'T12:00:00Z');
+  d.setUTCDate(d.getUTCDate() + 1);
+  const dag = d.toISOString().slice(0, 10);
+  const del = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Oslo', timeZoneName: 'longOffset' }).formatToParts(new Date(dag + 'T00:00:00Z')).find((p) => p.type === 'timeZoneName');
+  const forskyvning = (del ? del.value.replace('GMT', '') : '') || '+00:00';
+  return `${dag}T00:00:00${forskyvning}`;
+}
+
+// Kampanjestripe øverst på siden. tilbud: [{ produkt, sti, kontakt }]. Tom streng uten aktiv kampanje.
+export function kampanjeBanner(tilbud) {
+  const aktive = tilbud.filter((t) => t.produkt && aktivKampanje(t.produkt));
+  if (!aktive.length) return '';
+  const k = aktivKampanje(aktive[0].produkt);
+  const slutt = aktive.map((t) => t.produkt.kampanje.slutt).sort().at(-1);
+  return `<section class="kampanjebanner" data-kampanje-slutt="${slutt}" aria-label="${esc(k.navn)}">
+  <div class="ramme">
+    <div class="kampanje-info">
+      <span class="kampanje-merke">${esc(k.navn)}</span>
+      <p class="kampanje-frist">${fristTekst(k)}</p>
+      <p class="kampanje-nedtelling" data-nedtelling="${utlopTidspunkt(slutt)}" hidden>Utløper om <span></span></p>
+    </div>
+    <ul class="kampanje-tilbud">
+      ${aktive.map((t) => `<li data-kampanje-slutt="${t.produkt.kampanje.slutt}">
+        <span class="kampanje-produkt">${t.sti ? `<a href="${t.sti}">${esc(t.produkt.navn)}</a>` : esc(t.produkt.navn)}</span>
+        <span class="kampanje-pris">${kr(t.produkt.kampanje.belop)} <small>eks. mva.</small></span>
+        <a class="knapp prim" href="${t.kontakt}">Benytt åpningstilbudet</a>
+      </li>`).join('\n      ')}
+    </ul>
+  </div>
+</section>`;
 }
